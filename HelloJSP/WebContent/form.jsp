@@ -10,7 +10,7 @@
 
 <form action="process.jsp" method="post">
 	이름  : <input type="text" name="name"><br/>
-	전화번호 : <input type="text" name="phone"><br/>
+	전화번호  : <input type="text" name="phone"><br/>
 	
 	<input type="submit" value="확인">
 	<input type="reset" value="취소">
