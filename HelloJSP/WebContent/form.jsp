@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>form</title>
@@ -16,7 +16,5 @@
 	<input type="submit" value="확인">
 	<input type="reset" value="취소">
 </form>
-
-한글깨짐
 </body>
 </html>
