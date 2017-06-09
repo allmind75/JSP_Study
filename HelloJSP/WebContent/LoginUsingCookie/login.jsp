@@ -20,7 +20,7 @@
 	
 	if(Uid.equals(DBid) && Upw.equals(DBpw)) {
 		
-		Cookie cookie = new Cookie("ID", "ADMIN");
+		Cookie cookie = new Cookie("ID", "ADMIN");		//쿠키생성
 		response.addCookie(cookie);
 		out.print("<h1>로그인 성공!</h1>");
 	} else {

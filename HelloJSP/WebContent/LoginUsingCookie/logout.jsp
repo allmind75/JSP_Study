@@ -16,7 +16,7 @@
 	if(cookies != null && cookies.length > 0) {
 		
 		for(int i=0 ; i<cookies.length ; i++) {
-			cookies[i].setMaxAge(0);
+			cookies[i].setMaxAge(0);			//ÄíÅ°»èÁ¦
 			response.addCookie(cookies[i]);
 		}
 		
