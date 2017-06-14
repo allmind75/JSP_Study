@@ -10,10 +10,13 @@
 <body>
 
 
+<!-- 객체 생성 -->
 <jsp:useBean id="BD" class="member.BoardData" scope="request"></jsp:useBean>
 
+<!-- 객체에 값을 설정, property="*" -> 폼을 통해 넘어오는 데이터를 폼에서 같은 이름을 갖는 자바빈 객체 필드에 저장-->
 <jsp:setProperty name="BD" property="*"></jsp:setProperty>
 
+<!--다른 jsp로 자바빈 객체 전달-->
 <jsp:forward page="view.jsp"></jsp:forward>
 
 </body>

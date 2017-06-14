@@ -8,6 +8,7 @@
 </head>
 <body>
 
+<!--  write.jsp 에서 전달 받은 객체 -->
 <jsp:useBean id="BD" class="member.BoardData" scope="request"/>
 
 <table border=1>
