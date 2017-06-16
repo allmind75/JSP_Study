@@ -46,7 +46,7 @@ public class ServeltExample extends HttpServlet {
 		// RequestDispatcher DS = request.getRequestDispatcher("/view.jsp");
 		// DS.forward(request, response);
 
-		String cmd = request.getParameter("cmd");
+		String cmd = request.getParameter("cmd");		//cmd 가져옴
 		String view = null;
 		Command model = null;
 
@@ -65,7 +65,7 @@ public class ServeltExample extends HttpServlet {
 				model = new Login();
 				break;
 			}
-			view = model.process(request, response);
+			view = model.process(request, response);	//모델을 이용해서 데이터 처리
 		}
 
 		RequestDispatcher DS = request.getRequestDispatcher(view);
