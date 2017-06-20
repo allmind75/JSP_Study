@@ -5,29 +5,36 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>로그인</title>
+<title>회원정보수정확인</title>
 </head>
 <body>
+
 	<jsp:useBean id="dto" class="db.Dto" scope="page"></jsp:useBean>
 	<%
 		request.setCharacterEncoding("euc-kr");
 
-		String id = request.getParameter("id");
-		String pass = request.getParameter("pass");
+		String id = (String) session.getAttribute("ID");
+		if (id != null) {
+			String name = request.getParameter("name");
+			String phone = request.getParameter("phone");
+			String email = request.getParameter("email");
 
-		dto.setId(id);
-		dto.setPass(pass);
+			dto.setName(name);
+			dto.setPhone(phone);
+			dto.setEmail(email);
+			dto.setId(id);
+		}
 	%>
 
 	<%
 		Dao dao = Dao.getInstance();
-		if (dao.login(dto)) {
-			session.setAttribute("ID", request.getParameter("id"));
-			out.print("<h3>로그인 성공</h3>");
+		if (dao.changeMemberInfo(dto)) {
+			out.print("<h3>회원정보 수정 성공</h3>");
 		} else {
-			out.print("<h3>가입되지 않은 회원입니다.</h3>");
+			out.print("<h3>회원정보 수정 실패</h3>");
 		}
 		out.print("<h3><a href=\"index.jsp\">처음으로</a></h3>");
 	%>
+
 </body>
 </html>

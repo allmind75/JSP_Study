@@ -3,21 +3,22 @@ package db;
 public class Dto {
 
 	private String id;
-	private String pw;
+	private String pass;
 	private String name;
 	private String phone;
 	private String email;
+	
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getPw() {
-		return pw;
+	public String getPass() {
+		return pass;
 	}
-	public void setPw(String pw) {
-		this.pw = pw;
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 	public String getName() {
 		return name;
