@@ -22,7 +22,7 @@
 
 		try {
 			if (dao.login(dto)) {
-				response.sendRedirect("success.jsp");
+				response.sendRedirect("index.jsp");
 			} else {
 				response.sendRedirect("fail.jsp");
 			}
