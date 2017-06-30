@@ -35,7 +35,6 @@ public class BoardDAO {
 			con = DriverManager.getConnection(URL, USER, PW);
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
-			System.out.println("sql!!!");
 			if (rs.isBeforeFirst()) {
 				while (rs.next()) {
 					BoardDTO dto = new BoardDTO();
