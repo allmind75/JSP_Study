@@ -89,6 +89,7 @@
                 -->
                 <li>
                     <input type="submit" class="write-save" value="저장">
+                    <input type="reset" class="write-save" value="리셋">
                     <button type="button" onClick="javascript:history.back();" class="write-cancel">취소</button>    <!--history.back() : 뒤로가기-->
                 </li>
             </ul>
