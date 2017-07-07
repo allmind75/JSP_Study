@@ -62,7 +62,7 @@
          APR (HTTP/AJP) Connector: /docs/apr.html
          Define a non-SSL HTTP/1.1 Connector on port 8080
     -->
-    <Connector connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
+    <Connector URIEncoding="UTF-8" connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"
@@ -82,7 +82,7 @@
     -->
 
     <!-- Define an AJP 1.3 Connector on port 8009 -->
-    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443"/>
+    <Connector URIEncoding="UTF-8" port="8009" protocol="AJP/1.3" redirectPort="8443"/>
 
 
     <!-- An Engine represents the entry point (within Catalina) that processes
@@ -126,7 +126,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log." suffix=".txt"/>
 
-      <Context docBase="HelloJSP" path="/HelloJSP" reloadable="true" source="org.eclipse.jst.jee.server:HelloJSP"/><Context docBase="JDBCTest" path="/JDBCTest" reloadable="true" source="org.eclipse.jst.jee.server:JDBCTest"/><Context docBase="JavaBeanTest" path="/JavaBeanTest" reloadable="true" source="org.eclipse.jst.jee.server:JavaBeanTest"/><Context docBase="MVCTest1" path="/MVCTest1" reloadable="true" source="org.eclipse.jst.jee.server:MVCTest1"/><Context docBase="LoginSystem" path="/LoginSystem" reloadable="true" source="org.eclipse.jst.jee.server:LoginSystem"/><Context docBase="BoardSystem" path="/BoardSystem" reloadable="true" source="org.eclipse.jst.jee.server:BoardSystem"/><Context docBase="LoginTest" path="/LoginTest" reloadable="true" source="org.eclipse.jst.jee.server:LoginTest"/><Context docBase="ImplictObjectTest" path="/ImplictObjectTest" reloadable="true" source="org.eclipse.jst.jee.server:ImplictObjectTest"/></Host>
+      <Context docBase="HelloJSP" path="/HelloJSP" reloadable="true" source="org.eclipse.jst.jee.server:HelloJSP"/><Context docBase="JDBCTest" path="/JDBCTest" reloadable="true" source="org.eclipse.jst.jee.server:JDBCTest"/><Context docBase="JavaBeanTest" path="/JavaBeanTest" reloadable="true" source="org.eclipse.jst.jee.server:JavaBeanTest"/><Context docBase="MVCTest1" path="/MVCTest1" reloadable="true" source="org.eclipse.jst.jee.server:MVCTest1"/><Context docBase="LoginSystem" path="/LoginSystem" reloadable="true" source="org.eclipse.jst.jee.server:LoginSystem"/><Context docBase="BoardSystem" path="/BoardSystem" reloadable="true" source="org.eclipse.jst.jee.server:BoardSystem"/><Context docBase="LoginTest" path="/LoginTest" reloadable="true" source="org.eclipse.jst.jee.server:LoginTest"/><Context docBase="ImplictObjectTest" path="/ImplictObjectTest" reloadable="true" source="org.eclipse.jst.jee.server:ImplictObjectTest"/><Context docBase="ServletTest" path="/ServletTest" reloadable="true" source="org.eclipse.jst.jee.server:ServletTest"/></Host>
     </Engine>
   </Service>
 </Server>
