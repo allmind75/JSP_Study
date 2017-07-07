@@ -40,21 +40,20 @@
                 document.getElementById('address2').value = data.addressEnglish;
             }
 		}).open({
-		    left: (window.screen.width / 2) - (width / 2),
-		    top: (window.screen.height / 2) - (height / 2)
+		    left: (window.screen.width/2)-(width/2),
+       		top: (window.screen.height/2)-(height/2)
 		});
 	}
 </script>
 </head>
 <body>
-	<form method="get" action="">
-		<input type="button" value="주소검색" onClick="SearchAddr()"> <input
-			type="submit" value="클릭">
+	<form method="get" action="daumAPI_request.jsp">
+		<input type="button" value="주소검색" onClick="SearchAddr()"><br>
+		6자리 우편번호 <input type="text" id="zonecode" name="zonecode" readonly><br>
+		5자리 우편번호 <input type="text" id="postcode" name="postcode" readonly><br>
+		주소 <input type="text" id="address" name="address" readonly><br>
+		영문주소 <input type="text" id="address2" name="address2" readonly><br>
+		<input type="submit" value="클릭">
 	</form>
-
-	6자리 우편번호 <input type="text" id="zonecode" name="zonecode" readonly><br>
-	5자리 우편번호 <input type="text" id="postcode" name="postcode" readonly><br>
-	주소 <input type="text" id="address" name="address" readonly><br>
-	영문주소 <input type="text" id="address2" name="address2" readonly><br>
 </body>
 </html>
