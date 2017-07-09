@@ -3,6 +3,8 @@ package com.javalec.ex;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,6 +26,30 @@ public class HelloWorld extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+    
+    @Override
+    public void init() throws ServletException {
+    	//최초 한번호출
+    	System.out.println("init");
+    }
+    
+    @Override
+    public void destroy() {
+    	//servlet 수정, 서버 재가동 등 ...호출
+    	System.out.println("destroy");
+    }
+    
+    @PostConstruct
+    private void initPostConstruct() {
+    	//init() 전 실행, 선처리 메소드
+    	System.out.println("initPostConstruct");
+    }
+    
+    @PreDestroy
+    private void destroyPreDestroy() {
+    	//destroy() 후 실행, 후처리 메소드
+    	System.out.println("destroyPreDestroy");
+    }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
