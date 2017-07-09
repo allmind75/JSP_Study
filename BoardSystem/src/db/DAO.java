@@ -72,18 +72,19 @@ public class DAO {
 			String sql = "insert into trip_board(title, content, address, write_date, count) values(?, ?, ?, now(), ?)";
 			
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, new String(dto.getTitle().getBytes("ISO_8859_1"), "utf-8"));
-			pstmt.setString(2, new String(dto.getContent().getBytes("ISO_8859_1"), "utf-8"));
-			pstmt.setString(3, new String(dto.getAddress().getBytes("ISO_8859_1"), "utf-8"));
+//			pstmt.setString(1, new String(dto.getTitle().getBytes("ISO_8859_1"), "utf-8"));
+//			pstmt.setString(2, new String(dto.getContent().getBytes("ISO_8859_1"), "utf-8"));
+//			pstmt.setString(3, new String(dto.getAddress().getBytes("ISO_8859_1"), "utf-8"));
+			System.out.println(dto.getTitle());
+			pstmt.setString(1, dto.getTitle());
+			pstmt.setString(2, dto.getContent());
+			pstmt.setString(3, dto.getAddress());
 			pstmt.setInt(4, 0);
 			
 			pstmt.executeUpdate();
-			
+	
 
 		} catch(SQLException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, null, null);
