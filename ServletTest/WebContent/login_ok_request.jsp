@@ -12,7 +12,9 @@
 		String id = (String) request.getAttribute("UserID");
 	%>
 	<%=id %> 님이 로그인 성공<br>
-	request를 이용해서 값 전달
+	request를 이용해서 값 전달<br>
+	
+	<a href="CTRL?cmd=logout">로그아웃</a><br>
 	<a href="login_ok_session.jsp">menu</a>
 </body>
 </html>
