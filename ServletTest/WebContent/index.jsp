@@ -20,7 +20,7 @@
 		<input type="hidden" name="cmd" value="login">
 		<input type="submit" value="로그인">
 	</form>
-	
+	<a href="register.jsp">회원가입</a>
 	
 </body>
 </html>
