@@ -17,7 +17,7 @@
 				<td>아이디</td>
 				<td>
 					<input type="text" name="id" autofocus>
-					<input type="button" value="중복검사" onclick="">
+					<input type="button" value="중복검사" onClick="location.href='http://localhost:8080/ServletTest'">
 				</td>
 				
 			</tr>
