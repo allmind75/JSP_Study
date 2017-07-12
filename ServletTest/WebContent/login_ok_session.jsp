@@ -14,6 +14,7 @@
 	%>
 	<%=id %> 님이 로그인 성공<br>
 	session을 이용해서 id 값을 전달<br>
-	id : <%=rId %>
+	id : <%=rId %><br>
+	<a href="index.jsp">HOME</a>
 </body>
 </html>

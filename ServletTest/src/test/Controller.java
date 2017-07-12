@@ -23,7 +23,6 @@ public class Controller extends HttpServlet {
 
 	// DAO, 로그인
 	private MemberDAO dao;
-	private MemberDTO dto;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -32,7 +31,6 @@ public class Controller extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 		dao = new MemberDAO();
-		dto = new MemberDTO();
 	}
 
 	/**
@@ -43,7 +41,8 @@ public class Controller extends HttpServlet {
 	public void doLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
-
+		MemberDTO dto = new MemberDTO();
+		
 		// session
 		HttpSession session = request.getSession();
 
@@ -85,30 +84,67 @@ public class Controller extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void doLogout(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("UserID");
-		
-		if(id != null) {
-			
-			//session에 저장된 모든 값 제거
+
+		if (id != null) {
+
+			// session에 저장된 모든 값 제거
 			session.invalidate();
-			
-			//Session 에서 값을 선택해서 제거
-			//session.removeAttribute("UserID");
+
+			// Session 에서 값을 선택해서 제거
+			// session.removeAttribute("UserID");
 			System.out.println("session invalidate / 로그아웃");
-			
-			//로그아웃 후 index로 돌아감
+
+			// 로그아웃 후 index로 돌아감
 			response.sendRedirect("index.jsp");
-			
+
 		} else {
 			System.out.println("로그아웃 실패 : " + id);
 		}
 	}
-	
+
+	public void doReg(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		/*
+		 * 1. dao를 이용해서 회원정보를 데이터베이스에 추가
+		 * 2. 로그인 상태로 만듬
+		 * 3. 회원가입 후의 페이지로 이동
+		 */
+		
+		// session
+		HttpSession session = request.getSession();		
+		
+		MemberDTO dto = new MemberDTO();
+		String id = request.getParameter("id");
+		dto.setId(id);
+		dto.setPw(request.getParameter("pw"));
+		dto.setName(request.getParameter("name"));
+		dto.setAddress(request.getParameter("address"));
+		
+		try {
+			if(dao.reg(dto)) {
+				System.out.println("회원가입성공");
+				
+				//session에 로그인 정보 저장
+				session.setAttribute("UserID", id);
+				response.sendRedirect("login_ok_session.jsp");
+			} else {
+				System.out.println("회원가입실패");
+				response.sendRedirect("reg_fail.html");
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("회원가입실패");
+			response.sendRedirect("reg_fail.html");
+		}
+		
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -125,6 +161,9 @@ public class Controller extends HttpServlet {
 			break;
 		case "logout":
 			doLogout(request, response);
+			break;
+		case "reg":
+			doReg(request, response);
 			break;
 		}
 

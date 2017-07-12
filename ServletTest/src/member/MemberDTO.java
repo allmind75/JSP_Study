@@ -5,6 +5,7 @@ public class MemberDTO {
 	private String id;
 	private String pw;
 	private String name;
+	private String address;
 	private int count;
 	private String reg_date;
 	
@@ -37,6 +38,12 @@ public class MemberDTO {
 	}
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 	
