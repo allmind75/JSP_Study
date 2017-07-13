@@ -12,9 +12,14 @@
 	function idCheck()
 	{       
 		$.ajax({
-			type     :"GET",					//get, post
-			url      :"2.html",					//웹페이지 경로
-			dataType :"html",					//url 페이지를 내부적으로 처리하고 처리한결과를 가져오는 형식
+			type :"GET",					//get, post
+			url :"CTRL",					//웹페이지 경로
+			//data : "cmd=idCheck&" + $('#id').val(),"
+			data : {
+				"cmd" : "idCheck",
+				"id" : $("#id").val()
+			},
+			dataType :"json",					//url 페이지를 내부적으로 처리하고 처리한결과를 가져오는 형식
 	
 			 error : function()					//내부페이지를 처리중에 발생하는 에러를 알림
 			 {
@@ -26,23 +31,9 @@
 			 },
 	         success : function(data)			//내부처리 성공
 			 {
-	            alert("통신데이터 값 : " + data) ;
-				
+	            document.getElementById("resultIdCheck").innerHTML = data.ret;
 	         }});
 	
-	}
-	
-	function idRegExpCheck() {
-		var idReg = /[0-9a-zA-Z]/;
-		var id = document.getElementById("id").value;
-				
-		for(var i=0 ; i<id.length ; i++) {
-			if(id.charAt(i) == " " || idReg.test(id.charAt(i)) == false) {
-				document.getElementById("idCheckText").innerHTML = "숫자 와 영어만 가능"
-			} else {
-				document.getElementById("idCheckText").innerHTML = "사용가능"
-			}
-		}
 	}
 	
 	function SearchAddr() {
@@ -71,6 +62,29 @@
 		});
 	}
 	
+	function idRegExpCheck() {
+		//^[a-z] : 첫글자는 소문자
+		// \w : [a-zA-Z0-9_]
+		//{3,19} : 3개부터 19개 까지
+		// 앞글자에 하나 있어서, 최종적으로는 4개부터 20개까지 가능
+		var idReg = /^[a-z]\w{3,19}$/;
+		var id = document.getElementById("id").value;
+		
+		if(idReg.test(id)) {
+			document.getElementById("idCheckText").innerHTML = "사용가능";
+		} else {
+			document.getElementById("idCheckText").innerHTML = "숫자 와 영어(첫글자는 소문자), 4 ~ 20자만 가능";
+		}
+		/*
+		for(var i=0 ; i<id.length ; i++) {
+			if(id.charAt(i) == " " || idReg.test(id.charAt(i)) == false) {
+				document.getElementById("idCheckText").innerHTML = "숫자 와 영어만 가능"
+			} else {
+				document.getElementById("idCheckText").innerHTML = "사용가능"
+			}
+		}*/
+	}
+	
 	function pwCheck() {
 
 		var pw = document.getElementById("pw").value;
@@ -84,6 +98,19 @@
 			document.getElementById("pwCheckText").innerHTML = "비밀번호같음";
 		}
 	}
+	
+	function nameCheck() {
+		//2 ~ 12자리인 한글
+		var nameReg = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,12}$/;
+		var name = document.getElementById("name").value;
+		
+		if(nameReg.test(name)) {
+			document.getElementById("nameCheckText").innerHTML = "사용가능";
+		} else {
+			document.getElementById("nameCheckText").innerHTML = "한글, 2 ~ 12자만 가능";
+		}
+		
+	}
 </script>
 </head>
 <body>
@@ -92,15 +119,16 @@
 		<table border="1">
 			<colgroup>
 				<col style="width: 150px">
-				<col style="width: 600px">
+				<col style="width: 800px">
 			</colgroup>
 			<tbody>
 				<tr>
 					<td>아이디</td>
 					<td>
 						<input type="text" name="id" id="id" autofocus onkeyup="idRegExpCheck()"> 
-						<input type="button" value="중복검사" onClick="idCheck">
-						<span id="idCheckText"></span>
+						<input type="button" value="중복검사" onClick="idCheck()">
+						<span id="idCheckText">숫자 와 영어(첫글자는 소문자), 4 ~ 20자만 가능</span><br>
+						<p id="resultIdCheck"></p>
 					</td>
 
 				</tr>
@@ -115,7 +143,8 @@
 				</tr>
 				<tr>
 					<td>이름</td>
-					<td><input type="text" name="name" id="name"></td>
+					<td><input type="text" name="name" id="name" onkeyup="nameCheck()">
+					<span id="nameCheckText">한글, 2 ~ 12자만 가능</span></td>
 				</tr>
 				<tr>
 					<td>주소</td>

@@ -201,6 +201,23 @@ public class MemberDAO {
 		
 	}
 	
+	public boolean idCheck(String id) throws SQLException {
+		
+		con = DriverManager.getConnection(URL, USER, PW);
+		stmt = con.createStatement();
+		String sql = "select id from member3 where id='" + id + "'";
+		
+		rs = stmt.executeQuery(sql);
+		
+		if(rs.isBeforeFirst()) {
+			close(con, stmt, null, rs);
+			return false;
+		} else {
+			close(con, stmt, null, rs);
+			return true;
+		}
+	}
+	
 	public void close(Connection con, Statement stmt, PreparedStatement pstmt, ResultSet rs) {
 		if(rs != null) {
 			try {

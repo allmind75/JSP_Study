@@ -1,9 +1,9 @@
 package test;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -145,6 +145,33 @@ public class Controller extends HttpServlet {
 		
 	}
 
+	public void doIdCheck(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+				
+		String id = request.getParameter("id");
+		String result;
+		
+		PrintWriter out = response.getWriter();
+		
+		try {
+			if(dao.idCheck(id)) {
+				//id 중복안됨
+				result = "<font color='blue'>사용가능한 아이디입니다.</font>";
+			} else {
+				//id 중복됨
+				result = "<font color='red'>이미 등록된 아이디 입니다.</font>";
+			}
+			//out.print(result);
+			
+			//json 활용 {key:value, key:value}
+			String jsonTxt = "{\"ret\":" + result + "}";
+			out.print(jsonTxt);
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		out.close();
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -164,6 +191,9 @@ public class Controller extends HttpServlet {
 			break;
 		case "reg":
 			doReg(request, response);
+			break;
+		case "idCheck":
+			doIdCheck(request, response);
 			break;
 		}
 
