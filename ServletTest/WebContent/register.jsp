@@ -31,7 +31,14 @@
 			 },
 	         success : function(data)			//내부처리 성공
 			 {
-	            document.getElementById("resultIdCheck").innerHTML = data.ret;
+	        	var result;
+	  
+	        	 if(data.ret == true) {
+	        		 result = "<font color='blue'>사용가능한 아이디입니다.</font>";
+	        	 } else {
+	        		 result = "<font color='red'>이미 등록된 아이디 입니다.</font>";
+	        	 }
+	            document.getElementById("resultIdCheck").innerHTML = result;
 	         }});
 	
 	}
@@ -111,11 +118,15 @@
 		}
 		
 	}
+	
+	function changeID() {
+		document.getElementById("resultIdCheck").innerHTML = "아이디 중복체크 필요";
+	}
 </script>
 </head>
 <body>
 	<h1>회원가입</h1>
-	<form method="post" action="CTRL">
+	<form method="post" action="CTRL" onsubmit="">
 		<table border="1">
 			<colgroup>
 				<col style="width: 150px">
@@ -124,12 +135,11 @@
 			<tbody>
 				<tr>
 					<td>아이디</td>
-					<td>
-						<input type="text" name="id" id="id" autofocus onkeyup="idRegExpCheck()"> 
-						<input type="button" value="중복검사" onClick="idCheck()">
-						<span id="idCheckText">숫자 와 영어(첫글자는 소문자), 4 ~ 20자만 가능</span><br>
-						<p id="resultIdCheck"></p>
-					</td>
+					<td><input type="text" name="id" id="id" autofocus
+						onkeyup="idRegExpCheck()" onchange="changeID()"> <input type="button"
+						value="중복검사" onClick="idCheck()"> <span id="idCheckText">숫자
+							와 영어(첫글자는 소문자), 4 ~ 20자만 가능</span><br>
+						<p id="resultIdCheck"></p></td>
 
 				</tr>
 				<tr>
@@ -143,14 +153,15 @@
 				</tr>
 				<tr>
 					<td>이름</td>
-					<td><input type="text" name="name" id="name" onkeyup="nameCheck()">
-					<span id="nameCheckText">한글, 2 ~ 12자만 가능</span></td>
+					<td><input type="text" name="name" id="name"
+						onkeyup="nameCheck()"> <span id="nameCheckText">한글,
+							2 ~ 12자만 가능</span></td>
 				</tr>
 				<tr>
 					<td>주소</td>
-					<td>
-						<input type="text" name="address" id="address" size="60" readonly> 
-						<input type="button" value="주소검색" onClick="SearchAddr()"></td>
+					<td><input type="text" name="address" id="address" size="60"
+						readonly> <input type="button" value="주소검색"
+						onClick="SearchAddr()"></td>
 				</tr>
 			</tbody>
 		</table>

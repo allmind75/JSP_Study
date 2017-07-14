@@ -42,7 +42,7 @@ public class Controller extends HttpServlet {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		MemberDTO dto = new MemberDTO();
-		
+
 		// session
 		HttpSession session = request.getSession();
 
@@ -108,70 +108,62 @@ public class Controller extends HttpServlet {
 		}
 	}
 
-	public void doReg(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void doReg(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/*
-		 * 1. dao를 이용해서 회원정보를 데이터베이스에 추가
-		 * 2. 로그인 상태로 만듬
-		 * 3. 회원가입 후의 페이지로 이동
+		 * 1. dao를 이용해서 회원정보를 데이터베이스에 추가 2. 로그인 상태로 만듬 3. 회원가입 후의 페이지로 이동
 		 */
-		
+
 		// session
-		HttpSession session = request.getSession();		
-		
+		HttpSession session = request.getSession();
+
 		MemberDTO dto = new MemberDTO();
 		String id = request.getParameter("id");
 		dto.setId(id);
 		dto.setPw(request.getParameter("pw"));
 		dto.setName(request.getParameter("name"));
 		dto.setAddress(request.getParameter("address"));
-		
+
 		try {
-			if(dao.reg(dto)) {
+			if (dao.reg(dto)) {
 				System.out.println("회원가입성공");
-				
-				//session에 로그인 정보 저장
+
+				// session에 로그인 정보 저장
 				session.setAttribute("UserID", id);
 				response.sendRedirect("login_ok_session.jsp");
 			} else {
 				System.out.println("회원가입실패");
 				response.sendRedirect("reg_fail.html");
 			}
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("회원가입실패");
 			response.sendRedirect("reg_fail.html");
 		}
-		
+
 	}
 
 	public void doIdCheck(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-				
+
 		String id = request.getParameter("id");
-		String result;
-		
+
 		PrintWriter out = response.getWriter();
-		
+
 		try {
-			if(dao.idCheck(id)) {
-				//id 중복안됨
-				result = "<font color='blue'>사용가능한 아이디입니다.</font>";
+			if (dao.idCheck(id)) {
+				// id 중복안됨
+				out.print("{\"ret\":" + true + "}");
 			} else {
-				//id 중복됨
-				result = "<font color='red'>이미 등록된 아이디 입니다.</font>";
+				// id 중복됨
+				out.print("{\"ret\":" + false + "}");
 			}
-			//out.print(result);
 			
-			//json 활용 {key:value, key:value}
-			String jsonTxt = "{\"ret\":" + result + "}";
-			out.print(jsonTxt);
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		out.close();
 	}
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
