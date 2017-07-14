@@ -10,37 +10,40 @@
 <script>
 	
 	function idCheck()
-	{       
-		$.ajax({
-			type :"GET",					//get, post
-			url :"CTRL",					//웹페이지 경로
-			//data : "cmd=idCheck&" + $('#id').val(),"
-			data : {
-				"cmd" : "idCheck",
-				"id" : $("#id").val()
-			},
-			dataType :"json",					//url 페이지를 내부적으로 처리하고 처리한결과를 가져오는 형식
-	
-			 error : function()					//내부페이지를 처리중에 발생하는 에러를 알림
-			 {
-				alert('통신실패!!');
-	         },
-			 complete : function(data) 			//내부처리 완료, data는 내부페이지에서 넘겨준 값
-			 {
-			 
-			 },
-	         success : function(data)			//내부처리 성공
-			 {
-	        	var result;
-	  
-	        	 if(data.ret == true) {
-	        		 result = "<font color='blue'>사용가능한 아이디입니다.</font>";
-	        	 } else {
-	        		 result = "<font color='red'>이미 등록된 아이디 입니다.</font>";
-	        	 }
-	            document.getElementById("resultIdCheck").innerHTML = result;
-	         }});
-	
+	{
+		if(idRegExpCheck()) {
+			$.ajax({
+				type :"GET",					//get, post
+				url :"CTRL",					//웹페이지 경로
+				//data : "cmd=idCheck&" + $('#id').val(),"
+				data : {
+					"cmd" : "idCheck",
+					"id" : $("#id").val()
+				},
+				dataType :"json",					//url 페이지를 내부적으로 처리하고 처리한결과를 가져오는 형식
+		
+				 error : function()					//내부페이지를 처리중에 발생하는 에러를 알림
+				 {
+					alert('통신실패!!');
+		         },
+				 complete : function(data) 			//내부처리 완료, data는 내부페이지에서 넘겨준 값
+				 {
+				 
+				 },
+		         success : function(data)			//내부처리 성공
+				 {
+		        	var result;
+		  
+		        	 if(data.ret == true) {
+		        		 result = "<font color='blue'>사용가능한 아이디입니다.</font>";
+		        	 } else {
+		        		 result = "<font color='red'>이미 등록된 아이디 입니다.</font>";
+		        	 }
+		            document.getElementById("resultIdCheck").innerHTML = result;
+		         }});
+		} else {
+			alert("사용가능한 아이디 형식인지 확인해주세요")
+		}
 	}
 	
 	function SearchAddr() {
@@ -78,9 +81,11 @@
 		var id = document.getElementById("id").value;
 		
 		if(idReg.test(id)) {
-			document.getElementById("idCheckText").innerHTML = "사용가능";
+			document.getElementById("idCheckText").innerHTML = "사용가능한 형식";
+			return true
 		} else {
 			document.getElementById("idCheckText").innerHTML = "숫자 와 영어(첫글자는 소문자), 4 ~ 20자만 가능";
+			return false
 		}
 		/*
 		for(var i=0 ; i<id.length ; i++) {
@@ -136,9 +141,9 @@
 				<tr>
 					<td>아이디</td>
 					<td><input type="text" name="id" id="id" autofocus
-						onkeyup="idRegExpCheck()" onchange="changeID()"> <input type="button"
-						value="중복검사" onClick="idCheck()"> <span id="idCheckText">숫자
-							와 영어(첫글자는 소문자), 4 ~ 20자만 가능</span><br>
+						onkeyup="idRegExpCheck()" onchange="changeID()"> <input
+						type="button" value="중복검사" onClick="idCheck()"> <span
+						id="idCheckText">숫자 와 영어(첫글자는 소문자), 4 ~ 20자만 가능</span><br>
 						<p id="resultIdCheck"></p></td>
 
 				</tr>
