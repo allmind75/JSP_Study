@@ -12,9 +12,11 @@
 	function idCheck()
 	{
 		if(idRegExpCheck()) {
+			var bIdCheck = false;
 			$.ajax({
 				type :"GET",					//get, post
 				url :"CTRL",					//웹페이지 경로
+				async: false,
 				//data : "cmd=idCheck&" + $('#id').val(),"
 				data : {
 					"cmd" : "idCheck",
@@ -35,14 +37,26 @@
 		        	var result;
 		  
 		        	 if(data.ret == true) {
+		        		 bIdCheck = true;
 		        		 result = "<font color='blue'>사용가능한 아이디입니다.</font>";
+		        		 document.getElementById("resultIdCheck").innerHTML = result;
 		        	 } else {
+		        		 bIdCheck = false;
 		        		 result = "<font color='red'>이미 등록된 아이디 입니다.</font>";
+		        		 document.getElementById("resultIdCheck").innerHTML = result;
 		        	 }
-		            document.getElementById("resultIdCheck").innerHTML = result;
+		     
 		         }});
+			if(bIdCheck) {
+				alert("id true");
+				return true;
+			} else {
+				alert("id false");
+				return false;
+			}
 		} else {
-			alert("사용가능한 아이디 형식인지 확인해주세요")
+			alert("사용가능한 아이디 형식인지 확인해주세요");
+			return false;
 		}
 	}
 	
@@ -104,10 +118,13 @@
 				
 		if(pw == "") {
 			document.getElementById("pwCheckText").innerHTML = "입력안함";
+			return false;
 		} else if (pw != pw2) {
 			document.getElementById("pwCheckText").innerHTML = "비밀번호다름";
+			return false;
 		} else {
 			document.getElementById("pwCheckText").innerHTML = "비밀번호같음";
+			return true;
 		}
 	}
 	
@@ -118,8 +135,10 @@
 		
 		if(nameReg.test(name)) {
 			document.getElementById("nameCheckText").innerHTML = "사용가능";
+			return true;
 		} else {
 			document.getElementById("nameCheckText").innerHTML = "한글, 2 ~ 12자만 가능";
+			return false;
 		}
 		
 	}
@@ -127,11 +146,25 @@
 	function changeID() {
 		document.getElementById("resultIdCheck").innerHTML = "아이디 중복체크 필요";
 	}
+	
+	function validate() {
+		if(idCheck() && pwCheck() && nameCheck()) {
+			alert("회원가입성공");
+			return true;
+		} else {
+			alert("회원가입실패");
+			if(!idCheck()) alert("아이디 중복검사 및 형식을 확인해주세요.");
+			if(!pwCheck()) alert("비밀번호가 맞는지 확인해주세요.");
+			if(!nameCheck()) alert("이름 형식을 확인해주세요.");
+			
+			return false;
+		}
+	}
 </script>
 </head>
 <body>
 	<h1>회원가입</h1>
-	<form method="post" action="CTRL" onsubmit="">
+	<form method="post" action="CTRL" onsubmit="return validate()">
 		<table border="1">
 			<colgroup>
 				<col style="width: 150px">
@@ -140,11 +173,12 @@
 			<tbody>
 				<tr>
 					<td>아이디</td>
-					<td><input type="text" name="id" id="id" autofocus
-						onkeyup="idRegExpCheck()" onchange="changeID()"> <input
-						type="button" value="중복검사" onClick="idCheck()"> <span
-						id="idCheckText">숫자 와 영어(첫글자는 소문자), 4 ~ 20자만 가능</span><br>
-						<p id="resultIdCheck"></p></td>
+					<td>
+						<input type="text" name="id" id="id" autofocus onkeyup="idRegExpCheck()" onchange="changeID()"> 
+						<input type="button" value="중복검사" onClick="idCheck()">
+						<span id="idCheckText">숫자 와 영어(첫글자는 소문자), 4 ~ 20자만 가능</span><br>
+						<p id="resultIdCheck"></p>
+					</td>
 
 				</tr>
 				<tr>
@@ -159,7 +193,7 @@
 				<tr>
 					<td>이름</td>
 					<td><input type="text" name="name" id="name"
-						onkeyup="nameCheck()"> <span id="nameCheckText">한글,
+						onkeyup="nameCheck()" pattern="[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,12}" title="한글 2 ~ 12자리를 입력해주세요."> <span id="nameCheckText">한글,
 							2 ~ 12자만 가능</span></td>
 				</tr>
 				<tr>
@@ -173,5 +207,8 @@
 		<input type="submit" value="회원가입"> <input type="reset"
 			value="다시쓰기"> <input type="hidden" name="cmd" value="reg">
 	</form>
+	
+	<label>휴대전화번호</label>
+	<input type="tel" name="mobile" pattern="[0-9]{10}[0-9]?" title="'-'를 뺀 휴대전화 번호 10~11자리를 입력해주세요.">
 </body>
 </html>
