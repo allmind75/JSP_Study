@@ -5,6 +5,7 @@
 
 <!-- namespace : package처럼 용도별로 구분하기 위한 이름 -->
 <mapper namespace="board">
+
 	<insert id="insertBoard" parameterType="db.BoardDTOIn">
 		insert into board set title=#{title},
 							  content=#{content},
@@ -13,8 +14,9 @@
 	</insert>
 	
 	<select id ="printBoard" resultType="hashmap">
-		SELECT title, content FROM board
+		SELECT title, content, count, reg_date FROM board
 	</select>
+	
 </mapper>
 
 

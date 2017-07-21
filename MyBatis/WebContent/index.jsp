@@ -7,6 +7,8 @@
 <title>MyBatis Ex</title>
 </head>
 <body>
-	<a href="write.bo">글쓰기</a>
+	<a href="writeForm.jsp">글쓰기</a><br>
+	<a href="list.bo">글목록</a>
+	
 </body>
 </html>
