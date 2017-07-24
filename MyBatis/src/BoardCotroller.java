@@ -1,8 +1,10 @@
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -67,15 +69,21 @@ public class BoardCotroller extends HttpServlet {
 			throws ServletException, IOException {
 		
 		List list = dao.list();
-		
+
 		if(list.size() > 0) {
 			
-			for(int i=0 ; i<list.size(); i++) {
-				HashMap rs = (HashMap)list.get(i);
-				System.out.println(rs.get("title") + " " + rs.get("content"));
-			}
-		} else {
+//			for(int i=0 ; i<list.size(); i++) {
+//				HashMap rs = (HashMap)list.get(i);
+//				System.out.println(rs.get("title") + " " + rs.get("content") + " " + rs.get("count") + " " + rs.get("reg_date"));
+//			}
 			
+			//request로 list 전달
+			request.setAttribute("LIST", list);
+			RequestDispatcher rd = request.getRequestDispatcher("list.jsp");
+			rd.forward(request, response);
+			
+		} else {
+			//글목록이 하나도 없음
 		}
 	}
 	

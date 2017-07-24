@@ -53,10 +53,12 @@ public class BoardDAO {
 		SqlSession session = factory.openSession(true);
 		
 		//select 결과 list로 반환
-		List list = session.selectList("board.printBoard");
+		List resultList = session.selectList("board.printBoard");
+		
+		System.out.println("list size : " + resultList.size());
 		
 		session.close();
-		return list;
+		return resultList;
 		
 	}
 }

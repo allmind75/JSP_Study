@@ -14,7 +14,7 @@
 	</insert>
 	
 	<select id ="printBoard" resultType="hashmap">
-		SELECT title, content, count, reg_date FROM board
+		SELECT title, content, count, reg_date FROM board ORDER BY reg_date DESC
 	</select>
 	
 </mapper>
