@@ -48,6 +48,7 @@ public class BoardDAO {
 		}
 	}
 	
+	//전체 목록 가져오기
 	public List list() {
 				
 		SqlSession session = factory.openSession(true);
@@ -60,5 +61,38 @@ public class BoardDAO {
 		session.close();
 		return resultList;
 		
+	}
+	
+	//pageNum : 가져올 페이지번호 0 부터 시작
+	//pageSize	  : 페이지에 표시할 글 목록 개수
+	public List list(int pageNum, int pageSize) {
+		
+		int start = pageNum * pageSize;
+		
+		PageIn pageIn = new PageIn(start, pageSize);
+		
+		SqlSession session = factory.openSession(true);
+		
+		List resultList = session.selectList("board.selectPage", pageIn);
+		
+		session.close();
+		
+		return resultList;		
+	}
+	
+	//게시판 전체 글 개수 가져오기
+	public int count() {
+		
+		SqlSession session = factory.openSession(true);
+		
+		List resultList = session.selectList("board.selectCount");
+		
+		session.close();
+		
+		HashMap rs = (HashMap) resultList.get(0);
+		long cnt = (long) rs.get("cnt");
+		
+		//Long to int
+		return (int) cnt;
 	}
 }
