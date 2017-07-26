@@ -2,6 +2,7 @@ package db;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
@@ -95,4 +96,24 @@ public class BoardDAO {
 		//Long to int
 		return (int) cnt;
 	}
+	
+	public ContentDTOOut read(int num) {
+				
+		SqlSession session = factory.openSession(true);
+		
+		//결과가 하나인 경우 selectOne
+		ContentDTOOut dto = session.selectOne("board.selectContent", num);
+		
+		session.close();
+		/*
+		String title = (String) map.get("title");
+		String content = (String) map.get("content");
+		int count = (Integer) map.get("count");
+		Timestamp reg_date = (Timestamp) map.get("reg_date");
+		
+		ContentDTOOut dto = new ContentDTOOut(num, title, content, count, reg_date);
+		*/
+		return dto;
+	}
+	
 }

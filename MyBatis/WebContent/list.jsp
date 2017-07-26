@@ -10,9 +10,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>게시판 목록</title>
 <style>
+body {background: #000; color: #fff;}
+a {color: #fff;}
+h1 {text-align: center;}
 tr, td {
 	text-align: center;
 }
+
+.table-wrap {
+	width: 100%;
+	height: 300px;
+}
+.paging {text-align: center; padding-top: 50px;}
 </style>
 </head>
 <body>
@@ -23,66 +32,88 @@ tr, td {
 	%>
 
 	<h1>게시판</h1>
-	<table border=1>
-		<colgroup>
-			<col style="width: 10%">
-			<col style="width: 40%">
-			<col style="width: 10%">
-			<col style="width: *">
-		</colgroup>
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>조회수</th>
-				<th>등록일</th>
-			</tr>
-		</thead>
-		<tbody>
-			<%
-				for (int i = 0; i < list.size(); i++) {
+	<div class='table-wrap'>
+		<table border=1 align="center">
+			<colgroup>
+				<col style="width: 10%">
+				<col style="width: 40%">
+				<col style="width: 10%">
+				<col style="width: *">
+			</colgroup>
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>제목</th>
+					<th>조회수</th>
+					<th>등록일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%
+					for (int i = 0; i < list.size(); i++) {
 
-					HashMap rs = (HashMap) list.get(i);
+						HashMap rs = (HashMap) list.get(i);
 
-					int num = (Integer) rs.get("num");
-					String title = (String) rs.get("title");
-					Integer count = (Integer) rs.get("count");
-					Timestamp date = (Timestamp) rs.get("reg_date");
-			%>
-			<tr>
-				<td><%=num%></td>
-				<td><%=title%></td>
-				<td><%=count%></td>
-				<td><%=date.toString().substring(0, 11)%></td>
-			</tr>
-			<%
-				}
-			%>
-		</tbody>
-	</table>
+						int num = (Integer) rs.get("num");
+						String title = (String) rs.get("title");
+						Integer count = (Integer) rs.get("count");
+						Timestamp date = (Timestamp) rs.get("reg_date");
+				%>
+				<tr>
+					<td><%=num%></td>
+					<td><a href="read.bo?&num=<%=num%>"><%=title%></a></td>
+					<td><%=count%></td>
+					<td><%=date.toString().substring(0, 10)%></td>
+				</tr>
+				<%
+					}
+				%>
+			</tbody>
+		</table>
+	</div>
 
+	<!-- paging -->
+	<div class="paging">
 	<%
-		String prevPage = "list.bo?pageNum=" + pageOut.getPrevPage() + "&pageSize=10";
-		String nextPage = "list.bo?pageNum=" + pageOut.getNextPage() + "&pageSize=10";
+		
+		if(pageOut.getPrevPage() == -1) {
+			%>
+			<span> < </span>
+			<%
+		} else {
+			%>
+			<a href="list.bo?pageNum=<%=pageOut.getPrevPage()%>&pageSize=<%=pageOut.getPageSize()%>"> < </a>
+			<%
+		}
 	%>
 
-	<a href=<%=prevPage%>> << </a>
-	<%
+	<%	
 		for (int i = 0; i < pageOut.getPageCnt(); i++) {
 
 			if (i == pageOut.getPageNum()) {
-	%>
-	<span style="font-size: 25px;"><%=i+1%></span>
-	<%
+				%>
+				<span style="font-size: 25px; color: red"><%=i + 1%></span>
+				<%
 			} else {
-	%>
-
-
-	<a href="list.bo?pageNum=<%=i%>&pageSize=10"><%=i + 1%></a>
-	<%
+				%>
+				<a href="list.bo?pageNum=<%=i%>&pageSize=10"><%=i + 1%></a>
+				<%
 			}
 		}
 	%>
-	<a href=<%=nextPage%>> >> </a>
+	
+	<%
+		
+		if(pageOut.getNextPage() == -1) {
+			%>
+			<span> > </span>
+			<%
+		} else {
+			%>
+			<a href="list.bo?pageNum=<%=pageOut.getNextPage()%>&pageSize=<%=pageOut.getPageSize()%>"> > </a>	
+			<%
+		}
+	%>
+	</div>
 </body>
 </html>
