@@ -50,6 +50,8 @@ tr, td {
 			</thead>
 			<tbody>
 				<%
+					int total = pageOut.getTotal() - pageOut.getPageNum()*pageOut.getPageSize();
+				
 					for (int i = 0; i < list.size(); i++) {
 
 						HashMap rs = (HashMap) list.get(i);
@@ -60,7 +62,7 @@ tr, td {
 						Timestamp date = (Timestamp) rs.get("reg_date");
 				%>
 				<tr>
-					<td><%=num%></td>
+					<td><%=total--%></td>
 					<td><a href="read.bo?&num=<%=num%>&pageNum=<%=pageOut.getPageNum()%>&pageSize=<%=pageOut.getPageSize()%>"><%=title%></a></td>
 					<td><%=count%></td>
 					<td><%=date.toString().substring(0, 10)%></td>
