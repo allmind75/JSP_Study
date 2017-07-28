@@ -48,6 +48,9 @@ public class BoardCotroller extends HttpServlet {
 		case "read.bo":
 			read(request, response);
 			break;
+		case "del.bo":
+			del(request, response);
+			break;
 		}
 	}
 
@@ -67,7 +70,7 @@ public class BoardCotroller extends HttpServlet {
 
 			// (1) 바로 list 메소드 직접 호출,
 			// 호출 후 페이지에서 새로고침시 글내용 계속 추가되는 문제발생!!
-			//list(request, response);
+			// list(request, response);
 
 			// (2) response의 sendRedirect() 이용
 			response.sendRedirect("list.bo");
@@ -145,13 +148,26 @@ public class BoardCotroller extends HttpServlet {
 	public void read(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int num = Integer.parseInt(request.getParameter("num"));
-		
+
 		ContentDTOOut dto = dao.read(num);
 
 		request.setAttribute("READ", dto);
+
 		RequestDispatcher rd = request.getRequestDispatcher("read.jsp");
 		rd.forward(request, response);
 
+	}
+
+	public void del(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		int num = Integer.parseInt(request.getParameter("num"));
+
+		if (dao.del(num) != 0) {
+
+			response.sendRedirect("list.bo?pageNum=0&pageSize=10");
+		} else {
+			//삭제 실패한 경우
+		}
 	}
 
 	public static String parseCommand(HttpServletRequest request) {

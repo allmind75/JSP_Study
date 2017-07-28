@@ -61,7 +61,7 @@ tr, td {
 				%>
 				<tr>
 					<td><%=num%></td>
-					<td><a href="read.bo?&num=<%=num%>"><%=title%></a></td>
+					<td><a href="read.bo?&num=<%=num%>&pageNum=<%=pageOut.getPageNum()%>&pageSize=<%=pageOut.getPageSize()%>"><%=title%></a></td>
 					<td><%=count%></td>
 					<td><%=date.toString().substring(0, 10)%></td>
 				</tr>

@@ -14,6 +14,7 @@
 	h1, tr, td {text-align: center;}
 	table { width: 600px;}
 	.table-content {width: 600px;height: 600px;}
+	a {color: #fff;}
 </style>
 </head>
 <body>
@@ -26,6 +27,9 @@
 		String content = dto.getContent();
 		int count = dto.getCount();
 		Timestamp date = dto.getReg_date();
+		
+		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		int pageSize = Integer.parseInt(request.getParameter("pageSize"));
 	%>	
 	<div>
 		<table border=1 align="center">
@@ -57,6 +61,20 @@
 		</table>
 	</div>
 	
-	<button onclick="window.history.back();">뒤로가기</a>
+	<button onclick="back();">뒤로가기 javaScript</button><br>
+	<a href="list.bo?pageNum=<%=pageNum %>&pageSize=<%=pageSize %>" >뒤로가기 link</a>
+	<a href="del.bo?num=<%=num%>">글삭제</a>
+	
+	<script>
+		function back() {
+			//뒤로갈 히스토리가 있으면
+			if(document.referrer) {
+				history.back();
+			} else {
+				//없으면 가는 링크
+				location.href="list.bo?pageNum=<%=pageNum %>&pageSize=<%=pageSize %>";
+			}
+		}
+	</script>
 </body>
 </html>
