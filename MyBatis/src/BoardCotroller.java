@@ -31,7 +31,7 @@ public class BoardCotroller extends HttpServlet {
 		// TODO Auto-generated method stub
 		// 한글 깨짐 처리
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
+
 		String cmd = parseCommand(request);
 		System.out.println("cmd : " + cmd);
 
@@ -43,9 +43,7 @@ public class BoardCotroller extends HttpServlet {
 		case "list.bo":
 			list(request, response);
 			break;
-		case "find.bo":
-			find(request, response);
-			break;
+
 		}
 	}
 
@@ -65,7 +63,7 @@ public class BoardCotroller extends HttpServlet {
 
 			// (1) 바로 list 메소드 직접 호출,
 			// 호출 후 페이지에서 새로고침시 글내용 계속 추가되는 문제발생!!
-			//list(request, response);
+			list(request, response);
 
 			// (2) response의 sendRedirect() 이용
 			response.sendRedirect("list.bo");
@@ -141,19 +139,6 @@ public class BoardCotroller extends HttpServlet {
 		} else {
 			// 글목록이 하나도 없음
 		}
-	}
-	
-	public void find(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String word = request.getParameter("word");
-		int mode = Integer.parseInt(request.getParameter("mode"));
-		
-		System.out.println("search");
-		System.out.println("word : " + word);
-		System.out.println("mode : " + mode);
-		
-		dao.find(word, mode);
-		
 	}
 
 	public static String parseCommand(HttpServletRequest request) {

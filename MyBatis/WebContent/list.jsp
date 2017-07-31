@@ -85,19 +85,6 @@ tr, td {
 	%>
 	<a href=<%=nextPage%>> >> </a><br>
 	
-	<form action="find.bo" method="get">
-		검색 : <input type="text" name="word">
-		
-		<select name="mode">
-			<option value="1">제목</option>
-			<option value="2">내용</option>
-			<option value="3">제목 + 내용</option>
-		</select>
-		
-		<input type="submit" value="검색">
-	</form>
-	
-	
 	
 </body>
 </html>

@@ -95,9 +95,5 @@ public class BoardDAO {
 		//Long to int
 		return (int) cnt;
 	}
-	
-	public void find(String word, int mode) {
-		
-	}
 
 }

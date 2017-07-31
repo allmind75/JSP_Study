@@ -14,16 +14,24 @@
 	</insert>
 	
 	<select id ="printBoard" resultType="hashmap">
-		SELECT * FROM board ORDER BY num DESC
+		SELECT num, title, count, reg_date FROM board ORDER BY num DESC;
 	</select>
 	
 	<select id="selectPage" parameterType="db.PageIn" resultType="hashmap">
-		SELECT * FROM board ORDER BY num DESC LIMIT #{start}, #{pageSize};
+		SELECT num, title, count, reg_date FROM board ORDER BY num DESC LIMIT #{start}, #{pageSize};
 	</select>
 	
 	<select id="selectCount" resultType="hashmap">
 		SELECT COUNT(*) AS cnt FROM board;
 	</select>
+	
+	<select id="selectContent" parameterType="int" resultType="db.ContentDTOOut">
+		SELECT * FROM board WHERE num=#{num};
+	</select>
+	
+	<delete id="deleteContent" parameterType="int">
+		DELETE FROM board WHERE num=#{num};
+	</delete>
 	
 </mapper>
 
