@@ -72,7 +72,7 @@ tr, td {
 				%>
 			</tbody>
 		</table>
-	</div>
+	</div>w
 
 	<!-- paging -->
 	<div class="paging">
