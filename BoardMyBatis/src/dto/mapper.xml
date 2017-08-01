@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace : package처럼 용도별로 구분하기 위한 이름 -->
+<mapper namespace="board">
+
+	<insert id="insertBoard" parameterType="dto.BoardDTOIn">
+		insert into board set
+		title=#{title},
+		content=#{content},
+		count = 0,
+		reg_date=now();
+	</insert>
+
+	<select id="printBoard" resultType="hashmap">
+		SELECT num, title, count,
+		reg_date FROM board ORDER BY num DESC;
+	</select>
+
+	<select id="selectPage" parameterType="dto.PageIn" resultType="hashmap">
+		SELECT num, title, count, reg_date FROM board ORDER BY num DESC LIMIT
+		#{start}, #{pageSize};
+	</select>
+
+	<select id="selectCount" resultType="hashmap">
+		SELECT COUNT(*) AS cnt FROM
+		board;
+	</select>
+
+	<select id="selectCountFind" parameterType="dto.PageIn"
+		resultType="hashmap">
+		<if test="mode == 1">
+			SELECT COUNT(*) AS cnt FROM board WHERE title LIKE CONCAT('%',#{word},'%');
+		</if>
+		<if test="mode == 2">
+			SELECT COUNT(*) AS cnt FROM board WHERE content LIKE
+			CONCAT('%',#{word},'%');
+		</if>
+		<if test="mode == 3">
+			SELECT COUNT(*) AS cnt FROM board WHERE title LIKE CONCAT('%',#{word},'%')
+			OR content LIKE CONCAT('%',#{word},'%')
+		</if>
+	</select>
+
+	<select id="selectContent" parameterType="int" resultType="dto.ContentDTOOut">
+		SELECT * FROM board WHERE num=#{num};
+	</select>
+
+	<select id="selectPageFind" parameterType="dto.PageIn" resultType="hashmap">
+		<if test="mode == 1">
+			SELECT num, title, count, reg_date FROM board WHERE title
+			LIKE
+			CONCAT('%',#{word},'%') ORDER BY num DESC LIMIT #{start},
+			#{pageSize};
+		</if>
+		<if test="mode == 2">
+			SELECT num, title, count, reg_date FROM board WHERE
+			content LIKE
+			CONCAT('%',#{word},'%') ORDER BY num DESC LIMIT #{start},
+			#{pageSize};
+		</if>
+		<if test="mode == 3">
+			SELECT num, title, count, reg_date FROM board WHERE title
+			LIKE
+			CONCAT('%',#{word},'%') OR content LIKE CONCAT('%',#{word},'%')
+			ORDER
+			BY num DESC LIMIT #{start}, #{pageSize};
+		</if>
+	</select>
+
+
+	<delete id="deleteContent" parameterType="int">
+		DELETE FROM board WHERE
+		num=#{num};
+	</delete>
+
+</mapper>
+
+
+
