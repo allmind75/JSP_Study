@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace : package처럼 용도별로 구분하기 위한 이름 -->
+<mapper namespace="member">
+	
+	<insert id="insertMember" parameterType="dto.MemDTOIn">
+		INSERT INTO member SET
+		id = #{id}, pw = SHA1(#{pw}),
+		name = #{name}, phone = #{phone}, email = #{email};
+	</insert>
+
+
+</mapper>
+
+
+
