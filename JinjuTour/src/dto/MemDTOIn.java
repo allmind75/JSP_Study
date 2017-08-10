@@ -10,6 +10,13 @@ public class MemDTOIn {
 	
 	public MemDTOIn() {}
 	
+	
+	public MemDTOIn(String id, String pw) {
+		super();
+		this.id = id;
+		this.pw = pw;
+	}
+
 	public MemDTOIn(String id, String pw, String name, String phone, String email) {
 		this.id = id;
 		this.pw = pw;

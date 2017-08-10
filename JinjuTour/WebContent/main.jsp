@@ -32,6 +32,19 @@
 </head>
 
 <body id="top">
+	
+	<%
+    	String userId = (String) session.getAttribute("USERID");
+		String userName = (String) session.getAttribute("USERNAME");
+		String userEmail = (String) session.getAttribute("USEREMAIL");
+		
+		if(userId == null || userName == null|| userEmail == null) {
+			userId = "";
+			userName = "";
+			userEmail = "";
+		}
+    %>
+	
     <header class="header">
         <div class="headerTop">
             <a class="btn_gnb" id="menu-toggle"><i class="fa fa-navicon headericon"></i></a>
@@ -56,15 +69,15 @@
                 <div class="slidebar-wrap">
                     <div class="slidebar-brand">
                     </div>
-                    <p class="userName">장환호</p>
-                    <p class="userID">abcdef</p>
+                    <p class="userName"><%=userName %></p>
+                    <p class="userID"><%=userId %></p>
                 </div>
-                <p class="userMail">abcdef@gamil.com</p>
+                <p class="userMail"><%=userEmail %></p>
                 <a href="userInfoEdit.html" class="userEdit"><i class="fa fa-edit"></i></a>
             </div>
             <ul class="sidebar-nav">
                 <li><i class="fa fa-home active"></i><a href="main.jsp">HOME</a></li>
-                <li><i class="fa fa-sign-in"></i><a href="login.jsp">로그인</a></li>
+                <li><i class="fa fa-sign-in" ></i><a href="logout.mem" id="loginState" >로그인</a></li>
                 <li><i class="fa fa-flag-o"></i><a href="notice.jsp">공지사항</a></li>
                 <li><i class="fa fa-question-circle-o"></i><a href="help.jsp">도움말</a></li>
                 <!--<li><i class="fa fa-gear"></i><a href="setting.html">설정</a></li>-->
@@ -78,10 +91,10 @@
                 <h2 class="readonly">탭메뉴</h2>
             </header>
             <ul class="tab_links">
-                <li class="active"><a href="main.html">추천</a></li>
-                <li><a href="trip.html">관광지</a></li>
-                <li><a href="food.html">맛집</a></li>
-                <li><a href="product.html">특산물</a></li>
+                <li class="active"><a href="main.jsp">추천</a></li>
+                <li><a href="trip.jsp">관광지</a></li>
+                <li><a href="food.jsp">맛집</a></li>
+                <li><a href="product.jsp">특산물</a></li>
             </ul>
         </div>
     </section>
@@ -106,7 +119,7 @@
             <div class="tab1_cont">
                 <ul>
                     <li>
-                        <a href="trip-view.html">
+                        <a href="trip-view.jsp">
                             <img class="imgw100" src="images/trip_01.jpg" alt="진주냉면">
                             <span>진주성</span>
                             <div class="count">
@@ -119,7 +132,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="trip-view.html">
+                        <a href="trip-view.jsp">
                             <img class="imgw100" src="images/trip_01.jpg" alt="진주냉면">
                             <span>진주성</span>
                             <div class="count">
@@ -132,7 +145,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="trip-view.html">
+                        <a href="trip-view.jsp">
                             <img class="imgw100" src="images/trip_01.jpg" alt="진주냉면">
                             <span>진주성</span>
                             <div class="count">
@@ -145,7 +158,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="food-view.html">
+                        <a href="food-view.jsp">
                             <img class="imgw100" src="images/food_01.jpg" alt="진주냉면">
                             <span>박군자 진주냉면</span>
                             <div class="count">
@@ -158,7 +171,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="food-view.html">
+                        <a href="food-view.jsp">
                             <img class="imgw100" src="images/food_03.jpg" alt="진주냉면">
                             <span>유정장어</span>
                             <div class="count">
@@ -171,7 +184,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="product-view.html">
+                        <a href="product-view.jsp">
                             <img class="imgw100" src="images/product_01.jpg" alt="진주실크">
                             <span>실키안</span>
                             <div class="count">
@@ -247,6 +260,15 @@
                 }, !1)
             }
         })(document, window.navigator, "standalone")
+        
+        window.onload = function() {
+    		        	
+        	<% if(userId == null || userId == "") { %>
+        		document.getElementById("loginState").innerHTML = "로그인";
+        	<% } else { %>
+        		document.getElementById("loginState").innerHTML = "로그아웃";
+        	<% } %>
+        }
     </script>
 </body>
 

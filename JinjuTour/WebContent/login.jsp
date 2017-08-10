@@ -43,26 +43,19 @@
           <h2 class="readonly">로그인 정보 입력</h2>
       </header>
         <div class="wrap">
-            <form class="input" name="myform" action="member.html" method="get" enctype="multipart/form-data">
-                <!-- myform.id, myform.pw 로 접근 가능 / action : form tag 처리-->
+            <form class="input" name="myform" action="login.mem" method="post">
+                
                 <label for="input-id" class="readonly">아이디입력</label>
-                <!-- for : label 선택시 이동하고 하는 위치(id)-->
-                <!--웹 접근성-->
-                <input type="text" name="id" class="id" id="input-id" placeholder="아이디">
-                <!--name - 입력된 값 저장 -->
+                <input type="text" name="id" class="id" id="input-id" maxlength="16" placeholder="아이디">
                 <label for="input-pw" class="readonly">비밀번호입력</label>
-                <input type="password" name="pw" class="pw" id="input-pw" placeholder="비밀번호">
-
-
-                <!-- file up load-->
-                <!--
-                <label for="file-upload">파일업로드</label>
-                <input type="file" name="upfile" id="file-upload">-->
+                <input type="password" name="pw" class="pw" id="input-pw" maxlength="20" placeholder="비밀번호">
+                
             </form>
 
-            <a class="login" onClick="javascript:loginCheck();">로그인</a>
+            <a class="login" onclick="loginCheck();">로그인</a>
+            
             <div class="login-check">
-              <label for="login-checkbox" class="readonly">로그인 상태 유지 체크</label>
+              <!-- <label for="login-checkbox" class="readonly">로그인 상태 유지 체크</label> -->
               <input type="checkbox" id="login-checkbox">
               <span>로그인 상태 유지</span>
             </div>

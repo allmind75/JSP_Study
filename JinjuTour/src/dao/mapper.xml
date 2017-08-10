@@ -12,6 +12,14 @@
 		name = #{name}, phone = #{phone}, email = #{email};
 	</insert>
 
+	<select id="selectIdCheck" parameterType="String" resultType="hashmap">
+		SELECT id FROM member WHERE id = #{id};
+	</select>
+
+	<select id="selectLogin" parameterType="dto.MemDTOIn" resultType="hashmap">
+		SELECT id, name, email FROM member WHERE
+		id = #{id} and pw = SHA1(#{pw});
+	</select>
 
 </mapper>
 

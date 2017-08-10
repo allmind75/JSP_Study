@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -34,33 +35,20 @@ public class MemDAO {
 	}
 	
 	public boolean idCheck(String id) throws SQLException {
+				
+		SqlSession session = factory.openSession(true);
+		List result = session.selectList("member.selectIdCheck", id);
+		session.close();
 		
-		con = DBCP.getConnection();
-		stmt = con.createStatement();
-		String sql = "SELECT id FROM member WHERE id='" + id + "'";
-		
-		rs = stmt.executeQuery(sql);
-		
-		if(rs.isBeforeFirst()) {
+		if(result.size() == 1) {
 			return false;
 		} else {
 			return true;
-		}
+		}	
+		
 	}
 	
-	public int reg(MemDTOIn dto) throws SQLException {
-		
-//		con = DBCP.getConnection();
-//		sql = "INSERT INTO MEMBER(id, pw, name, phone, email) VALUES(?, SHA1(?), ?, ?, ?)";
-//		
-//		pstmt = con.prepareStatement(sql);
-//		pstmt.setString(1, dto.getId());
-//		pstmt.setString(2, dto.getPw());
-//		pstmt.setString(3, dto.getName());
-//		pstmt.setString(4, dto.getPhone());
-//		pstmt.setString(5, dto.getEmail());
-//		
-//		return pstmt.executeUpdate();
+	public boolean reg(MemDTOIn dto) throws SQLException {
 		
 		int result;
 		
@@ -68,8 +56,25 @@ public class MemDAO {
 		result = session.insert("member.insertMember", dto);
 		session.close();
 		
-		return result;
+		if(result == 1) {
+			return true;
+		} else {
+			return false;
+		}
 		
+	}
+	
+	public List login(MemDTOIn dto) throws SQLException	{
+		
+		SqlSession session = factory.openSession(true);
+		List result = session.selectList("member.selectLogin", dto);
+		session.close();
+		
+		if(result.size() == 1) {
+			return result;
+		} else {
+			return null;
+		}
 	}
 	
 	
