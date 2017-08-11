@@ -35,7 +35,7 @@ html, body {width: 100%; height: 100%;}
 body {font-family: "Nanum Gothic", sans-serif; font-size: 16px;}
 section, article, nav, aside, footer, header {display: block;}
 ol, ul {list-style: none;}
-a {text-decoration: none; font-size: 14px; color: #373737;}
+a {text-decoration: none; font-size: 14px; color: #373737; cursor: pointer;}
 table {border-collapse: collapse; border-spacing: 0;}
 strong {font-size: 14px; color: #373737}
 /* common css*/
@@ -46,7 +46,6 @@ strong {font-size: 14px; color: #373737}
 /* main css */
 .header {
   width: 100%;
-  /*height: 56px;*/
   height: auto;
   background: #03c3c7;
   color: #fff;
@@ -98,10 +97,12 @@ nav ul li i {font-size: 16px; color: #fff; width: 44px; height: 44px; border-rad
 nav ul li i.active {background: #f35b5b}
 
 .tap_bar {
+  width: 100%;
   height: 40px;
   border-bottom: solid 1px rgba(17, 17, 17, 0.2);
   background: #03c3c7;
   padding: 0 4.4444%;
+  clear: both;
 }
 .tab_cont ul li {
   width: 25%;
@@ -228,12 +229,11 @@ textarea:focus {
 
 @media (min-width: 1200px) {
   /* main.html */
-  .tap_bar, .contents, .sub-contents, .sub-contents-view, .footer {width: 1200px; margin: 0 auto;}
+  .tab_links, .contents, .sub-contents, .sub-contents-view, .footer {width: 1200px; margin: 0 auto;}
 
   .main_visual {
     height: 500px;
   }
-  .headerTop .btn_gnb {display: none;}
   .headerTop h1.logo {
     text-align: center;
     padding-left: 20px;
@@ -242,22 +242,6 @@ textarea:focus {
     height: 60px;
   }
   .headerTop .logo a {font-size: 26px;}
-  #slidebar-wrapper {
-    width: 1200px;
-    height: 40px;
-    margin: 0 auto;
-    line-height: 60px;
-    position: relative; left: 0; top: 0;
-    z-index: 9999;
-    transform: translateX(0);
-    transition-property: none;
-    background: #03c3c7;
-    display: none;
-  }
-  #slidebar-wrapper .nav-top {display: none;}
-  #slidebar-wrapper .sidebar-nav li {float: left; width: 25%; text-align: center; height: 40px; line-height: 20px;}
-  #slidebar-wrapper .sidebar-nav li a {color: #fff;}
-  #slidebar-wrapper i {display: none;}
 
   .sub-contents ul li {height: 246px;}
   .sub-contents ul li img {width: 246px;}

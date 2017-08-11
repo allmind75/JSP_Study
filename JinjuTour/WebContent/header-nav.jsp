@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
 <%
 	String userId = (String) session.getAttribute("USERID");
 	String userName = (String) session.getAttribute("USERNAME");
@@ -12,7 +11,32 @@
 		userName = "";
 		userEmail = "";
 	}
+
+	String uri = request.getRequestURI().substring(request.getContextPath().length() + 1);
 %>
+
+<!-- 
+<script>
+	var uri = "<%=uri%>";
+
+	window.onload = function() {
+		
+		if(uri == "main.jsp") {
+			var d = document.getElementById("active-main");
+			d.className = "active";			
+		} else if(uri == "trip.jsp" || uri == "trip-view.jsp") {
+			var d = document.getElementById("active-trip");
+			d.classList.add("active");			
+		} else if(uri == "food.jsp" || uri == "food-view.jsp") {
+			var d = document.getElementById("active-food");
+			d.classList.add("active");		
+		} else if(uri == "product.jsp" || uri == "product-view.jsp") {
+			var d = document.getElementById("active-product");
+			d.classList.add("active");
+		}
+	}
+</script>
+-->
 
 <header class="header">
 	<div class="headerTop">
@@ -48,7 +72,18 @@
 				<p class="userID"><%=userId%></p>
 			</div>
 			<p class="userMail"><%=userEmail%></p>
-			<a href="userInfoEdit.jsp" class="userEdit"><i class="fa fa-edit"></i></a>
+
+			<%
+				if (userId == null || userId == "") {
+			%>
+					
+			<%
+				} else {
+			%>
+					<a href="userInfoEdit.jsp" class="userEdit"><i class="fa fa-edit"></i></a>
+			<%
+				}
+			%>
 		</div>
 		<ul class="sidebar-nav">
 			<li><i class="fa fa-home active"></i><a href="main.jsp">HOME</a></li>
@@ -57,21 +92,75 @@
 				if (userId == null || userId == "") {
 			%>
 
-			<li><i class="fa fa-sign-in"></i><a href="login.jsp"
-				id="loginState">로그인</a></li>
+					<li><i class="fa fa-sign-in"></i><a href="login.jsp"id="loginState">로그인</a></li>
 
 			<%
 				} else {
 			%>
-			<li><i class="fa fa-sign-in"></i><a href="logout.mem"
-				id="loginState">로그아웃</a></li>
-			<li><i class="fa fa-user-times"></i><a href="deleteMem.mem" id="loginState">회원탈퇴</a></li>
+					<li><i class="fa fa-sign-in"></i><a href="logout.mem" id="loginState">로그아웃</a></li>
+					<li><i class="fa fa-user-times"></i><a href="deleteMem.mem" id="loginState">회원탈퇴</a></li>
 			<%
 				}
 			%>
 
 			<li><i class="fa fa-flag-o"></i><a href="notice.jsp">공지사항</a></li>
-			<li><i class="fa fa-question-circle-o"></i><a href="help.jsp">도움말</a></li>	
+			<li><i class="fa fa-question-circle-o"></i><a href="help.jsp">도움말</a></li>
 		</ul>
 	</div>
 </nav>
+
+<section class="tap_bar">
+	<div class="tab_cont">
+		<header>
+			<h2 class="readonly">탭메뉴</h2>
+		</header>
+		<ul class="tab_links">
+			<%
+				if (uri.equals("main.jsp")) {
+			%>
+					<li class="active" id="active-main"><a href="main.jsp">추천</a></li>
+			<%
+				} else {
+			%>
+					<li id="active-main"><a href="main.jsp">추천</a></li>
+			<%
+				}
+			%>
+
+			<%
+				if (uri.equals("trip.jsp") || uri.equals("trip-view.jsp")) {
+			%>
+					<li class="active" id="active-main"><a href="trip.jsp">관광지</a></li>
+			<%
+				} else {
+			%>
+					<li id="active-main"><a href="trip.jsp">관광지</a></li>
+			<%
+				}
+			%>
+			<%
+				if (uri.equals("food.jsp") || uri.equals("food-view.jsp")) {
+			%>
+					<li class="active" id="active-main"><a href="foodn.jsp">맛집</a></li>
+			<%
+				} else {
+			%>
+					<li id="active-main"><a href="food.jsp">맛집</a></li>
+			<%
+				}
+			%>
+
+			<%
+				if (uri.equals("product.jsp") || uri.equals("product-view.jsp")) {
+			%>
+					<li class="active" id="active-main"><a href="product.jsp">특산물</a></li>
+			<%
+				} else {
+			%>
+					<li id="active-main"><a href="product.jsp">특산물</a></li>
+			<%
+				}
+			%>
+		</ul>
+	</div>
+</section>

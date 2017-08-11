@@ -6,6 +6,7 @@
     <title>진주투어</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="css/myStyle.css">
     <link rel="stylesheet" href="css/subContentsStyle.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
 
@@ -14,20 +15,6 @@
 <body id="top">
     
     <%@ include file="header-nav.jsp" %>
-    
-    <section class="tap_bar">
-        <div class="tab_cont">
-            <header>
-                <h2 class="readonly">탭메뉴</h2>
-            </header>
-            <ul class="tab_links">
-                <li><a href="main.jsp">추천</a></li>
-                <li class="active"><a href="trip.jsp">관광지</a></li>
-                <li><a href="food.jsp">맛집</a></li>
-                <li><a href="product.jsp">특산물</a></li>
-            </ul>
-        </div>
-    </section>
 
     <!-- sub contents start -->
 

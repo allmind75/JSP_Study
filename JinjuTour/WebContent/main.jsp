@@ -35,19 +35,7 @@
 	
 	<%@ include file="header-nav.jsp" %>
 
-    <section class="tap_bar">
-        <div class="tab_cont">
-            <header>
-                <h2 class="readonly">탭메뉴</h2>
-            </header>
-            <ul class="tab_links">
-                <li class="active"><a href="main.jsp">추천</a></li>
-                <li><a href="trip.jsp">관광지</a></li>
-                <li><a href="food.jsp">맛집</a></li>
-                <li><a href="product.jsp">특산물</a></li>
-            </ul>
-        </div>
-    </section>
+
     <div class="content">
         <section class="main_visual">
             <header>
@@ -162,11 +150,11 @@
         //toggle
         $("#menu-toggle").click(function(e) {
             e.preventDefault();
-            $("#slidebar-wrapper").toggleClass("active");
+            $("#slidebar-wrapper").toggleClass("active-nav");
         });
         $("#menu-close").click(function(e) {
             e.preventDefault();
-            $("#slidebar-wrapper").toggleClass("active");
+            $("#slidebar-wrapper").toggleClass("active-nav");
         });
 
         $(".btn_search").click(function(e) {

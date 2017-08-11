@@ -14,20 +14,6 @@
 <body id="top">
     
     <%@ include file="header-nav.jsp" %>
-    
-    <section class="tap_bar">
-        <div class="tab_cont">
-            <header>
-                <h2 class="readonly">탭메뉴</h2>
-            </header>
-            <ul>
-                <li><a href="main.jsp">추천</a></li>
-                <li><a href="trip.jsp">관광지</a></li>
-                <li><a href="food.jsp">맛집</a></li>
-                <li class="active"><a href="product.jsp">특산물</a></li>
-            </ul>
-        </div>
-    </section>
 
     <!-- sub contents start -->
 

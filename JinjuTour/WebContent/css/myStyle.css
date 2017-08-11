@@ -114,7 +114,7 @@ table {border-collapse: collapse; border-spacing: 0;}
   transition: all 0.4s ease 0s;
 }
 
-#slidebar-wrapper.active {
+#slidebar-wrapper.active-nav {
   left: 250px; width: 250px;
   transition: all 0.4s ease 0s;
 }
@@ -369,15 +369,11 @@ textarea:focus {
     padding-top: 90%;
   }
   /* main.html */
-  .headerTop, .bar-search form, .tab_links, .contents, .footer {width: 1200px; margin: 0 auto;}
-  .header .btn_search {right: 350px;}
-  .bar-search .inner input {width: 85%; height: 40px; padding-left: 10px;}
-  .bar-search .btn_search2_wrap {margin-right: 100px;}
-
+  .headerTop, .bar-search form, .tab_links, .footer {width: 100%; margin: 0 auto;}
+  .tab_links, .contents {width: 1200px; margin: 0 auto;}
   .main_visual {
     height: 500px;
   }
-  .headerTop .btn_gnb {display: none;}
   .headerTop h1.logo {
     text-align: center;
     padding-left: 20px;
@@ -386,22 +382,7 @@ textarea:focus {
     height: 60px;
   }
   .headerTop .logo a {font-size: 26px;}
-  #slidebar-wrapper {
-    width: 100%;
-    height: 40px;
-    line-height: 60px;
-    position: relative; left: 0; top: 0;
-    z-index: 9999;
-    transform: translateX(0);
-    transition-property: none;
-    background: #03c3c7;
-    display: none;
-  }
-  #slidebar-wrapper .nav-top {display: none;}
-  #slidebar-wrapper .sidebar-nav {width: 1200px; margin: 0 auto;}
-  #slidebar-wrapper .sidebar-nav li {float: left; width: 25%; text-align: center; height: 40px; line-height: 20px;}
-  #slidebar-wrapper .sidebar-nav li a {color: #fff;}
-  #slidebar-wrapper i {display: none;}
+
   .tab1_cont ul li {
     width: 23.7804825%;
     margin-bottom: 2.4%;

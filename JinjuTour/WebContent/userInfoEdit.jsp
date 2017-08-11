@@ -22,12 +22,12 @@
             <h2 class="readonly">회원 정보 수정</h2>
         </header>
         <div class="wrap">
-            <form class="input" name="myform" action="" method="get">
+            <form class="input" name="myform" action="" method="post">
                 <label for="input-join-name" class="readonly">사용자 이름 변경</label>
-                <input type="text" name="name" class="join-name" id="input-join-name" placeholder="사용자 이름 변경">
+                <input type="text" name="name" class="join-name" id="input-join-name" placeholder="사용자 이름 변경 (한글, 2 ~ 15자만 가능)">
 
                 <label for="input-join-pw" class="readonly">비밀번호 변경</label>
-                <input type="password" name="pw" class="join-pw" id="input-join-pw" placeholder="비밀번호 변경 (6 ~ 15자 이내)">
+                <input type="password" name="pw" class="join-pw" id="input-join-pw" placeholder="비밀번호 변경 (6 ~ 20자 이내)">
 
                 <label for="input-pw-check" class="readonly">비밀번호 확인</label>
                 <input type="password" name="pw-check" class="pw-check" id="input-pw-check" placeholder="비밀번호 확인">
@@ -49,7 +49,7 @@
                 </div>
             </form>
 
-            <a class="join" onClick="javascript:loginCheck();" href="main.jsp">저장</a>
+            <a class="join" onclick="loginCheck();" href="#">저장</a>
         </div>
     </section>
     <footer class="footer">
