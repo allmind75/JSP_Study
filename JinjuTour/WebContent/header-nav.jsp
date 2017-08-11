@@ -15,29 +15,6 @@
 	String uri = request.getRequestURI().substring(request.getContextPath().length() + 1);
 %>
 
-<!-- 
-<script>
-	var uri = "<%=uri%>";
-
-	window.onload = function() {
-		
-		if(uri == "main.jsp") {
-			var d = document.getElementById("active-main");
-			d.className = "active";			
-		} else if(uri == "trip.jsp" || uri == "trip-view.jsp") {
-			var d = document.getElementById("active-trip");
-			d.classList.add("active");			
-		} else if(uri == "food.jsp" || uri == "food-view.jsp") {
-			var d = document.getElementById("active-food");
-			d.classList.add("active");		
-		} else if(uri == "product.jsp" || uri == "product-view.jsp") {
-			var d = document.getElementById("active-product");
-			d.classList.add("active");
-		}
-	}
-</script>
--->
-
 <header class="header">
 	<div class="headerTop">
 		<a class="btn_gnb" id="menu-toggle"><i
