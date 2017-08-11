@@ -11,6 +11,10 @@
 		id = #{id}, pw = SHA1(#{pw}),
 		name = #{name}, phone = #{phone}, email = #{email};
 	</insert>
+	
+	<delete id="deleteMember" parameterType="String">
+		DELETE FROM member WHERE id = #{id};
+	</delete>
 
 	<select id="selectIdCheck" parameterType="String" resultType="hashmap">
 		SELECT id FROM member WHERE id = #{id};

@@ -54,6 +54,10 @@ public class MemberCtrl extends HttpServlet {
 			case "logout.mem":
 				logout(request, response);
 				break;
+			
+			case "deleteMem.mem":
+				deleteMem(request, response);
+				break;
 				
 			}
 		} catch (SQLException e) {
@@ -107,6 +111,8 @@ public class MemberCtrl extends HttpServlet {
 			
 			//2. session에 아이디 저장
 			session.setAttribute("USERID", id);
+			session.setAttribute("USERNAME", name);
+			session.setAttribute("USEREMAIL", email);
 			
 			//3. page 이동
 			sendRedirect(response, "main.jsp");
@@ -160,6 +166,21 @@ public class MemberCtrl extends HttpServlet {
 		} else {
 			session.invalidate();
 			sendRedirect(response, "main.jsp");
+		}
+	}
+	
+	public void deleteMem(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+	
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("USERID");
+		
+		if(dao.delete(id)) {
+			System.out.println("회원탈퇴 성공");
+			session.invalidate();
+			sendRedirect(response, "main.jsp");
+		} else {
+			//탈퇴실패
 		}
 	}
 	

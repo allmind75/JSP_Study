@@ -77,5 +77,20 @@ public class MemDAO {
 		}
 	}
 	
+	public boolean delete(String id) throws SQLException {
+		
+		int result;
+		
+		SqlSession session = factory.openSession(true);
+		result = session.delete("member.deleteMember", id);
+		session.close();
+		
+		if(result == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	
 }
