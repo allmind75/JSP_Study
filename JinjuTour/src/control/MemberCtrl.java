@@ -50,9 +50,11 @@ public class MemberCtrl extends HttpServlet {
 			case "login.mem":
 				login(request, response);
 				break;
+				
 			case "logout.mem":
 				logout(request, response);
 				break;
+				
 			}
 		} catch (SQLException e) {
 			System.out.println("SQL Error : " + e.getMessage());

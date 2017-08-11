@@ -12,55 +12,19 @@
 </head>
 
 <body id="top">
-    <header class="header">
-        <div class="headerTop">
-            <a class="btn_gnb" id="menu-toggle"><i class="fa fa-navicon headericon"></i></a>
-            <h1 class="logo"><a href="main.jsp">진주투어</a></h1>
-            <a class="btn_search"><i class="fa fa-search headericon"></i></a>
-        </div>
-        <div class="bar-search">
-            <div class="inner">
-                <form name="mysearch">
-                    <label for="search" class="readonly">검색단어 입력</label>
-                    <input type="text" name="search" class="search" id="search" placeholder="검색어를 입력하세요">
-                    <div class="btn_search2_wrap"><a class="btn_search2">검색</a></div>
-                </form>
-            </div>
-        </div>
-    </header>
-
-    <nav id="slidebar-wrapper">
-        <div id="nav-wrapper">
-            <div class="nav-top">
-                <a href="main.html" id="menu-close" class="btn-close"><i class="fa fa-close"></i></a>
-                <div class="slidebar-wrap">
-                    <div class="slidebar-brand">
-                    </div>
-                    <p class="userName">장환호</p>
-                    <p class="userID">abcdef</p>
-                </div>
-                <p class="userMail">abcdef@gamil.com</p>
-                <a href="userInfoEdit.html" class="userEdit"><i class="fa fa-edit"></i></a>
-            </div>
-            <ul class="sidebar-nav">
-                <li><i class="fa fa-home"></i><a href="main.html">HOME</a></li>
-                <li><i class="fa fa-sign-out"></i><a href="main.html">로그아웃</a></li>
-                <li><i class="fa fa-flag-o"></i><a href="notice.html">공지사항</a></li>
-                <li><i class="fa fa-question-circle-o"></i><a href="help.html">도움말</a></li>
-                <!--<li><i class="fa fa-gear"></i><a href="setting.html">설정</a></li>-->
-            </ul>
-        </div>
-    </nav>
+    
+    <%@ include file="header-nav.jsp" %>
+    
     <section class="tap_bar">
         <div class="tab_cont">
             <header>
                 <h2 class="readonly">탭메뉴</h2>
             </header>
             <ul class="tab_links">
-                <li><a href="main.html">추천</a></li>
-                <li><a href="trip.html">관광지</a></li>
-                <li class="active"><a href="food.html">맛집</a></li>
-                <li><a href="product.html">특산물</a></li>
+                <li><a href="main.jsp">추천</a></li>
+                <li><a href="trip.jsp">관광지</a></li>
+                <li class="active"><a href="food.jsp">맛집</a></li>
+                <li><a href="product.jsp">특산물</a></li>
             </ul>
         </div>
     </section>
@@ -106,7 +70,7 @@
                 </a>
             </li>
             <li>
-                <a href="food-view.html">
+                <a href="food-view.jsp">
                     <img class="imgw100" src="images/food_03.jpg" alt="유정장어">
                     <div class="content">
                         <p class="sub-title">유정장어</p>
