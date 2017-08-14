@@ -55,10 +55,17 @@ public class MemberCtrl extends HttpServlet {
 				logout(request, response);
 				break;
 			
-			case "deleteMem.mem":
-				deleteMem(request, response);
+			case "delete.mem":
+				delete(request, response);
 				break;
 				
+			case "loadEdit.mem":
+				loadEdit(request, response);
+				break;
+				
+			case "edit.mem":
+				edit(request, response);
+				break;
 			}
 		} catch (SQLException e) {
 			System.out.println("SQL Error : " + e.getMessage());
@@ -169,7 +176,7 @@ public class MemberCtrl extends HttpServlet {
 		}
 	}
 	
-	public void deleteMem(HttpServletRequest request, HttpServletResponse response)
+	public void delete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 	
 		HttpSession session = request.getSession();
@@ -181,6 +188,63 @@ public class MemberCtrl extends HttpServlet {
 			sendRedirect(response, "main.jsp");
 		} else {
 			//탈퇴실패
+		}
+	}
+	
+	public void loadEdit(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+		
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("USERID");
+		
+		List list = dao.loadEdit(id);
+		
+		if(list != null) {
+			HashMap map = (HashMap) list.get(0);
+			
+			String phone = (String) map.get("phone");
+			
+			String phoneNum1 = phone.substring(0, 3);
+			String phoneNum2 = phone.substring(3, 7);
+			String phoneNum3 = phone.substring(7, 11);
+			
+			request.setAttribute("PHONE1", phoneNum1);
+			request.setAttribute("PHONE2", phoneNum2);
+			request.setAttribute("PHONE3", phoneNum3);
+			
+			forward(request, response, "userInfoEdit.jsp");
+		} else {
+			//회원정보가져오기 실패
+		}
+	}
+	
+	public void edit(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+		
+		HttpSession session = request.getSession();
+		
+		String id = (String) session.getAttribute("USERID"); 
+		String pw = request.getParameter("pw");
+		String name = request.getParameter("name");
+		String phone = request.getParameter("phoneNum1") + request.getParameter("phoneNum2")
+				+ request.getParameter("phoneNum3");
+		String email = request.getParameter("email");
+		
+		MemDTOIn dto = new MemDTOIn(id, pw, name, phone, email);
+		
+		System.out.println(id);
+		System.out.println(name);
+		System.out.println(pw);
+		System.out.println(phone);
+		System.out.println(email);
+
+		if(dao.edit(dto)) {
+			
+			session.setAttribute("USERNAME", name);
+			session.setAttribute("USEREMAIL", email);
+			sendRedirect(response, "main.jsp");
+		} else {
+			//회원정보변경 실패
 		}
 	}
 	

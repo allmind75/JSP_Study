@@ -24,7 +24,7 @@ public class MemDTOIn {
 		this.phone = phone;
 		this.email = email;
 	}
-	
+		
 	public String getId() {
 		return id;
 	}
@@ -55,6 +55,4 @@ public class MemDTOIn {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	
 }

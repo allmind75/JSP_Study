@@ -24,6 +24,21 @@
 		SELECT id, name, email FROM member WHERE
 		id = #{id} and pw = SHA1(#{pw});
 	</select>
+	
+	<select id="selectLoadEdit" parameterType="String" resultType="hashmap">
+		SELECT phone FROM member WHERE id = #{id};
+	</select>
+	
+	<update id="updateEdit" parameterType="dto.MemDTOIn">
+		UPDATE member
+			<set>
+				<if test="pw != null">pw = SHA1(#{pw}),</if>
+				<if test="name != null">name = #{name},</if>
+				<if test="phone != null">phone = #{phone},</if>
+				<if test="email != null">email = #{email}</if>
+			</set>
+		WHERE id = #{id};
+	</update>
 
 </mapper>
 

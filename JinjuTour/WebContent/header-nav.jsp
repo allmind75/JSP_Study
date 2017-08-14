@@ -41,7 +41,7 @@
 <nav id="slidebar-wrapper">
 	<div id="nav-wrapper">
 		<div class="nav-top">
-			<a href="main.html" id="menu-close" class="btn-close"><i
+			<a href="main.jsp" id="menu-close" class="btn-close"><i
 				class="fa fa-close"></i></a>
 			<div class="slidebar-wrap">
 				<div class="slidebar-brand"></div>
@@ -57,7 +57,7 @@
 			<%
 				} else {
 			%>
-					<a href="userInfoEdit.jsp" class="userEdit"><i class="fa fa-edit"></i></a>
+					<a href="loadEdit.mem" class="userEdit"><i class="fa fa-edit"></i></a>
 			<%
 				}
 			%>
@@ -75,7 +75,7 @@
 				} else {
 			%>
 					<li><i class="fa fa-sign-in"></i><a href="logout.mem" id="loginState">로그아웃</a></li>
-					<li><i class="fa fa-user-times"></i><a href="deleteMem.mem" id="loginState">회원탈퇴</a></li>
+					<li><i class="fa fa-user-times"></i><a href="delete.mem" id="loginState">회원탈퇴</a></li>
 			<%
 				}
 			%>

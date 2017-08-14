@@ -92,5 +92,31 @@ public class MemDAO {
 		}
 	}
 	
+	public List loadEdit(String id) throws SQLException	{
+	
+		SqlSession session = factory.openSession(true);
+		List result = session.selectList("member.selectLoadEdit", id);
+		session.close();
+		
+		if(result.size() == 1) {
+			return result;
+		} else {
+			return null;
+		}
+	}
+	
+	public boolean edit(MemDTOIn dto) throws SQLException {
+		
+		SqlSession session = factory.openSession(true);
+		int result = session.update("member.updateEdit", dto);
+		session.close();
+		
+		if(result == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	
 }

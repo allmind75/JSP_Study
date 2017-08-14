@@ -23,10 +23,10 @@
 			var id = document.getElementById("input-join-id").value;
 			
 			if(idReg.test(id)) {
-				document.getElementById("idCheckText").innerHTML = "사용가능한 형식";
+				document.getElementById("idCheckText").innerHTML = "<font color='blue'>사용가능한 형식</font>";
 				return true
 			} else {
-				document.getElementById("idCheckText").innerHTML = "숫자 와 영어(첫글자는 소문자), 4 ~ 20자만 가능";
+				document.getElementById("idCheckText").innerHTML = "<font color='red'>숫자 와 영어(첫글자는 소문자), 4 ~ 20자만 가능</font>";
 				return false
 			}
 		}
@@ -37,27 +37,27 @@
 			var pw2 = document.getElementById("input-join-pw2").value;
 					
 			if(pw == "") {
-				document.getElementById("pwCheckText").innerHTML = "입력안함";
+				document.getElementById("pwCheckText").innerHTML = "<font color='red'>입력안함</font>";
 				return false;
 			} else if (pw != pw2) {
-				document.getElementById("pwCheckText").innerHTML = "비밀번호다름";
+				document.getElementById("pwCheckText").innerHTML = "<font color='red'>비밀번호다름</font>";
 				return false;
 			} else {
-				document.getElementById("pwCheckText").innerHTML = "비밀번호같음";
+				document.getElementById("pwCheckText").innerHTML = "<font color='blue'>비밀번호같음</font>";
 				return true;
 			}
 		}
 		
 		function nameCheck() {
-			//2 ~ 12자리인 한글
-			var nameReg = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,12}$/;
+			//2 ~ 15자리인 한글
+			var nameReg = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,15}$/;
 			var name = document.getElementById("input-join-name").value;
 			
 			if(nameReg.test(name)) {
-				document.getElementById("nameCheckText").innerHTML = "사용가능";
+				document.getElementById("nameCheckText").innerHTML = "<font color='blue'>사용가능</font>";
 				return true;
 			} else {
-				document.getElementById("nameCheckText").innerHTML = "한글, 2 ~ 12자만 가능";
+				document.getElementById("nameCheckText").innerHTML = "<font color='red'>한글, 2 ~ 15자만 가능</font>";
 				return false;
 			}
 			
@@ -69,10 +69,10 @@
 			var email = document.getElementById("input-join-email").value;
 			
 			if(emailReg.test(email)) {
-				document.getElementById("emailCheckText").innerHTML = "사용가능";
+				document.getElementById("emailCheckText").innerHTML = "<font color='blue'>사용가능</font>";
 				return true;
 			} else {
-				document.getElementById("emailCheckText").innerHTML = "이메일 형식을 확인해주세요."
+				document.getElementById("emailCheckText").innerHTML = "<font color='red'>이메일 형식을 확인해주세요.</font>"
 				return false;
 			}
 			
@@ -136,7 +136,7 @@
     			return true;
     		} else {
     			alert("회원가입실패");
-    			if(!idCheck()) alert("아이디 중복검사 및 형식을 확인해주세요.");
+    			if(!idCheck()) alert("아이디 중복검사 또는 형식을 확인해주세요.");
     			if(!pwCheck()) alert("비밀번호가 맞는지 확인해주세요.");
     			if(!nameCheck()) alert("이름 형식을 확인해주세요.");
     			if(!emailCheck()) alert("이메일 형식을 확인해주세요.");
