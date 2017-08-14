@@ -231,12 +231,6 @@ public class MemberCtrl extends HttpServlet {
 		String email = request.getParameter("email");
 		
 		MemDTOIn dto = new MemDTOIn(id, pw, name, phone, email);
-		
-		System.out.println(id);
-		System.out.println(name);
-		System.out.println(pw);
-		System.out.println(phone);
-		System.out.println(email);
 
 		if(dao.edit(dto)) {
 			
