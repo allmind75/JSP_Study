@@ -59,11 +59,11 @@
 			  
 			        	 if(data.ret == true) {
 			        		 bIdCheck = true;
-			        		 result = "<font color='blue'>사용가능한 아이디입니다.</font>";
+			        		 result = "<font color='blue'>사용가능한 아이디</font>";
 			        		 document.getElementById("resultIdCheck").innerHTML = result;
 			        	 } else {
 			        		 bIdCheck = false;
-			        		 result = "<font color='red'>이미 등록된 아이디 입니다.</font>";
+			        		 result = "<font color='red'>이미 등록된 아이디</font>";
 			        		 document.getElementById("resultIdCheck").innerHTML = result;
 			        	 }
 			     
@@ -93,10 +93,13 @@
 			} else if (pw != pw2) {
 				document.getElementById("pwCheckText").innerHTML = "<font color='red'>비밀번호다름</font>";
 				return false;
-			} else if (pw == pw2){
+			} else if (pw == pw2 && pw.length >= 4 && pw2.length >= 4){
 				document.getElementById("pwCheckText").innerHTML = "<font color='blue'>비밀번호같음</font>";
 				return true;
-			}
+			} else {
+				document.getElementById("pwCheckText").innerHTML = "<font color='red'>비밀번호 4자리 이상</font>";
+				return false;
+			}	
 		}
 		
 		function nameCheck() {
@@ -136,12 +139,12 @@
 			var phone3 = document.getElementById("input-phoneNum3").value;
 			
 			if(!phone2Reg.test(phone2)) {
-				alert("숫자만 입력가능합니다.(3 ~ 4자리)");
+				alert("숫자만 입력가능(3 ~ 4자리)");
 				return false;
 			}
 
 			if(!phone3Reg.test(phone3)) {
-				alert("숫자만 입력가능합니다.(4자리)");
+				alert("숫자만 입력가능(4자리)");
 				return false;
 			}
 			
@@ -211,7 +214,7 @@
 				<p id="resultIdCheck"></p>
 
                 <label for="input-join-pw" class="readonly">비밀번호 입력</label>
-                <input type="password" name="pw" class="join-pw" id="input-join-pw"  maxlength="20" placeholder="비밀번호 입력 (6 ~ 20자 이내)" required>
+                <input type="password" name="pw" class="join-pw" id="input-join-pw"  maxlength="20" placeholder="비밀번호 입력 (4 ~ 20자 이내)" required>
 
                 <label for="input-pw-check" class="readonly">비밀번호 확인</label>
                 <input type="password" name="pw-check" class="pw-check" id="input-join-pw2" onkeyup="pwCheck()"  maxlength="20" placeholder="비밀번호 확인" required>

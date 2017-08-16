@@ -26,15 +26,18 @@
 			var pw2 = document.getElementById("input-join-pw2").value;
 					
 			if(pw == "" || pw2 == "") {
-				document.getElementById("pwCheckText").innerHTML = "<font color='red'>입력안함</font>";
-				return true;
+				document.getElementById("pwCheckText").innerHTML = "<font color='red'>비밀번호 입력안함</font>";
+				return false;
 			} else if (pw != pw2) {
 				document.getElementById("pwCheckText").innerHTML = "<font color='red'>비밀번호다름</font>";
 				return false;
-			} else {
+			} else if (pw == pw2 && pw.length >= 4 && pw2.length >= 4){
 				document.getElementById("pwCheckText").innerHTML = "<font color='blue'>비밀번호같음</font>";
 				return true;
-			}
+			} else {
+				document.getElementById("pwCheckText").innerHTML = "<font color='red'>비밀번호 4자리 이상</font>";
+				return false;
+			}	
 		}
 		
 		function nameCheck() {
@@ -143,18 +146,20 @@
         <div class="wrap">
             <form class="input" name="myform" action="edit.mem" method="post" onsubmit="return saveCheck()">
                 <label for="input-join-name" class="readonly">사용자 이름 변경</label>
-                <input type="text" name="name" class="join-name" id="input-join-name" onkeyup="nameCheck()" maxlength="15" pattern="[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,15}" placeholder="사용자 이름 변경 (한글, 2 ~ 15자만 가능)" value=<%=userName %>>
+                <input type="text" name="name" class="join-name" id="input-join-name" onkeyup="nameCheck()" maxlength="15" 
+                pattern="[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,15}" placeholder="사용자 이름 변경 (한글, 2 ~ 15자만 가능)" value=<%=userName %>>
 				<p id="nameCheckText"></p>
 				
                 <label for="input-join-pw" class="readonly">비밀번호 변경</label>
-                <input type="password" name="pw" class="join-pw" id="input-join-pw" maxlength="20" placeholder="비밀번호 변경 (6 ~ 20자 이내)">
+                <input type="password" name="pw" class="join-pw" id="input-join-pw" maxlength="20" placeholder="비밀번호 변경 (4 ~ 20자 이내)">
 
                 <label for="input-pw-check" class="readonly">비밀번호 확인</label>
                 <input type="password" name="pw-check" class="pw-check" id="input-join-pw2" onkeyup="pwCheck()" maxlength="20" placeholder="비밀번호 확인">
 				<p id="pwCheckText"></p>
 				
                 <label for="input-email" class="readonly">이메일 변경</label>
-                <input type="text" name="email" class="email" id="input-join-email" onkeyup="emailCheck()" pattern="[\w]{4,}@[\w]+(\.[\w-]+){1,3}" placeholder="E-Mail (비밀번호 분실 시 필요합니다.)" value=<%=userEmail %>>
+                <input type="text" name="email" class="email" id="input-join-email" onkeyup="emailCheck()" 
+                pattern="[\w]{4,}@[\w]+(\.[\w-]+){1,3}" placeholder="E-Mail (비밀번호 분실 시 필요합니다.)" value=<%=userEmail %>>
 				<p id="emailCheckText"></p>
 				
                 <div class="wrap-phoneNum">
