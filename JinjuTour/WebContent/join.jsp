@@ -36,8 +36,8 @@
 			var pw = document.getElementById("input-join-pw").value;
 			var pw2 = document.getElementById("input-join-pw2").value;
 					
-			if(pw == "") {
-				document.getElementById("pwCheckText").innerHTML = "<font color='red'>입력안함</font>";
+			if(pw == "" || pw2 == "") {
+				document.getElementById("pwCheckText").innerHTML = "<font color='red'>비밀번호 입력안함</font>";
 				return false;
 			} else if (pw != pw2) {
 				document.getElementById("pwCheckText").innerHTML = "<font color='red'>비밀번호다름</font>";
@@ -131,15 +131,24 @@
 		}
 		
     	function validate() {
-    		if(idCheck() && pwCheck() && nameCheck() && emailCheck()) {
+    		var id = false;
+    		var pw = false;
+    		var name = false;
+    		var email = false;
+    		
+    		id = idCheck();
+    		pw = pwCheck();
+    		name = nameCheck();
+    		email = emailCheck();
+    		
+    		if(id && pw && name && email) {
     			alert("회원가입성공");
     			return true;
     		} else {
-    			alert("회원가입실패");
-    			if(!idCheck()) alert("아이디 중복검사 또는 형식을 확인해주세요.");
-    			if(!pwCheck()) alert("비밀번호가 맞는지 확인해주세요.");
-    			if(!nameCheck()) alert("이름 형식을 확인해주세요.");
-    			if(!emailCheck()) alert("이메일 형식을 확인해주세요.");
+    			if(!id) alert("아이디 중복검사 또는 형식을 확인해주세요.");
+    			if(!pw) alert("비밀번호가 맞는지 확인해주세요.");
+    			if(!name) alert("이름 형식을 확인해주세요.");
+    			if(!email) alert("이메일 형식을 확인해주세요.");
     			return false;
     		}
     	}
@@ -147,8 +156,10 @@
     	function regCheck() {
     		
     		if(validate()) {
-    			myform.submit(); 
-    		} 
+    			return true;
+    		} else {
+    			return false;
+    		}
     		
     		event.preventDefault();
     	}
@@ -185,7 +196,7 @@
                 <input type="password" name="pw" class="join-pw" id="input-join-pw"  maxlength="20" placeholder="비밀번호 입력 (6 ~ 20자 이내)" required>
 
                 <label for="input-pw-check" class="readonly">비밀번호 확인</label>
-                <input type="password" name="pw-check" class="pw-check" id="input-join-pw2" onkeyup="pwCheck()"  maxlength="20" placeholder="비밀번호 확인" required>
+                <input type="password" name="pw-check" class="pw-check" id="input-join-pw2" onkeyup="pwCheck()"  maxlength="20" placeholder="비밀번호 확인">
 				<p id="pwCheckText"></p>
 
                 <label for="input-email" class="readonly">이메일 입력</label>
