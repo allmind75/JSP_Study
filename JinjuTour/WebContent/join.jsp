@@ -31,54 +31,6 @@
 			}
 		}
 	
-		function pwCheck() {
-
-			var pw = document.getElementById("input-join-pw").value;
-			var pw2 = document.getElementById("input-join-pw2").value;
-					
-			if(pw == "" || pw2 == "") {
-				document.getElementById("pwCheckText").innerHTML = "<font color='red'>비밀번호 입력안함</font>";
-				return false;
-			} else if (pw != pw2) {
-				document.getElementById("pwCheckText").innerHTML = "<font color='red'>비밀번호다름</font>";
-				return false;
-			} else {
-				document.getElementById("pwCheckText").innerHTML = "<font color='blue'>비밀번호같음</font>";
-				return true;
-			}
-		}
-		
-		function nameCheck() {
-			//2 ~ 15자리인 한글
-			var nameReg = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,15}$/;
-			var name = document.getElementById("input-join-name").value;
-			
-			if(nameReg.test(name)) {
-				document.getElementById("nameCheckText").innerHTML = "<font color='blue'>사용가능</font>";
-				return true;
-			} else {
-				document.getElementById("nameCheckText").innerHTML = "<font color='red'>한글, 2 ~ 15자만 가능</font>";
-				return false;
-			}
-			
-		}
-		
-		function emailCheck() {
-			
-			var emailReg = /^[\w]{4,}@[\w]+(\.[\w-]+){1,3}$/;
-			var email = document.getElementById("input-join-email").value;
-			
-			if(emailReg.test(email)) {
-				document.getElementById("emailCheckText").innerHTML = "<font color='blue'>사용가능</font>";
-				return true;
-			} else {
-				document.getElementById("emailCheckText").innerHTML = "<font color='red'>이메일 형식을 확인해주세요.</font>"
-				return false;
-			}
-			
-
-		}
-		
 		function idCheck()
 		{
 			if(idRegExpCheck()) {
@@ -130,18 +82,86 @@
 			event.preventDefault()
 		}
 		
+		function pwCheck() {
+
+			var pw = document.getElementById("input-join-pw").value;
+			var pw2 = document.getElementById("input-join-pw2").value;
+					
+			if(pw == "" || pw2 == "") {
+				document.getElementById("pwCheckText").innerHTML = "<font color='red'>비밀번호 입력안함</font>";
+				return false;
+			} else if (pw != pw2) {
+				document.getElementById("pwCheckText").innerHTML = "<font color='red'>비밀번호다름</font>";
+				return false;
+			} else if (pw == pw2){
+				document.getElementById("pwCheckText").innerHTML = "<font color='blue'>비밀번호같음</font>";
+				return true;
+			}
+		}
+		
+		function nameCheck() {
+			//2 ~ 15자리인 한글
+			var nameReg = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,15}$/;
+			var name = document.getElementById("input-join-name").value;
+			
+			if(nameReg.test(name)) {
+				document.getElementById("nameCheckText").innerHTML = "<font color='blue'>사용가능</font>";
+				return true;
+			} else {
+				document.getElementById("nameCheckText").innerHTML = "<font color='red'>한글, 2 ~ 15자만 가능</font>";
+				return false;
+			}
+			
+		}
+		
+		function emailCheck() {
+			
+			var emailReg = /^[\w]{4,}@[\w]+(\.[\w-]+){1,3}$/;
+			var email = document.getElementById("input-join-email").value;
+			
+			if(emailReg.test(email)) {
+				document.getElementById("emailCheckText").innerHTML = "<font color='blue'>사용가능</font>";
+				return true;
+			} else {
+				document.getElementById("emailCheckText").innerHTML = "<font color='red'>이메일 형식을 확인해주세요.</font>"
+				return false;
+			}
+		}
+		
+		function phoneCheck() {
+			console.log("phoneCheck");
+			var phone2Reg = /[0-9]{3,4}$/;
+			var phone3Reg = /[0-9]{4}$/;
+			var phone2 = document.getElementById("input-phoneNum2").value;
+			var phone3 = document.getElementById("input-phoneNum3").value;
+			
+			if(!phone2Reg.test(phone2)) {
+				alert("숫자만 입력가능합니다.(3 ~ 4자리)");
+				return false;
+			}
+
+			if(!phone3Reg.test(phone3)) {
+				alert("숫자만 입력가능합니다.(4자리)");
+				return false;
+			}
+			
+			return true;			
+		}
+		
     	function validate() {
     		var id = false;
     		var pw = false;
     		var name = false;
     		var email = false;
+    		var phone = false;
     		
     		id = idCheck();
     		pw = pwCheck();
     		name = nameCheck();
     		email = emailCheck();
+    		phone = phoneCheck();
     		
-    		if(id && pw && name && email) {
+    		if(id && pw && name && email &phone) {
     			alert("회원가입성공");
     			return true;
     		} else {
@@ -160,8 +180,6 @@
     		} else {
     			return false;
     		}
-    		
-    		event.preventDefault();
     	}
     </script>
 </head>
@@ -196,7 +214,7 @@
                 <input type="password" name="pw" class="join-pw" id="input-join-pw"  maxlength="20" placeholder="비밀번호 입력 (6 ~ 20자 이내)" required>
 
                 <label for="input-pw-check" class="readonly">비밀번호 확인</label>
-                <input type="password" name="pw-check" class="pw-check" id="input-join-pw2" onkeyup="pwCheck()"  maxlength="20" placeholder="비밀번호 확인">
+                <input type="password" name="pw-check" class="pw-check" id="input-join-pw2" onkeyup="pwCheck()"  maxlength="20" placeholder="비밀번호 확인" required>
 				<p id="pwCheckText"></p>
 
                 <label for="input-email" class="readonly">이메일 입력</label>

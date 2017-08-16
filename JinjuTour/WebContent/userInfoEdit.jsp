@@ -25,7 +25,7 @@
 			var pw = document.getElementById("input-join-pw").value;
 			var pw2 = document.getElementById("input-join-pw2").value;
 					
-			if(pw == "") {
+			if(pw == "" || pw2 == "") {
 				document.getElementById("pwCheckText").innerHTML = "<font color='red'>입력안함</font>";
 				return true;
 			} else if (pw != pw2) {
@@ -67,28 +67,57 @@
 			
 
 		}
+    	
+		function phoneCheck() {
+			console.log("phoneCheck");
+			var phone2Reg = /[0-9]{3,4}$/;
+			var phone3Reg = /[0-9]{4}$/;
+			var phone2 = document.getElementById("input-phoneNum2").value;
+			var phone3 = document.getElementById("input-phoneNum3").value;
+			
+			if(!phone2Reg.test(phone2)) {
+				alert("숫자만 입력가능합니다.(3 ~ 4자리)");
+				return false;
+			}
+
+			if(!phone3Reg.test(phone3)) {
+				alert("숫자만 입력가능합니다.(4자리)");
+				return false;
+			}
+			
+			return true;			
+		}
 		
     	function validate() {
-    		if(pwCheck() && nameCheck() && emailCheck()) {
-    			alert("회원 정보 수정 완료");
+    		var pw = false;
+    		var name = false;
+    		var email = false;
+    		var phone = false;
+    		
+    		pw = pwCheck();
+    		name = nameCheck();
+    		email = emailCheck();
+    		phone = phoneCheck();
+    		
+    		if(pw && name && email &phone) {
+    			alert("회원정보 수정완료");
     			return true;
     		} else {
-    			alert("회원 정보 수정 실패");
-    			if(!pwCheck()) alert("비밀번호가 맞는지 확인해주세요.");
-    			if(!nameCheck()) alert("이름 형식을 확인해주세요.");
-    			if(!emailCheck()) alert("이메일 형식을 확인해주세요.");
+    			if(!pw) alert("비밀번호가 맞는지 확인해주세요.");
+    			if(!name) alert("이름 형식을 확인해주세요.");
+    			if(!email) alert("이메일 형식을 확인해주세요.");
     			return false;
     		}
     	}
     	
-    	function SaveCheck() {
+    	function saveCheck() {
     		
     		if(validate()) {
-    			myform.submit(); 
-    		} 
-    		
-    		event.preventDefault();
-    	}
+    			return true;
+    		} else {
+    			return false;
+    		}
+       	}
     </script>
 </head>
 
@@ -112,7 +141,7 @@
             <h2 class="readonly">회원 정보 수정</h2>
         </header>
         <div class="wrap">
-            <form class="input" name="myform" action="edit.mem" method="post" onsubmit="return SaveCheck()">
+            <form class="input" name="myform" action="edit.mem" method="post" onsubmit="return saveCheck()">
                 <label for="input-join-name" class="readonly">사용자 이름 변경</label>
                 <input type="text" name="name" class="join-name" id="input-join-name" onkeyup="nameCheck()" maxlength="15" pattern="[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,15}" placeholder="사용자 이름 변경 (한글, 2 ~ 15자만 가능)" value=<%=userName %>>
 				<p id="nameCheckText"></p>

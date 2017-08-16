@@ -204,9 +204,19 @@ public class MemberCtrl extends HttpServlet {
 			
 			String phone = (String) map.get("phone");
 			
-			String phoneNum1 = phone.substring(0, 3);
-			String phoneNum2 = phone.substring(3, 7);
-			String phoneNum3 = phone.substring(7, 11);
+			String phoneNum1 = null;
+			String phoneNum2 = null;
+			String phoneNum3 = null;
+			
+			if(phone.length() == 11) {
+				phoneNum1 = phone.substring(0, 3);
+				phoneNum2 = phone.substring(3, 7);
+				phoneNum3 = phone.substring(7, 11);
+			} else if (phone.length() == 10) {
+				phoneNum1 = phone.substring(0, 3);
+				phoneNum2 = phone.substring(3, 6);
+				phoneNum3 = phone.substring(6, 10);
+			}
 			
 			request.setAttribute("PHONE1", phoneNum1);
 			request.setAttribute("PHONE2", phoneNum2);
