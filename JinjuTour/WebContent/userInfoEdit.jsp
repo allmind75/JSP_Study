@@ -21,7 +21,7 @@
        	}
        	
 		function pwCheck() {
-
+			var pwReg = /[\w][`~!@#$%^&*()-_+=\|<,>.?/]{3,20}$/;
 			var pw = document.getElementById("input-join-pw").value;
 			var pw2 = document.getElementById("input-join-pw2").value;
 					
@@ -31,11 +31,11 @@
 			} else if (pw != pw2) {
 				document.getElementById("pwCheckText").innerHTML = "<font color='red'>비밀번호다름</font>";
 				return false;
-			} else if (pw == pw2 && pw.length >= 4 && pw2.length >= 4){
+			} else if (pw == pw2 && pwReg.test(pw)){
 				document.getElementById("pwCheckText").innerHTML = "<font color='blue'>비밀번호같음</font>";
 				return true;
-			} else {
-				document.getElementById("pwCheckText").innerHTML = "<font color='red'>비밀번호 4자리 이상</font>";
+			} else if (!pwReg.test(pw)){
+				document.getElementById("pwCheckText").innerHTML = "<font color='red'>비밀번호 4자리 이상 20자리 이하</font>";
 				return false;
 			}	
 		}
