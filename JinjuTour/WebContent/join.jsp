@@ -167,27 +167,30 @@
             <h2 class="readonly">회원가입 정보 입력</h2>
         </header>
         <div class="wrap">
-            <form class="input" name="myform" action="reg.mem" method="post">
+            <form class="input" name="myform" action="reg.mem" method="post" onsubmit="return regCheck()">
             
                 <label for="input-join-name" class="readonly">사용자 이름 입력</label>
-                <input type="text" name="name" class="join-name" id="input-join-name" onkeyup="nameCheck()"  maxlength="15" pattern="[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,15}" placeholder="사용자 이름 입력 (한글, 2 ~ 15자만 가능)">
+                <input type="text" name="name" class="join-name" id="input-join-name" onkeyup="nameCheck()"  maxlength="15" 
+                pattern="[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,15}" placeholder="사용자 이름 입력 (한글, 2 ~ 15자만 가능)" required>
 				<p id="nameCheckText"></p>
 							
                 <label for="input-join-id" class="readonly">아이디 입력</label>
-                <input type="text" name="id" class="join-id" id="input-join-id" onkeyup="idRegExpCheck()"  maxlength="16" placeholder="아이디 입력 (숫자 와 영어(첫글자는 소문자), 4 ~ 16자만 가능)">
+                <input type="text" name="id" class="join-id" id="input-join-id" onkeyup="idRegExpCheck()"  maxlength="16" 
+                placeholder="아이디 입력 (숫자 와 영어(첫글자는 소문자), 4 ~ 16자만 가능)" required>
                 <a class="idCheck" href="#" onclick="idCheck()">중복확인</a>
 				<p id="idCheckText"></p>
 				<p id="resultIdCheck"></p>
 
                 <label for="input-join-pw" class="readonly">비밀번호 입력</label>
-                <input type="password" name="pw" class="join-pw" id="input-join-pw"  maxlength="20" placeholder="비밀번호 입력 (6 ~ 20자 이내)">
+                <input type="password" name="pw" class="join-pw" id="input-join-pw"  maxlength="20" placeholder="비밀번호 입력 (6 ~ 20자 이내)" required>
 
                 <label for="input-pw-check" class="readonly">비밀번호 확인</label>
-                <input type="password" name="pw-check" class="pw-check" id="input-join-pw2" onkeyup="pwCheck()"  maxlength="20" placeholder="비밀번호 확인">
+                <input type="password" name="pw-check" class="pw-check" id="input-join-pw2" onkeyup="pwCheck()"  maxlength="20" placeholder="비밀번호 확인" required>
 				<p id="pwCheckText"></p>
 
                 <label for="input-email" class="readonly">이메일 입력</label>
-                <input type="text" name="email" class="email" id="input-join-email" onkeyup="emailCheck()" pattern="[\w]{4,}@[\w]+(\.[\w-]+){1,3}" placeholder="E-Mail (비밀번호 분실 시 필요합니다.)">
+                <input type="text" name="email" class="email" id="input-join-email" onkeyup="emailCheck()" 
+                pattern="[\w]{4,}@[\w]+(\.[\w-]+){1,3}" placeholder="E-Mail (비밀번호 분실 시 필요합니다.)" required>
 				<p id="emailCheckText"></p>
 				
                 <div class="wrap-phoneNum">
@@ -198,13 +201,13 @@
                       <option value="017">017</option>
                     </select>
                     <label for="input-phoneNum2" class="readonly">전화번호 입력</label>
-                    <input type="text" name="phoneNum2" id="input-phoneNum2" maxlength="4">
+                    <input type="text" name="phoneNum2" id="input-phoneNum2" maxlength="4" required>
                     <label for="input-phoneNum3" class="readonly">전화번호 입력</label>
-                    <input type="text" name="phoneNum3" id="input-phoneNum3" maxlength="4">
+                    <input type="text" name="phoneNum3" id="input-phoneNum3" maxlength="4" required>
                 </div>
+                
+                <input class="join" type="submit" value="회원가입">
             </form>
-
-            <a class="join" onclick="regCheck();" href="#">회원가입</a>
         </div>
     </section>
     <footer class="footer">

@@ -70,18 +70,19 @@
 			%>
 
 					<li><i class="fa fa-sign-in"></i><a href="login.jsp"id="loginState">로그인</a></li>
+					<li><i class="fa fa-flag-o"></i><a href="notice.jsp">공지사항</a></li>
+					<li><i class="fa fa-question-circle-o"></i><a href="help.jsp">도움말</a></li>
 
 			<%
 				} else {
 			%>
 					<li><i class="fa fa-sign-in"></i><a href="logout.mem" id="loginState">로그아웃</a></li>
+					<li><i class="fa fa-flag-o"></i><a href="notice.jsp">공지사항</a></li>
+					<li><i class="fa fa-question-circle-o"></i><a href="help.jsp">도움말</a></li>
 					<li><i class="fa fa-user-times"></i><a href="delete.mem" id="loginState">회원탈퇴</a></li>
 			<%
 				}
 			%>
-
-			<li><i class="fa fa-flag-o"></i><a href="notice.jsp">공지사항</a></li>
-			<li><i class="fa fa-question-circle-o"></i><a href="help.jsp">도움말</a></li>
 		</ul>
 	</div>
 </nav>

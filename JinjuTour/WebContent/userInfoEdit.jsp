@@ -112,7 +112,7 @@
             <h2 class="readonly">회원 정보 수정</h2>
         </header>
         <div class="wrap">
-            <form class="input" name="myform" action="edit.mem" method="post">
+            <form class="input" name="myform" action="edit.mem" method="post" onsubmit="return SaveCheck()">
                 <label for="input-join-name" class="readonly">사용자 이름 변경</label>
                 <input type="text" name="name" class="join-name" id="input-join-name" onkeyup="nameCheck()" maxlength="15" pattern="[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,15}" placeholder="사용자 이름 변경 (한글, 2 ~ 15자만 가능)" value=<%=userName %>>
 				<p id="nameCheckText"></p>
@@ -140,9 +140,9 @@
                     <label for="input-phoneNum3" class="readonly">전화번호 입력</label>
                     <input type="text" name="phoneNum3" id="input-phoneNum3" maxlength="4" value=<%=userPhone3 %>>
                 </div>                
+                
+                <input class="join" type="submit" value="저장">
             </form>
-
-            <a class="join" onclick="SaveCheck()" href="#">저장</a>
         </div>
     </section>
     <footer class="footer">

@@ -49,16 +49,14 @@
           <h2 class="readonly">로그인 정보 입력</h2>
       </header>
         <div class="wrap">
-            <form class="input" name="myform" action="login.mem" method="post">
+            <form class="input" name="myform" action="login.mem" method="post" onsubmit="return loginCheck()">
                 
                 <label for="input-id" class="readonly">아이디입력</label>
-                <input type="text" name="id" class="id" id="input-id" maxlength="16" placeholder="아이디">
+                <input type="text" name="id" class="id" id="input-id" maxlength="16" placeholder="아이디" required>
                 <label for="input-pw" class="readonly">비밀번호입력</label>
-                <input type="password" name="pw" class="pw" id="input-pw" maxlength="20" onkeydown="onKeyEnter()" placeholder="비밀번호">
-                
+                <input type="password" name="pw" class="pw" id="input-pw" maxlength="20" onkeydown="onKeyEnter()" placeholder="비밀번호" required>
+                <input class="login" type="submit" value="로그인">
             </form>
-
-            <a class="login" onclick="loginCheck();">로그인</a>
             
             <div class="login-check">
               <!-- <label for="login-checkbox" class="readonly">로그인 상태 유지 체크</label> -->
