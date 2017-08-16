@@ -58,7 +58,7 @@
                 <ul>
                     <li>
                         <a href="trip-view.jsp">
-                            <img class="imgw100" src="images/trip_01.jpg" alt="진주냉면">
+                            <img class="imgw100" src="images/trip_01.jpg" alt="진주성">
                             <span>진주성</span>
                             <div class="count">
                                 <i class="fa fa-heart heartIcon"></i>
@@ -71,7 +71,7 @@
                     </li>
                     <li>
                         <a href="trip-view.jsp">
-                            <img class="imgw100" src="images/trip_01.jpg" alt="진주냉면">
+                            <img class="imgw100" src="images/trip_01.jpg" alt="진주성">
                             <span>진주성</span>
                             <div class="count">
                                 <i class="fa fa-heart heartIcon"></i>
@@ -84,7 +84,7 @@
                     </li>
                     <li>
                         <a href="trip-view.jsp">
-                            <img class="imgw100" src="images/trip_01.jpg" alt="진주냉면">
+                            <img class="imgw100" src="images/trip_01.jpg" alt="진주성">
                             <span>진주성</span>
                             <div class="count">
                                 <i class="fa fa-heart heartIcon"></i>
