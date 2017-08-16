@@ -28,6 +28,12 @@
                 document.myform.submit();    //document는 생략가능
             }
         }
+        
+        function onKeyEnter() {
+        	if(event.keyCode == 13) {
+        		loginCheck();
+        	}
+        }
     </script>
 </head>
 
@@ -48,7 +54,7 @@
                 <label for="input-id" class="readonly">아이디입력</label>
                 <input type="text" name="id" class="id" id="input-id" maxlength="16" placeholder="아이디">
                 <label for="input-pw" class="readonly">비밀번호입력</label>
-                <input type="password" name="pw" class="pw" id="input-pw" maxlength="20" placeholder="비밀번호">
+                <input type="password" name="pw" class="pw" id="input-pw" maxlength="20" onkeydown="onKeyEnter()" placeholder="비밀번호">
                 
             </form>
 
