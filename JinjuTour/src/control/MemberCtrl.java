@@ -121,6 +121,7 @@ public class MemberCtrl extends HttpServlet {
 			session.setAttribute("USERNAME", name);
 			session.setAttribute("USEREMAIL", email);
 			
+			session.setMaxInactiveInterval(600);
 			//3. page 이동
 			sendRedirect(response, "main.jsp");
 			
@@ -152,6 +153,9 @@ public class MemberCtrl extends HttpServlet {
 			session.setAttribute("USERID", id);
 			session.setAttribute("USERNAME", name);
 			session.setAttribute("USEREMAIL", email);
+			
+			//session 유지시간 설정(초단위), 일정 시간뒤 자동 로그아웃
+			session.setMaxInactiveInterval(600);
 			
 			sendRedirect(response, "main.jsp");
 		} else {
