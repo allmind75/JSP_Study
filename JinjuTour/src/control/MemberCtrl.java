@@ -28,6 +28,10 @@ public class MemberCtrl extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private MemDAO dao;
+	
+	//file save
+	private static final int MAX_SIZE = 1024 * 1024 * 10;	//10Mbyte 제한
+	private static final String SAVE_PATH = "C:\\Users\\hybrid\\git\\jsp_study\\JinjuTour\\WebContent\\images\\userImg\\";
 
 	public MemberCtrl() throws IOException {
 		super();
@@ -102,16 +106,10 @@ public class MemberCtrl extends HttpServlet {
 	public void reg(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
-		//file save
-		int maxSize = 1024 * 1024 * 10;	//10Mbyte 제한
-		String savePath = "C:\\Users\\hybrid\\git\\jsp_study\\JinjuTour\\WebContent\\images\\userImg\\";
-		String filePath;
-		
-		MultipartRequest multipartRequest = new MultipartRequest(request, savePath, maxSize, 
-				"UTF-8", new DefaultFileRenamePolicy());
-		
 		//img file upload
-		filePath = fileUpload(request, multipartRequest, savePath);
+		MultipartRequest multipartRequest = new MultipartRequest(request, SAVE_PATH, MAX_SIZE, 
+				"UTF-8", new DefaultFileRenamePolicy());
+		String filePath = fileUpload(request, multipartRequest, SAVE_PATH);
 		
 		String id = multipartRequest.getParameter("id");
 		String pw = multipartRequest.getParameter("pw");
@@ -161,7 +159,7 @@ public class MemberCtrl extends HttpServlet {
 		MemDTOIn list = dao.login(dto);
 		path = dao.selectMemberImg(id);
 		
-		if (list != null && path != null) {
+		if (list != null) {
 			System.out.println("로그인성공 : id - " + id);
 
 			String name = list.getName();
@@ -256,28 +254,47 @@ public class MemberCtrl extends HttpServlet {
 	public void edit(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
+		//img file upload
+		MultipartRequest multipartRequest = new MultipartRequest(request, SAVE_PATH, MAX_SIZE, 
+				"UTF-8", new DefaultFileRenamePolicy());
+		String filePath = fileUpload(request, multipartRequest, SAVE_PATH);
+		
 		HttpSession session = request.getSession();
 
 		String id = (String) session.getAttribute("USERID");
-		String pw = request.getParameter("pw");
-		String name = request.getParameter("name");
-		String phone = request.getParameter("phoneNum1") + request.getParameter("phoneNum2")
-				+ request.getParameter("phoneNum3");
-		String email = request.getParameter("email");
+		String pw = multipartRequest.getParameter("pw");
+		String name = multipartRequest.getParameter("name");
+		String phone = multipartRequest.getParameter("phoneNum1") + multipartRequest.getParameter("phoneNum2")
+				+ multipartRequest.getParameter("phoneNum3");
+		String email = multipartRequest.getParameter("email");
 
 		if (pw.equals("")) {
 			pw = null;
 		}
 
 		MemDTOIn dto = new MemDTOIn(id, pw, name, phone, email);
-
+		MemDTOIn dto2 = new MemDTOIn();
+		
+		dto2.setId(id);
+		dto2.setPath(filePath);
+		
+		//db에 회원사진이 있는지 확인
+		if(dao.selectMemberImg(id) == null) {
+			dao.insertImg(dto2);
+		} else {
+			dao.updateMemberImg(dto2);
+		}
+		
 		if (dao.edit(dto)) {
 
 			session.setAttribute("USERNAME", name);
 			session.setAttribute("USEREMAIL", email);
+			session.setAttribute("USERIMG", filePath);
+			
 			sendRedirect(response, "main.jsp");
 		} else {
 			// 회원정보변경 실패
+			System.out.println("회원정보변경실패");
 		}
 	}
 

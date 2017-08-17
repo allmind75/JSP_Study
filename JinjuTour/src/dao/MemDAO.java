@@ -41,13 +41,12 @@ public class MemDAO {
 
 	public boolean reg(MemDTOIn dto) throws SQLException {
 
-		int result;
 		//openSession(true) : auto commit
 		//MyBatis는 insert, update, delete 후 commit 안함
 		//auto commit을 사용하거나 session.commit() 이용해서 commit
 		SqlSession session = factory.openSession(true);
 		try {
-			result = session.insert("member.insertMember", dto);
+			int result = session.insert("member.insertMember", dto);
 			if (result == 1) {
 				return true;
 			} else {
@@ -71,10 +70,9 @@ public class MemDAO {
 
 	public boolean delete(String id) throws SQLException {
 
-		int result;
 		SqlSession session = factory.openSession(true);
 		try {
-			result = session.delete("member.deleteMember", id);
+			int result = session.delete("member.deleteMember", id);
 			if (result == 1) {
 				return true;
 			} else {
@@ -98,10 +96,9 @@ public class MemDAO {
 
 	public boolean edit(MemDTOIn dto) throws SQLException {
 
-		int result;
 		SqlSession session = factory.openSession(true);
 		try {
-			result = session.update("member.updateEdit", dto);
+			int result = session.update("member.updateEdit", dto);
 			if (result == 1) {
 				return true;
 			} else {
@@ -114,10 +111,9 @@ public class MemDAO {
 	
 	public boolean insertImg(MemDTOIn dto) throws SQLException {
 		
-		int result;
 		SqlSession session = factory.openSession(true);
 		try {
-			result = session.insert("insertMemberImg", dto);
+			int result = session.insert("insertMemberImg", dto);
 			if(result == 1) {
 				return true;
 			} else {
@@ -133,6 +129,21 @@ public class MemDAO {
 		SqlSession session = factory.openSession(true);
 		try {
 			return session.selectOne("selectMemberImg", id);
+		} finally {
+			session.close();
+		}
+	}
+	
+	public boolean updateMemberImg(MemDTOIn dto) throws SQLException {
+		
+		SqlSession session = factory.openSession(true);
+		try {
+			int result = session.update("updateMemberImg", dto);
+			if(result == 1) {
+				return true;
+			} else {
+				return false;
+			}
 		} finally {
 			session.close();
 		}

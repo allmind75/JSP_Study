@@ -144,7 +144,9 @@
             <h2 class="readonly">회원 정보 수정</h2>
         </header>
         <div class="wrap">
-            <form class="input" name="myform" action="edit.mem" method="post" onsubmit="return saveCheck()">
+            <form class="input" name="myform" action="edit.mem" method="post" onsubmit="return saveCheck()" enctype="multipart/form-data">
+            	<input type="file" name="uploadFile" id="uploadFile">
+            	
                 <label for="input-join-name" class="readonly">사용자 이름 변경</label>
                 <input type="text" name="name" class="join-name" id="input-join-name" onkeyup="nameCheck()" maxlength="15" 
                 pattern="[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,15}" placeholder="사용자 이름 변경 (한글, 2 ~ 15자만 가능)" value=<%=userName %>>

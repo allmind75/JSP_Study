@@ -48,6 +48,10 @@
 			</set>
 		WHERE id = #{id};
 	</update>
+	
+	<update id="updateMemberImg" parameterType="dto.MemDTOIn">
+		UPDATE memberImg SET path = #{path} WHERE id = #{id};
+	</update>
 
 </mapper>
 
