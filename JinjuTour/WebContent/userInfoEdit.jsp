@@ -102,7 +102,7 @@
     		email = emailCheck();
     		phone = phoneCheck();
     		
-    		if(pw && name && email &phone) {
+    		if(name && email &phone) {
     			alert("회원정보 수정완료");
     			return true;
     		} else {
