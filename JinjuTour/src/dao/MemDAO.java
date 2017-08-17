@@ -26,7 +26,7 @@ public class MemDAO {
 
 	public boolean idCheck(String id) throws SQLException {
 
-		SqlSession session = factory.openSession(true);
+		SqlSession session = factory.openSession();
 		try {
 			MemDTOIn result = session.selectOne("member.selectIdCheck", id);
 			if (result == null) {
@@ -60,7 +60,7 @@ public class MemDAO {
 
 	public MemDTOIn login(MemDTOIn dto) throws SQLException {
 
-		SqlSession session = factory.openSession(true);
+		SqlSession session = factory.openSession();
 		try {
 			MemDTOIn result = session.selectOne("member.selectLogin", dto);
 			return result;
@@ -87,7 +87,7 @@ public class MemDAO {
 
 	public MemDTOIn loadEdit(String id) throws SQLException {
 
-		SqlSession session = factory.openSession(true);
+		SqlSession session = factory.openSession();
 		try {
 			MemDTOIn result = session.selectOne("member.selectLoadEdit", id);
 			return result;
