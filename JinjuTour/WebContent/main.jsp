@@ -16,7 +16,7 @@
     <link rel="shortcut icon" href="images/size57">
     <link rel="apple-touch-icon" href="images/size57.png">
     <link rel="apple-touch-icon-precomposed" href="images/size114.png">
-
+    
     <script>
         if(navigator.userAgent.match(/iPhone/i)) {
           document.write('<link rel="apple-touch-icon" href="images/size57.png">');

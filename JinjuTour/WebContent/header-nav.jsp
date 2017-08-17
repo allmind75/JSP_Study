@@ -15,6 +15,37 @@
 	String uri = request.getRequestURI().substring(request.getContextPath().length() + 1);
 %>
 
+<!-- ajax -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+	//회원탈퇴 ajax
+	function delUser() {
+		
+		var con = confirm("회원탈퇴를 하시겠습니가?");
+		
+		if(con == true) {
+			$.ajax({
+				type : "GET",
+				url : "delete.mem",
+				dataType : "JSON",
+				error : function() {
+					console.log("ajax 통신실패");
+				}, success : function(data) {
+					
+					if(data.ret == true) {
+						alert("회원탈퇴가 완료되었습니다.");
+						location.reload();
+					} else {
+						
+					}
+				}
+			});
+		}
+		
+		event.preventDefault();
+	}
+</script>
+
 <header class="header">
 	<div class="headerTop">
 		<a class="btn_gnb" id="menu-toggle"><i
@@ -79,7 +110,7 @@
 					<li><i class="fa fa-sign-in"></i><a href="logout.mem" id="loginState">로그아웃</a></li>
 					<li><i class="fa fa-flag-o"></i><a href="notice.jsp">공지사항</a></li>
 					<li><i class="fa fa-question-circle-o"></i><a href="help.jsp">도움말</a></li>
-					<li><i class="fa fa-user-times"></i><a href="delete.mem" id="loginState">회원탈퇴</a></li>
+					<li><i class="fa fa-user-times"></i><a href="#" onclick="delUser()" id="loginState">회원탈퇴</a></li>
 			<%
 				}
 			%>
