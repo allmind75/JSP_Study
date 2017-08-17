@@ -3,7 +3,6 @@ package control;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -138,15 +137,13 @@ public class MemberCtrl extends HttpServlet {
 		String pw = request.getParameter("pw");
 		
 		MemDTOIn dto = new MemDTOIn(id, pw);
-		List list = dao.login(dto);
+		List<MemDTOIn> list = dao.login(dto);
 		
 		if(list != null) {
 			System.out.println("로그인성공 : id - " + id);
-			
-			HashMap map = (HashMap) list.get(0);
-			
-			String name = (String) map.get("name");
-			String email = (String) map.get("email");
+						
+			String name = list.get(0).getName();
+			String email = list.get(0).getEmail();
 						
 			HttpSession session = request.getSession();
 			
@@ -201,12 +198,11 @@ public class MemberCtrl extends HttpServlet {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("USERID");
 		
-		List list = dao.loadEdit(id);
+		List<MemDTOIn> list = dao.loadEdit(id);
 		
 		if(list != null) {
-			HashMap map = (HashMap) list.get(0);
 			
-			String phone = (String) map.get("phone");
+			String phone = list.get(0).getPhone();
 			
 			String phoneNum1 = null;
 			String phoneNum2 = null;
@@ -243,6 +239,10 @@ public class MemberCtrl extends HttpServlet {
 		String phone = request.getParameter("phoneNum1") + request.getParameter("phoneNum2")
 				+ request.getParameter("phoneNum3");
 		String email = request.getParameter("email");
+		
+		if(pw.equals("")) {
+			pw = null;
+		}
 		
 		MemDTOIn dto = new MemDTOIn(id, pw, name, phone, email);
 

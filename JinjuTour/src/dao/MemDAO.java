@@ -17,12 +17,6 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import dto.MemDTOIn;
 
 public class MemDAO {
-
-	private Connection con;
-	private String sql;
-	private Statement stmt;
-	private PreparedStatement pstmt;
-	private ResultSet rs;
 	
 	//MyBatis
 	private SqlSessionFactory factory;
@@ -64,10 +58,10 @@ public class MemDAO {
 		
 	}
 	
-	public List login(MemDTOIn dto) throws SQLException	{
+	public List<MemDTOIn> login(MemDTOIn dto) throws SQLException	{
 		
 		SqlSession session = factory.openSession(true);
-		List result = session.selectList("member.selectLogin", dto);
+		List<MemDTOIn> result = session.selectList("member.selectLogin", dto);
 		session.close();
 		
 		if(result.size() == 1) {
@@ -92,10 +86,10 @@ public class MemDAO {
 		}
 	}
 	
-	public List loadEdit(String id) throws SQLException	{
+	public List<MemDTOIn> loadEdit(String id) throws SQLException	{
 	
 		SqlSession session = factory.openSession(true);
-		List result = session.selectList("member.selectLoadEdit", id);
+		List<MemDTOIn> result = session.selectList("member.selectLoadEdit", id);
 		session.close();
 		
 		if(result.size() == 1) {

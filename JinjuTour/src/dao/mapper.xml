@@ -16,16 +16,16 @@
 		DELETE FROM member WHERE id = #{id};
 	</delete>
 
-	<select id="selectIdCheck" parameterType="String" resultType="hashmap">
+	<select id="selectIdCheck" parameterType="String" resultType="dto.MemDTOIn">
 		SELECT id FROM member WHERE id = #{id};
 	</select>
 
-	<select id="selectLogin" parameterType="dto.MemDTOIn" resultType="hashmap">
+	<select id="selectLogin" parameterType="dto.MemDTOIn" resultType="dto.MemDTOIn">
 		SELECT id, name, email FROM member WHERE
 		id = #{id} and pw = SHA1(#{pw});
 	</select>
 	
-	<select id="selectLoadEdit" parameterType="String" resultType="hashmap">
+	<select id="selectLoadEdit" parameterType="String" resultType="dto.MemDTOIn">
 		SELECT phone FROM member WHERE id = #{id};
 	</select>
 	
