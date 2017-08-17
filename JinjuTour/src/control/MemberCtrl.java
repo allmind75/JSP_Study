@@ -278,15 +278,17 @@ public class MemberCtrl extends HttpServlet {
 		dto2.setId(id);
 		dto2.setPath(filePath);
 		
-		//db에 회원사진이 있는지 확인
-		if(dao.selectMemberImg(id) == null) {
-			dao.insertImg(dto2);
-		} else {
-			dao.updateMemberImg(dto2);
-		}
+
 		
 		if (dao.edit(dto)) {
 
+			//db에 회원사진이 있는지 확인 후 없으면 추가 있으면 바꿈
+			if(dao.selectMemberImg(id) == null) {
+				dao.insertImg(dto2);
+			} else {
+				dao.updateMemberImg(dto2);
+			}
+			
 			session.setAttribute("USERNAME", name);
 			session.setAttribute("USEREMAIL", email);
 			session.setAttribute("USERIMG", filePath);
