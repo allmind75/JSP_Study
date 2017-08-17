@@ -127,4 +127,14 @@ public class MemDAO {
 			session.close();
 		}
 	}
+	
+	public String selectMemberImg(String id) throws SQLException {
+		
+		SqlSession session = factory.openSession(true);
+		try {
+			return session.selectOne("selectMemberImg", id);
+		} finally {
+			session.close();
+		}
+	}
 }

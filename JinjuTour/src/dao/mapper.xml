@@ -34,6 +34,10 @@
 		SELECT phone FROM member WHERE id = #{id};
 	</select>
 	
+	<select id="selectMemberImg" parameterType="String" resultType="String">
+		SELECT path FROM memberImg WHERE id = #{id};
+	</select>
+	
 	<update id="updateEdit" parameterType="dto.MemDTOIn">
 		UPDATE member
 			<set>

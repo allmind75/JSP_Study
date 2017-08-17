@@ -125,7 +125,7 @@ public class MemberCtrl extends HttpServlet {
 		
 		dto2.setId(id);
 		dto2.setPath(filePath);
-		
+		System.out.println(filePath);
 		if (dao.reg(dto) && dao.insertImg(dto2)) {
 			// 회원가입 성공하면 로그인 상태로 만듬
 
@@ -155,11 +155,13 @@ public class MemberCtrl extends HttpServlet {
 
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
-
+		String path;
+		
 		MemDTOIn dto = new MemDTOIn(id, pw);
 		MemDTOIn list = dao.login(dto);
-
-		if (list != null) {
+		path = dao.selectMemberImg(id);
+		
+		if (list != null && path != null) {
 			System.out.println("로그인성공 : id - " + id);
 
 			String name = list.getName();
@@ -170,7 +172,8 @@ public class MemberCtrl extends HttpServlet {
 			session.setAttribute("USERID", id);
 			session.setAttribute("USERNAME", name);
 			session.setAttribute("USEREMAIL", email);
-
+			session.setAttribute("USERIMG", path);
+			
 			// session 유지시간 설정(초단위), 일정 시간뒤 자동 로그아웃
 			session.setMaxInactiveInterval(600);
 
