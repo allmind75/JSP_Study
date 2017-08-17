@@ -111,4 +111,20 @@ public class MemDAO {
 			session.close();
 		}
 	}
+	
+	public boolean insertImg(MemDTOIn dto) throws SQLException {
+		
+		int result;
+		SqlSession session = factory.openSession(true);
+		try {
+			result = session.insert("insertMemberImg", dto);
+			if(result == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		} finally {
+			session.close();
+		}
+	}
 }

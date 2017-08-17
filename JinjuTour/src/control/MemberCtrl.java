@@ -1,8 +1,13 @@
 package control;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.MemDAO;
 import dto.MemDTOIn;
@@ -94,16 +102,31 @@ public class MemberCtrl extends HttpServlet {
 	public void reg(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
-		String name = request.getParameter("name");
-		String phone = request.getParameter("phoneNum1") + request.getParameter("phoneNum2")
-				+ request.getParameter("phoneNum3");
-		String email = request.getParameter("email");
+		//file save
+		int maxSize = 1024 * 1024 * 10;	//10Mbyte 제한
+		String savePath = "C:\\Users\\hybrid\\git\\jsp_study\\JinjuTour\\WebContent\\images\\userImg\\";
+		String filePath;
+		
+		MultipartRequest multipartRequest = new MultipartRequest(request, savePath, maxSize, 
+				"UTF-8", new DefaultFileRenamePolicy());
+		
+		//img file upload
+		filePath = fileUpload(request, multipartRequest, savePath);
+		
+		String id = multipartRequest.getParameter("id");
+		String pw = multipartRequest.getParameter("pw");
+		String name = multipartRequest.getParameter("name");
+		String phone = multipartRequest.getParameter("phoneNum1") + multipartRequest.getParameter("phoneNum2")
+				+ multipartRequest.getParameter("phoneNum3");
+		String email = multipartRequest.getParameter("email");
 
 		MemDTOIn dto = new MemDTOIn(id, pw, name, phone, email);
-
-		if (dao.reg(dto)) {
+		MemDTOIn dto2 = new MemDTOIn();
+		
+		dto2.setId(id);
+		dto2.setPath(filePath);
+		
+		if (dao.reg(dto) && dao.insertImg(dto2)) {
 			// 회원가입 성공하면 로그인 상태로 만듬
 
 			// 1. session 가져옴
@@ -113,8 +136,11 @@ public class MemberCtrl extends HttpServlet {
 			session.setAttribute("USERID", id);
 			session.setAttribute("USERNAME", name);
 			session.setAttribute("USEREMAIL", email);
-
+			session.setAttribute("USERIMG", filePath);
+			
 			session.setMaxInactiveInterval(600);
+			
+			
 			// 3. page 이동
 			sendRedirect(response, "main.jsp");
 
@@ -252,6 +278,60 @@ public class MemberCtrl extends HttpServlet {
 		}
 	}
 
+	
+	public String fileUpload(HttpServletRequest request, MultipartRequest multi, String savePath)
+			throws ServletException, IOException, SQLException {
+		
+		String uploadFileName;
+		String newFileName;
+		
+		int read = 0;
+		byte[] buf = new byte[1024];
+		FileInputStream fin;
+		FileOutputStream fout;
+		long currentTime = System.currentTimeMillis();
+		SimpleDateFormat simDf = new SimpleDateFormat("yyyyMMddHHmmss");
+		
+		try {
+			//파일 업로드
+			uploadFileName = multi.getFilesystemName("uploadFile");
+			
+			//실제 저장할 파일명
+			newFileName = simDf.format(new Date(currentTime)) + "." + 
+					uploadFileName.substring(uploadFileName.lastIndexOf(".") + 1);
+			
+			//업로드된 파일 객체 생성
+			File oldFile = new File(savePath + uploadFileName);
+			
+			//실제 저장될 파일 객체 생성
+			File newFile = new File(savePath + newFileName);
+			
+			if(!oldFile.renameTo(newFile)) {
+				System.out.println("rename");
+				//rename이 되지 않을 경우 강제로 파일 복사하고 기존파일 삭제
+				buf = new byte[1024];
+				fin = new FileInputStream(oldFile);
+				fout = new FileOutputStream(newFile);
+				read = 0;
+				while((read=fin.read(buf, 0, buf.length)) != -1) {
+					fout.write(buf, 0, read);
+				}
+				
+				fin.close();
+				fout.close();
+				oldFile.delete();
+			}
+			
+			System.out.println("newFileName : " + newFileName);
+			System.out.println("uploadFile : " + uploadFileName);
+			
+			return newFileName;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	// request 객체 전달
 	public void forward(HttpServletRequest request, HttpServletResponse response, String view)
 			throws ServletException, IOException {

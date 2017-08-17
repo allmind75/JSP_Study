@@ -12,6 +12,11 @@
 		name = #{name}, phone = #{phone}, email = #{email};
 	</insert>
 	
+	<insert id="insertMemberImg" parameterType="dto.MemDTOIn">
+		INSERT INTO memberImg SET
+		id = #{id}, path = #{path};
+	</insert>
+	
 	<delete id="deleteMember" parameterType="String">
 		DELETE FROM member WHERE id = #{id};
 	</delete>

@@ -5,7 +5,8 @@
 	String userId = (String) session.getAttribute("USERID");
 	String userName = (String) session.getAttribute("USERNAME");
 	String userEmail = (String) session.getAttribute("USEREMAIL");
-
+	String userImg = (String) session.getAttribute("USERIMG");
+	
 	if (userId == null || userName == null || userEmail == null) {
 		userId = "";
 		userName = "";
@@ -43,6 +44,11 @@
 		}
 		event.preventDefault();
 	}
+	
+	window.onload = function() {
+		var path = "<%=userImg%>";
+		document.getElementById("userImg").style.backgroundImage = "url(images/userImg/" + path + ")";
+	}
 </script>
 
 <header class="header">
@@ -74,7 +80,7 @@
 			<a href="main.jsp" id="menu-close" class="btn-close"><i
 				class="fa fa-close"></i></a>
 			<div class="slidebar-wrap">
-				<div class="slidebar-brand"></div>
+				<div id="userImg" class="slidebar-brand"></div>
 				<p class="userName"><%=userName%></p>
 				<p class="userID"><%=userId%></p>
 			</div>

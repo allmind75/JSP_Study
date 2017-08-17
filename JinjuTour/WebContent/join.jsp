@@ -179,6 +179,7 @@
     	function regCheck() {
     		
     		if(validate()) {
+    			//document.fileForm.save.submit();
     			return true;
     		} else {
     			return false;
@@ -198,9 +199,12 @@
         <header>
             <h2 class="readonly">회원가입 정보 입력</h2>
         </header>
+
         <div class="wrap">
-            <form class="input" name="myform" action="reg.mem" method="post" onsubmit="return regCheck()">
-            
+            <form class="input" name="myform" action="reg.mem" method="post" onsubmit="return regCheck()" enctype="multipart/form-data">
+            	
+            	<input type="file" name="uploadFile" id="uploadFile">
+            	
                 <label for="input-join-name" class="readonly">사용자 이름 입력</label>
                 <input type="text" name="name" class="join-name" id="input-join-name" onkeyup="nameCheck()"  maxlength="15" 
                 pattern="[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{2,15}" placeholder="사용자 이름 입력 (한글, 2 ~ 15자만 가능)" required>
