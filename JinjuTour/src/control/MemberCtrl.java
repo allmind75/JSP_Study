@@ -3,7 +3,6 @@ package control;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -195,11 +194,11 @@ public class MemberCtrl extends HttpServlet {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("USERID");
 
-		List<MemDTOIn> list = dao.loadEdit(id);
+		MemDTOIn list = dao.loadEdit(id);
 
 		if (list != null) {
 
-			String phone = list.get(0).getPhone();
+			String phone = list.getPhone();
 
 			String phoneNum1 = null;
 			String phoneNum2 = null;

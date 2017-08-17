@@ -2,12 +2,7 @@ package dao;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -17,100 +12,103 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import dto.MemDTOIn;
 
 public class MemDAO {
-	
-	//MyBatis
+
+	// MyBatis
+	// SqlSessionFactory 한번 생성 뒤 애플리케이션 실행하는 동안 존재해야함
 	private SqlSessionFactory factory;
-	
+
 	public MemDAO() throws IOException {
-		
+
 		String xmlPath = "dao/myBatis-config.xml";
 		Reader read = Resources.getResourceAsReader(xmlPath);
 		factory = new SqlSessionFactoryBuilder().build(read);
 	}
-	
+
 	public boolean idCheck(String id) throws SQLException {
-				
+
 		SqlSession session = factory.openSession(true);
-		List result = session.selectList("member.selectIdCheck", id);
-		session.close();
-		
-		if(result.size() == 1) {
-			return false;
-		} else {
-			return true;
-		}	
-		
+		try {
+			MemDTOIn result = session.selectOne("member.selectIdCheck", id);
+			if (result == null) {
+				return true;
+			} else {
+				return false;
+			}
+		} finally {
+			session.close();
+		}
 	}
-	
+
 	public boolean reg(MemDTOIn dto) throws SQLException {
-		
+
 		int result;
-		
+		//openSession(true) : auto commit
+		//MyBatis는 insert, update, delete 후 commit 안함
+		//auto commit을 사용하거나 session.commit() 이용해서 commit
 		SqlSession session = factory.openSession(true);
-		result = session.insert("member.insertMember", dto);
-		session.close();
-		
-		if(result == 1) {
-			return true;
-		} else {
-			return false;
+		try {
+			result = session.insert("member.insertMember", dto);
+			if (result == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		} finally {
+			session.close();
 		}
-		
 	}
-	
-	public List<MemDTOIn> login(MemDTOIn dto) throws SQLException	{
-		
+
+	public MemDTOIn login(MemDTOIn dto) throws SQLException {
+
 		SqlSession session = factory.openSession(true);
-		List<MemDTOIn> result = session.selectList("member.selectLogin", dto);
-		session.close();
-		
-		if(result.size() == 1) {
+		try {
+			MemDTOIn result = session.selectOne("member.selectLogin", dto);
 			return result;
-		} else {
-			return null;
+		} finally {
+			session.close();
 		}
 	}
-	
+
 	public boolean delete(String id) throws SQLException {
-		
+
 		int result;
-		
 		SqlSession session = factory.openSession(true);
-		result = session.delete("member.deleteMember", id);
-		session.close();
-		
-		if(result == 1) {
-			return true;
-		} else {
-			return false;
+		try {
+			result = session.delete("member.deleteMember", id);
+			if (result == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		} finally {
+			session.close();
 		}
 	}
-	
-	public List<MemDTOIn> loadEdit(String id) throws SQLException	{
-	
+
+	public MemDTOIn loadEdit(String id) throws SQLException {
+
 		SqlSession session = factory.openSession(true);
-		List<MemDTOIn> result = session.selectList("member.selectLoadEdit", id);
-		session.close();
-		
-		if(result.size() == 1) {
+		try {
+			MemDTOIn result = session.selectOne("member.selectLoadEdit", id);
 			return result;
-		} else {
-			return null;
+		} finally {
+			session.close();
 		}
 	}
-	
+
 	public boolean edit(MemDTOIn dto) throws SQLException {
-		
+
+		int result;
 		SqlSession session = factory.openSession(true);
-		int result = session.update("member.updateEdit", dto);
-		session.close();
-		
-		if(result == 1) {
-			return true;
-		} else {
-			return false;
+		try {
+			result = session.update("member.updateEdit", dto);
+			if (result == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		} finally {
+			session.close();
 		}
 	}
-	
-	
 }

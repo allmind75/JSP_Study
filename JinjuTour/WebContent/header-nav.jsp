@@ -29,19 +29,18 @@
 				url : "delete.mem",
 				dataType : "JSON",
 				error : function() {
-					console.log("ajax 통신실패");
+					console.log("ajax error");
 				}, success : function(data) {
 					
 					if(data.ret == true) {
 						alert("회원탈퇴가 완료되었습니다.");
-						location.reload();
+						location.href="main.jsp";
 					} else {
-						
+						alert("회원탈퇴를 할 수 없습니다.");
 					}
 				}
 			});
 		}
-		
 		event.preventDefault();
 	}
 </script>
