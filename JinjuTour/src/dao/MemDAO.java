@@ -109,7 +109,7 @@ public class MemDAO {
 		}
 	}
 	
-	public boolean insertImg(MemDTOIn dto) throws SQLException {
+	public boolean insertMemberImg(MemDTOIn dto) throws SQLException {
 		
 		SqlSession session = factory.openSession(true);
 		try {

@@ -18,12 +18,13 @@ public class MemDTOIn {
 		this.pw = pw;
 	}
 
-	public MemDTOIn(String id, String pw, String name, String phone, String email) {
+	public MemDTOIn(String id, String pw, String name, String phone, String email, String path) {
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
 		this.phone = phone;
 		this.email = email;
+		this.path = path;
 	}
 
 	public String getId() {

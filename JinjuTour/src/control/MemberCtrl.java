@@ -109,7 +109,7 @@ public class MemberCtrl extends HttpServlet {
 		//img file upload
 		MultipartRequest multipartRequest = new MultipartRequest(request, SAVE_PATH, MAX_SIZE, 
 				"UTF-8", new DefaultFileRenamePolicy());
-		String filePath = fileUpload(request, multipartRequest, SAVE_PATH);
+		String path = fileUpload(request, multipartRequest, SAVE_PATH);
 		
 		String id = multipartRequest.getParameter("id");
 		String pw = multipartRequest.getParameter("pw");
@@ -118,13 +118,9 @@ public class MemberCtrl extends HttpServlet {
 				+ multipartRequest.getParameter("phoneNum3");
 		String email = multipartRequest.getParameter("email");
 
-		MemDTOIn dto = new MemDTOIn(id, pw, name, phone, email);
-		MemDTOIn dto2 = new MemDTOIn();
+		MemDTOIn dto = new MemDTOIn(id, pw, name, phone, email, path);
 		
-		dto2.setId(id);
-		dto2.setPath(filePath);
-		System.out.println(filePath);
-		if (dao.reg(dto) && dao.insertImg(dto2)) {
+		if (dao.reg(dto) && dao.insertMemberImg(dto)) {
 			// 회원가입 성공하면 로그인 상태로 만듬
 
 			// 1. session 가져옴
@@ -134,7 +130,7 @@ public class MemberCtrl extends HttpServlet {
 			session.setAttribute("USERID", id);
 			session.setAttribute("USERNAME", name);
 			session.setAttribute("USEREMAIL", email);
-			session.setAttribute("USERIMG", filePath);
+			session.setAttribute("USERIMG", path);
 			
 			session.setMaxInactiveInterval(600);
 			
@@ -257,7 +253,7 @@ public class MemberCtrl extends HttpServlet {
 		//img file upload
 		MultipartRequest multipartRequest = new MultipartRequest(request, SAVE_PATH, MAX_SIZE, 
 				"UTF-8", new DefaultFileRenamePolicy());
-		String filePath = fileUpload(request, multipartRequest, SAVE_PATH);
+		String path = fileUpload(request, multipartRequest, SAVE_PATH);
 		
 		HttpSession session = request.getSession();
 
@@ -272,26 +268,20 @@ public class MemberCtrl extends HttpServlet {
 			pw = null;
 		}
 
-		MemDTOIn dto = new MemDTOIn(id, pw, name, phone, email);
-		MemDTOIn dto2 = new MemDTOIn();
-		
-		dto2.setId(id);
-		dto2.setPath(filePath);
-		
-
-		
+		MemDTOIn dto = new MemDTOIn(id, pw, name, phone, email, path);
+	
 		if (dao.edit(dto)) {
 
 			//db에 회원사진이 있는지 확인 후 없으면 추가 있으면 바꿈
 			if(dao.selectMemberImg(id) == null) {
-				dao.insertImg(dto2);
+				dao.insertMemberImg(dto);
 			} else {
-				dao.updateMemberImg(dto2);
+				dao.updateMemberImg(dto);
 			}
 			
 			session.setAttribute("USERNAME", name);
 			session.setAttribute("USEREMAIL", email);
-			session.setAttribute("USERIMG", filePath);
+			session.setAttribute("USERIMG", path);
 			
 			sendRedirect(response, "main.jsp");
 		} else {
