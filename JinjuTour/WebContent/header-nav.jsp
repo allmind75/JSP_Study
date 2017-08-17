@@ -47,7 +47,12 @@
 	
 	window.onload = function() {
 		var path = "<%=userImg%>";
-		document.getElementById("userImg").style.backgroundImage = "url(images/userImg/" + path + ")";
+		console.log(path);
+		if(path != 'null') {
+			document.getElementById("userImg").style.backgroundImage = "url(images/userImg/" + path + ")";
+		} else {
+			document.getElementById("userImg").style.backgroundImage = "url(images/userImg/default.png)";
+		}
 	}
 </script>
 
