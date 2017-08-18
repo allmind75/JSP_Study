@@ -103,7 +103,6 @@
     		phone = phoneCheck();
     		
     		if(name && email &phone) {
-    			alert("회원정보 수정완료");
     			return true;
     		} else {
     			if(!pw) alert("비밀번호가 맞는지 확인해주세요.");
@@ -113,9 +112,25 @@
     		}
     	}
     	
+    	function CheckFileType() {
+    		var file = document.getElementById("file").value;
+    		var idx = file.lastIndexOf(".");
+    		var ext = file.substring(idx).toLowerCase();
+			
+    		console.log(ext);
+    		if (ext == ".jpg" || ext == ".bmp" || ext == ".png") {
+    			return true;
+    		} else {
+    			alert("업로드 할 수 없는 파일 형식입니다. (jpg, bmp, png 파일을 선택해주세요)");
+    			return false;
+    		}
+    		return false;
+    	}
+    	
     	function saveCheck() {
     		
-    		if(validate()) {
+    		if(validate() && CheckFileType()) {
+    			alert("회원정보 수정완료");
     			return true;
     		} else {
     			return false;
@@ -145,7 +160,7 @@
         </header>
         <div class="wrap">
             <form class="input" name="myform" action="edit.mem" method="post" onsubmit="return saveCheck()" enctype="multipart/form-data">
-            	<input type="file" name="uploadFile" id="uploadFile">
+            	<input id="file" type="file" name="uploadFile" id="uploadFile">
             	
                 <label for="input-join-name" class="readonly">사용자 이름 변경</label>
                 <input type="text" name="name" class="join-name" id="input-join-name" onkeyup="nameCheck()" maxlength="15" 

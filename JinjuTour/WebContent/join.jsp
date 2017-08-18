@@ -132,7 +132,7 @@
 		}
 		
 		function phoneCheck() {
-			console.log("phoneCheck");
+			
 			var phone2Reg = /[0-9]{3,4}$/;
 			var phone3Reg = /[0-9]{4}$/;
 			var phone2 = document.getElementById("input-phoneNum2").value;
@@ -165,7 +165,6 @@
     		phone = phoneCheck();
     		
     		if(id && pw && name && email &phone) {
-    			alert("회원가입성공");
     			return true;
     		} else {
     			if(!id) alert("아이디 중복검사 또는 형식을 확인해주세요.");
@@ -176,15 +175,31 @@
     		}
     	}
     	
+    	function CheckFileType() {
+    		var file = document.getElementById("file").value;
+    		var idx = file.lastIndexOf(".");
+    		var ext = file.substring(idx).toLowerCase();
+			
+    		console.log(ext);
+    		if (ext == ".jpg" || ext == ".bmp" || ext == ".png") {
+    			return true;
+    		} else {
+    			alert("업로드 할 수 없는 파일 형식입니다. (jpg, bmp, png 파일을 선택해주세요)");
+    			return false;
+    		}
+    		return false;
+    	}
+    	
     	function regCheck() {
     		
-    		if(validate()) {
-    			//document.fileForm.save.submit();
+    		if(validate() && CheckFileType()) {
+    			alert("회원가입성공");
     			return true;
     		} else {
     			return false;
     		}
     	}
+   
     </script>
 </head>
 
@@ -203,7 +218,7 @@
         <div class="wrap">
             <form class="input" name="myform" action="reg.mem" method="post" onsubmit="return regCheck()" enctype="multipart/form-data">
             	
-            	<input type="file" name="uploadFile" id="uploadFile">
+            	<input id="file" type="file" name="uploadFile" id="uploadFile">
             	
                 <label for="input-join-name" class="readonly">사용자 이름 입력</label>
                 <input type="text" name="name" class="join-name" id="input-join-name" onkeyup="nameCheck()"  maxlength="15" 
@@ -237,9 +252,9 @@
                       <option value="017">017</option>
                     </select>
                     <label for="input-phoneNum2" class="readonly">전화번호 입력</label>
-                    <input type="text" name="phoneNum2" id="input-phoneNum2" maxlength="4" required>
+                    <input type="text" name="phoneNum2" id="input-phoneNum2" maxlength="4" pattern="[0-9]*" required>
                     <label for="input-phoneNum3" class="readonly">전화번호 입력</label>
-                    <input type="text" name="phoneNum3" id="input-phoneNum3" maxlength="4" required>
+                    <input type="text" name="phoneNum3" id="input-phoneNum3" maxlength="4" pattern="[0-9]*" required>
                 </div>
                 
                 <input class="join" type="submit" value="회원가입">
