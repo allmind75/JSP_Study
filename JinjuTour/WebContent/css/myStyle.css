@@ -126,7 +126,7 @@ table {border-collapse: collapse; border-spacing: 0;}
   position: fixed; left: 0; top: 0; z-index: 9998;
 }*/
 #slidebar-wrapper #nav-wrapper {display: block;}
-#slidebar-wrapper .nav-top{width: 100%; height: 220px; background: #03c3c7;}
+#slidebar-wrapper .nav-top{width: 100%; height: 220px; background: #616b6b;}
 #slidebar-wrapper .btn-close {float: right; color: #fff; font-size: 25px; padding: 12px;}
 #slidebar-wrapper .slidebar-wrap {padding: 57px 0 30px 16px; }
 #slidebar-wrapper .slidebar-brand {float: left; width: 110px; height: 110px; border-radius: 100%; border: 2px solid #fff; margin-right: 22px; background: url(../images/user.jpg) no-repeat center center; background-size: cover;}
