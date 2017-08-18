@@ -97,7 +97,7 @@
 			<%
 				} else {
 			%>
-					<a href="loadEdit.mem" class="userEdit"><i class="fa fa-edit"></i></a>
+					<a href="loadMod.mem" class="userEdit"><i class="fa fa-edit"></i></a>
 			<%
 				}
 			%>

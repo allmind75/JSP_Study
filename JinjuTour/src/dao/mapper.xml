@@ -30,7 +30,7 @@
 		id = #{id} and pw = SHA1(#{pw});
 	</select>
 	
-	<select id="selectLoadEdit" parameterType="String" resultType="dto.MemDTOIn">
+	<select id="selectLoadMod" parameterType="String" resultType="dto.MemDTOIn">
 		SELECT phone FROM member WHERE id = #{id};
 	</select>
 	
@@ -38,7 +38,7 @@
 		SELECT path FROM memberImg WHERE id = #{id};
 	</select>
 	
-	<update id="updateEdit" parameterType="dto.MemDTOIn">
+	<update id="updateMod" parameterType="dto.MemDTOIn">
 		UPDATE member
 			<set>
 				<if test="pw != null">pw = SHA1(#{pw}),</if>

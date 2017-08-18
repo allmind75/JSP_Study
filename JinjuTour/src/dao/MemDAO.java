@@ -83,22 +83,22 @@ public class MemDAO {
 		}
 	}
 
-	public MemDTOIn loadEdit(String id) throws SQLException {
+	public MemDTOIn loadMod(String id) throws SQLException {
 
 		SqlSession session = factory.openSession();
 		try {
-			MemDTOIn result = session.selectOne("member.selectLoadEdit", id);
+			MemDTOIn result = session.selectOne("member.selectLoadMod", id);
 			return result;
 		} finally {
 			session.close();
 		}
 	}
 
-	public boolean edit(MemDTOIn dto) throws SQLException {
+	public boolean mod(MemDTOIn dto) throws SQLException {
 
 		SqlSession session = factory.openSession(true);
 		try {
-			int result = session.update("member.updateEdit", dto);
+			int result = session.update("member.updateMod", dto);
 			if (result == 1) {
 				return true;
 			} else {

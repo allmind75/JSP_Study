@@ -72,7 +72,7 @@
 		}
     	
 		function phoneCheck() {
-			console.log("phoneCheck");
+			
 			var phone2Reg = /[0-9]{3,4}$/;
 			var phone3Reg = /[0-9]{4}$/;
 			var phone2 = document.getElementById("input-phoneNum2").value;
@@ -118,7 +118,7 @@
     		var ext = file.substring(idx).toLowerCase();
 			
     		console.log(ext);
-    		if (ext == ".jpg" || ext == ".bmp" || ext == ".png") {
+    		if (ext == ".jpg" || ext == ".bmp" || ext == ".png" || ext == "") {
     			return true;
     		} else {
     			alert("업로드 할 수 없는 파일 형식입니다. (jpg, bmp, png 파일을 선택해주세요)");
@@ -159,7 +159,7 @@
             <h2 class="readonly">회원 정보 수정</h2>
         </header>
         <div class="wrap">
-            <form class="input" name="myform" action="edit.mem" method="post" onsubmit="return saveCheck()" enctype="multipart/form-data">
+            <form class="input" name="myform" action="mod.mem" method="post" onsubmit="return saveCheck()" enctype="multipart/form-data">
             	<input id="file" type="file" name="uploadFile" id="uploadFile">
             	
                 <label for="input-join-name" class="readonly">사용자 이름 변경</label>
