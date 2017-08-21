@@ -11,7 +11,7 @@
 
     <script>
         function writeCheck() {
-
+			return true;
         }
     </script>
 </head>
@@ -65,27 +65,39 @@
 
     <div class="adminbox">
 
-        <form class="input" name="myform" action="member.html" method="get" enctype="multipart/form-data">
+        <form class="input" name="myform" action="trip.admin" method="post" enctype="multipart/form-data" onsubmit="return writeCheck()">
             <ul>
                 <li>
-                    <label for="input-id" class="readonly">관광지 이름 입력</label>
-                    <input type="text" name="id" class="id" id="input-id" placeholder="관광지 이름 입력">
+                    <label for="input-title" class="readonly">관광지 이름 입력</label>
+                    <input type="text" name="title" class="id" id="input-title" placeholder="관광지 이름 입력">
                 </li>
                 <li>
-                    <label for="input-pw" class="readonly">관광지 정보 입력</label>
-                    <textarea name="content" placeholder="관광지 정보 입력"></textarea>
+                    <label for="input-content" class="readonly">관광지 설명 입력</label>
+                    <textarea name="content" id="content" placeholder="관광지 설명 입력"></textarea>
                 </li>
                 <li>
-                    <label for="input-pw" class="readonly">관광지 주소 입력</label>
-                    <input type="password" name="pw" class="pw" id="input-pw" placeholder="관광지 주소 입력">
+                    <label for="input-address" class="readonly">관광지 주소 입력</label>
+                    <input type="text" name="address" class="id" id="input-address" placeholder="관광지 주소 입력">
+                </li>
+                 <li>
+                    <label for="input-phone" class="readonly">관광지 연락처 입력</label>
+                    <input type="text" name="phone" class="id" id="input-phone" placeholder="관광지 연락처 입력">
                 </li>
                 <li>
-                    <label for="input-img" class="filebox">관광지 사진 업로드</label>
-                    <input type="file" name="input-img" id="input-img">
+                    <label for="input-time" class="readonly">관광지 이용시간 입력</label>
+                    <input type="text" name="time" class="id" id="input-time" placeholder="관광지 이용시간 입력">
+                </li> 
+                 <li>
+                    <label for="input-map" class="readonly">구글 지도 경로 입력</label>
+                    <input type="text" name="map" class="id" id="input-map" placeholder="구글 지도 경로 입력">
+                </li>                                             
+                <li>
+                    <label for="input-img" class="filebox">관광지 사진</label>
+                    <input type="file" name="img" id="input-img">
                 </li>
                 <li>
-                    <button type="button" onClick="javascript:writeCheck();" class="write-save">저장</button>
-                    <button type="button" onClick="javascript:history.back();" class="write-cancel">취소</button>    <!--history.back() : 뒤로가기-->
+                    <input type="submit" class="write-save" value="저장">
+                    <input type="reset" class="write-save write-cancel" value="리셋">
                 </li>
             </ul>
         </form>

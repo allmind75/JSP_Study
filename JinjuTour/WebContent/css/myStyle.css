@@ -299,8 +299,8 @@ input[type=submit] {-webkit-appearance:none;}
 .adminbox textarea {width: 100%; height: 200px; resize: none; border: 1px solid #ccc; border-radius: 3px; padding: 5px; font-family: "Nanum-Gothic";} /* resize: none (사용자가 크기변경 못하게함)*/
 .adminbox ul li label.filebox {width: 100%; display: inline-block; padding: 12px 20px; color: #fff; background: #9e9e9e; font-size: 16px; text-align: center; line-height: normal; vertical-align: middle; cursor: pointer; border: 1px solid #ccc;  border-radius: 3px;}
 .adminbox ul li input[type="file"] {position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;}
-.adminbox button {width: 49%; height: 50px; margin: 30px 0; background: #03c3c7; color: #fff; border: 1px solid #ccc; border-radius: 3px; font-size: 16px;}
-.adminbox button.write-cancel {background: #fb5b5b;}
+.adminbox .write-save {width: 49%; height: 50px; margin: 30px 0; background: #03c3c7; color: #fff; border: 1px solid #ccc; border-radius: 3px; font-size: 16px; cursor: pointer;}
+.adminbox .write-cancel {background: #fb5b5b;}
 
 
 

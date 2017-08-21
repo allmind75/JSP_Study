@@ -9,5 +9,11 @@
 	<select id="selectLogin" parameterType="dto.AdminDTOIn" resultType="dto.AdminDTOIn">
 		SELECT * FROM admin WHERE id = #{id} and pw = SHA1(#{pw});
 	</select>
+	
+	<insert id="insertTrip" parameterType="dto.BoardTripDTOIn">
+		INSERT INTO board_trip SET
+		title = #{title}, content = #{content}, address = #{address},
+		phone = #{phone}, time = #{time}, img = #{img}, map = #{map};		
+	</insert>
 </mapper>
 

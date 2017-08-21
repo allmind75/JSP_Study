@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import dto.AdminDTOIn;
+import dto.BoardTripDTOIn;
 
 public class AdminDAO {
 
@@ -28,6 +29,21 @@ public class AdminDAO {
 			AdminDTOIn result = session.selectOne("admin.selectLogin", dto);
 
 			if(result != null) {
+				return true;
+			} else {
+				return false;
+			}
+		} finally {
+			session.close();
+		}
+	}
+	
+	public boolean insertTrip(BoardTripDTOIn dto) throws SQLException {
+		
+		SqlSession session = factory.openSession(true);
+		try {
+			int result = session.insert("admin.insertTrip", dto);
+			if(result == 1) {
 				return true;
 			} else {
 				return false;
