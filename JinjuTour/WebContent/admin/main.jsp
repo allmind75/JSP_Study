@@ -32,15 +32,14 @@
     <nav id="slidebar-wrapper">
         <div id="nav-wrapper">
             <div class="nav-top">
-                <a href="main.html" id="menu-close" class="btn-close"><i class="fa fa-close"></i></a>
+                <a href="main.jsp" id="menu-close" class="btn-close"><i class="fa fa-close"></i></a>
             </div>
             <ul class="sidebar-nav">
-                <li><i class="fa fa-home active"></i><a href="main.html">HOME</a></li>
+                <li><i class="fa fa-home active"></i><a href="main.jsp">HOME</a></li>
                 <!--<li><i class="fa fa-user-plus "></i><a href="member.html">로그아웃</a></li>-->
-                <li><i class="fa fa-flag-o"></i><a href="main.html">관광지</a></li>
+                <li><i class="fa fa-flag-o"></i><a href="#">관광지</a></li>
                 <li><i class="fa fa-question-circle-o"></i><a href="#">맛집</a></li>
                 <li><i class="fa fa-question-circle-o"></i><a href="#">특산물</a></li>
-                <li><i class="fa fa-gear"></i><a href="setting.html">설정</a></li>
             </ul>
 
         </div>
@@ -82,60 +81,6 @@
                     <td>2017-05-27</td>
                     <td>75</td>
                 </tr>
-                <tr>
-                    <td>42</td>
-                    <td>진주성</td>
-                    <td>2017-05-27</td>
-                    <td>75</td>
-                </tr>
-                <tr>
-                    <td>43</td>
-                    <td>진주성</td>
-                    <td>2017-05-27</td>
-                    <td>75</td>
-                </tr>
-                <tr>
-                    <td>43</td>
-                    <td>진주성</td>
-                    <td>2017-05-27</td>
-                    <td>75</td>
-                </tr>
-                <tr>
-                    <td>43</td>
-                    <td>진주성</td>
-                    <td>2017-05-27</td>
-                    <td>75</td>
-                </tr>
-                <tr>
-                    <td>43</td>
-                    <td>진주성</td>
-                    <td>2017-05-27</td>
-                    <td>75</td>
-                </tr>
-                <tr>
-                    <td>43</td>
-                    <td>진주성</td>
-                    <td>2017-05-27</td>
-                    <td>75</td>
-                </tr>
-                <tr>
-                    <td>43</td>
-                    <td>진주성</td>
-                    <td>2017-05-27</td>
-                    <td>75</td>
-                </tr>
-                <tr>
-                    <td>43</td>
-                    <td>진주성</td>
-                    <td>2017-05-27</td>
-                    <td>75</td>
-                </tr>
-                <tr>
-                    <td>43</td>
-                    <td>진주성</td>
-                    <td>2017-05-27</td>
-                    <td>75</td>
-                </tr>
             </tbody>
         </table>
         <div class="paging">
@@ -145,7 +90,7 @@
             <a href="#">
                 <i class="fa fa-angle-double-right"></i>
             </a>
-            <a href="write.html" class="write-btn">글쓰기</a>
+            <a href="write.jsp" class="write-btn">글쓰기</a>
         </div>
     </div>
 
@@ -157,11 +102,11 @@
     <script>
         $("#menu-toggle").click(function(e) {
             e.preventDefault();
-            $("#slidebar-wrapper").toggleClass("active");
+            $("#slidebar-wrapper").toggleClass("active-nav");
         });
         $("#menu-close").click(function(e) {
             e.preventDefault();
-            $("#slidebar-wrapper").toggleClass("active");
+            $("#slidebar-wrapper").toggleClass("active-nav");
         });
 
         $(".btn_search").click(function(e) {

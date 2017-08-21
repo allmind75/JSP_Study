@@ -21,10 +21,10 @@
                     myform.pw.focus();
                 }
 
-                return;
+                return false;
             } else {
                 //id, pw 서버로 전송
-                document.myform.submit(); //document는 생략가능
+                return true;
             }
         }
     </script>
@@ -42,14 +42,13 @@
             <h2 class="readonly">로그인 정보 입력</h2>
         </header>
         <div class="wrap">
-            <form class="input" name="myform" action="main.jsp" method="get" enctype="multipart/form-data">
+            <form class="input" name="myform" action="login.admin" method="post" onsubmit="return loginCheck()">
                 <label for="input-id" class="readonly">아이디입력</label>
-                <input type="text" name="id" class="id" id="input-id" placeholder="아이디">
+                <input type="text" name="id" class="id" id="input-id" placeholder="아이디" required autofocus>
                 <label for="input-pw" class="readonly">비밀번호입력</label>
-                <input type="password" name="pw" class="pw" id="input-pw" placeholder="비밀번호">
+                <input type="password" name="pw" class="pw" id="input-pw" placeholder="비밀번호" required>
+                <input class="login" type="submit" value="로그인">
             </form>
-
-            <a class="login" onClick="javascript:loginCheck();">로그인</a>
 
             <ul class="admin-ul">
                 <li><a href="#">아이디 찾기</a></li>

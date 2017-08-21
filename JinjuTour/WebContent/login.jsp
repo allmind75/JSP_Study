@@ -22,10 +22,10 @@
                     myform.pw.focus();
                 }
 
-                return;
+                return false;
             } else {
                 //id, pw 서버로 전송
-                //document.myform.submit();    //document는 생략가능
+                return true;
             }
         }
         /*
@@ -52,7 +52,7 @@
             <form class="input" name="myform" action="login.mem" method="post" onsubmit="return loginCheck()">
                 
                 <label for="input-id" class="readonly">아이디입력</label>
-                <input type="text" name="id" class="id" id="input-id" maxlength="16" placeholder="아이디" required>
+                <input type="text" name="id" class="id" id="input-id" maxlength="16" placeholder="아이디" required autofocus>
                 <label for="input-pw" class="readonly">비밀번호입력</label>
                 <input type="password" name="pw" class="pw" id="input-pw" maxlength="20" placeholder="비밀번호" required>
                 <input class="login" type="submit" value="로그인">

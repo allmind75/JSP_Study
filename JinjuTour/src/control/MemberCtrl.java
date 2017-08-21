@@ -172,7 +172,7 @@ public class MemberCtrl extends HttpServlet {
 			session.setAttribute("USEREMAIL", email);
 			session.setAttribute("USERIMG", path);
 
-			// session 유지시간 설정(초단위), 일정 시간뒤 자동 로그아웃
+			// session 유지시간 설정(초단위) 600 = 10분, 일정 시간뒤 자동 로그아웃
 			session.setMaxInactiveInterval(600);
 
 			sendRedirect(response, "main.jsp");

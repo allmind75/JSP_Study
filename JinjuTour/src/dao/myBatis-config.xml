@@ -28,6 +28,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<!-- SQL 매핑, xml 등록 -->
 	<mappers>
 		<mapper resource="dao/mapper.xml" />
+		<mapper resource="dao/mapperAdmin.xml"></mapper>
 	</mappers>
-
 </configuration>
