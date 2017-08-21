@@ -9,6 +9,8 @@ section, article, nav, aside, footer, header {display: block;}
 ol, ul {list-style: none;}
 a {text-decoration: none; font-size: 14px; color: #545454; cursor: pointer;}
 table {border-collapse: collapse; border-spacing: 0;}
+/* ios 기본 스타일 제거*/
+input[type=submit] {-webkit-appearance:none;}
 
 /* common css*/
 .readonly {text-indent:-9999px; display: none;} /*글자숨기기*/

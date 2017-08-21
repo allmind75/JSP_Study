@@ -38,6 +38,9 @@ ol, ul {list-style: none;}
 a {text-decoration: none; font-size: 14px; color: #373737; cursor: pointer;}
 table {border-collapse: collapse; border-spacing: 0;}
 strong {font-size: 14px; color: #373737}
+/* ios 기본 스타일 제거*/
+input[type=submit] {-webkit-appearance:none;}
+
 /* common css*/
 .imgw100 {width: 100%;}
 .imgm100 {max-width: 100%;}
