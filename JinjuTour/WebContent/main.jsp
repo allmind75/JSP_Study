@@ -29,7 +29,7 @@
         } else if(navigator.userAgent.match(/Android/i)) {
           document.write('<link rel="shorcut icon" href="images/size72.png">');
         }
-    </script>
+</script>
 
 </head>
 

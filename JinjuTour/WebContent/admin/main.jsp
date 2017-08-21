@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="adminCheck.jsp" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -12,19 +14,10 @@
 </head>
 
 <body>
-	<%
-		String adminId = (String) session.getAttribute("ADMINID");
-		String adminName = (String) session.getAttribute("ADMINNAME");
-		
-		if(adminId == null || adminName == null) {
-			adminId = "";
-			adminName = "";
-		}
-	%>
     <header class="header">
         <div class="headerTop">
             <a href="#" class="btn_gnb" id="menu-toggle"><i class="fa fa-navicon headericon"></i></a>
-            <h1 class="logo"><a href="main.html">진주투어</a></h1>
+            <h1 class="logo"><a href="main.jsp">진주투어</a></h1>
             <a href="#" class="btn_search"><i class="fa fa-search headericon"></i></a>
         </div>
         <div class="bar-search">
@@ -48,35 +41,10 @@
 					<p class="userName"><%=adminName%></p>
 					<p class="userID"><%=adminId%></p>
 				</div>
-	
-				<%
-					if (adminId == null || adminId == "") {
-				%>
-						
-				<%
-					} else {
-				%>
-						<a href="loadMod.mem" class="userEdit"><i class="fa fa-edit"></i></a>
-				<%
-					}
-				%>
 			</div>
 			<ul class="sidebar-nav">
-				<li><i class="fa fa-home active"></i><a href="main.jsp">HOME</a></li>
-	
-				<%
-					if (adminId == null || adminId == "") {
-				%>
-	
-						<li><i class="fa fa-sign-in"></i><a href="index.jsp"id="loginState">로그인</a></li>	
-				<%
-					} else {
-				%>
-						<li><i class="fa fa-sign-in"></i><a href="logout.admin" id="loginState">로그아웃</a></li>
-						<li><i class="fa fa-user-times"></i><a href="#" onclick="delUser()" id="loginState">회원탈퇴</a></li>
-				<%
-					}
-				%>
+				<li><i class="fa fa-home active"></i><a href="/JinjuTour/admin/main.jsp">HOME</a></li>
+				<li><i class="fa fa-sign-in"></i><a href="logout.admin" id="loginState">로그아웃</a></li>
 		</ul>
         </div>
     </nav>
@@ -86,9 +54,9 @@
                 <h2 class="readonly">탭메뉴</h2>
             </header>
             <ul>
-                <li class="active"><a href="main.html">관광지</a></li>
-                <li><a href="../food.html">맛집</a></li>
-                <li><a href="../product.html">특산물</a></li>
+                <li class="active"><a href="/JinjuTour/admin/main.jsp">관광지</a></li>
+                <li><a href="/JinjuTour/admin/food.jsp">맛집</a></li>
+                <li><a href="/JinjuTour/admin/product.jsp">특산물</a></li>
             </ul>
         </div>
     </section>
