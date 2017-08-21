@@ -12,6 +12,15 @@
 </head>
 
 <body>
+	<%
+		String adminId = (String) session.getAttribute("ADMINID");
+		String adminName = (String) session.getAttribute("ADMINNAME");
+		
+		if(adminId == null || adminName == null) {
+			adminId = "";
+			adminName = "";
+		}
+	%>
     <header class="header">
         <div class="headerTop">
             <a href="#" class="btn_gnb" id="menu-toggle"><i class="fa fa-navicon headericon"></i></a>
@@ -32,16 +41,43 @@
     <nav id="slidebar-wrapper">
         <div id="nav-wrapper">
             <div class="nav-top">
-                <a href="main.jsp" id="menu-close" class="btn-close"><i class="fa fa-close"></i></a>
-            </div>
-            <ul class="sidebar-nav">
-                <li><i class="fa fa-home active"></i><a href="main.jsp">HOME</a></li>
-                <!--<li><i class="fa fa-user-plus "></i><a href="member.html">로그아웃</a></li>-->
-                <li><i class="fa fa-flag-o"></i><a href="#">관광지</a></li>
-                <li><i class="fa fa-question-circle-o"></i><a href="#">맛집</a></li>
-                <li><i class="fa fa-question-circle-o"></i><a href="#">특산물</a></li>
-            </ul>
-
+				<a href="main.jsp" id="menu-close" class="btn-close"><i
+					class="fa fa-close"></i></a>
+				<div class="slidebar-wrap">
+					<div id="userImg" class="slidebar-brand"></div>
+					<p class="userName"><%=adminName%></p>
+					<p class="userID"><%=adminId%></p>
+				</div>
+	
+				<%
+					if (adminId == null || adminId == "") {
+				%>
+						
+				<%
+					} else {
+				%>
+						<a href="loadMod.mem" class="userEdit"><i class="fa fa-edit"></i></a>
+				<%
+					}
+				%>
+			</div>
+			<ul class="sidebar-nav">
+				<li><i class="fa fa-home active"></i><a href="main.jsp">HOME</a></li>
+	
+				<%
+					if (adminId == null || adminId == "") {
+				%>
+	
+						<li><i class="fa fa-sign-in"></i><a href="index.jsp"id="loginState">로그인</a></li>	
+				<%
+					} else {
+				%>
+						<li><i class="fa fa-sign-in"></i><a href="logout.admin" id="loginState">로그아웃</a></li>
+						<li><i class="fa fa-user-times"></i><a href="#" onclick="delUser()" id="loginState">회원탈퇴</a></li>
+				<%
+					}
+				%>
+		</ul>
         </div>
     </nav>
     <section class="admin_tap_bar">

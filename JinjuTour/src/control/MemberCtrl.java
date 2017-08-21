@@ -188,10 +188,7 @@ public class MemberCtrl extends HttpServlet {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("USERID");
 
-		if (id == null) {
-			// 로그인상태가 아니면 login.jsp로 이동
-			sendRedirect(response, "login.jsp");
-		} else {
+		if (id != null) {
 			session.invalidate();
 			sendRedirect(response, "main.jsp");
 		}

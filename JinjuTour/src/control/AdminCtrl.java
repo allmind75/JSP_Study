@@ -42,6 +42,9 @@ public class AdminCtrl extends HttpServlet {
 			case "login.admin":
 				login(request, response);
 				break;
+			case "logout.admin":
+				logout(request, response);
+				break;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -64,7 +67,8 @@ public class AdminCtrl extends HttpServlet {
 		if (dao.login(dto)) {
 			
 			HttpSession session = request.getSession();
-			session.setAttribute("ADMINID", id);			
+			session.setAttribute("ADMINID", id);
+			session.setAttribute("ADMINNAME", "관리자");
 			session.setMaxInactiveInterval(600);
 			
 			sendRedirect(response, "main.jsp");
@@ -72,6 +76,18 @@ public class AdminCtrl extends HttpServlet {
 			//로그인 실패
 		}
 
+	}
+	
+	public void logout(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+		
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("ADMINID");
+		
+		if(id != null) {
+			session.invalidate();
+			sendRedirect(response, "main.jsp");
+		}
 	}
 
 	public static String parseCommand(HttpServletRequest request) {

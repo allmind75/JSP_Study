@@ -132,7 +132,7 @@ input[type=submit] {-webkit-appearance:none;}
 #slidebar-wrapper .nav-top{width: 100%; height: 220px; background: #616b6b;}
 #slidebar-wrapper .btn-close {float: right; color: #fff; font-size: 25px; padding: 12px;}
 #slidebar-wrapper .slidebar-wrap {padding: 57px 0 30px 16px; }
-#slidebar-wrapper .slidebar-brand {float: left; width: 110px; height: 110px; border-radius: 100%; border: 2px solid #fff; margin-right: 22px; background: url(../images/user.jpg) no-repeat center center; background-size: cover;}
+#slidebar-wrapper .slidebar-brand {float: left; width: 110px; height: 110px; border-radius: 100%; border: 2px solid #fff; margin-right: 22px; background: url(../images/userImg/default.png) no-repeat center center; background-size: cover;}
 #slidebar-wrapper .userName {padding: 30px 0 10px 0; font-size: 16px; color: #fff}
 #slidebar-wrapper .userID {font-size: 16px; color: #fff;}
 #slidebar-wrapper .userMail {font-size: 16px; color: #fff; padding: 15px 0 0 16px; float: left;}
@@ -232,15 +232,19 @@ input[type=submit] {-webkit-appearance:none;}
 
 .contents {overflow: hidden;}
 .tab1_cont { clear: both; padding: 10px 8px;}
-.tab1_cont ul li {width: 48.7804%; height: 100%;; float: left; background: #f7f7f7; text-align: center; margin-bottom: 2.4%;}
-.tab1_cont ul li:nth-child(odd){margin-right: 2.439024%;}
+.tab1_cont > ul > li {width: 48.7804%; height: 100%;; float: left; background: #f7f7f7; text-align: center; margin-bottom: 2.4%;}
+.tab1_cont > ul > li:nth-child(odd){margin-right: 2.439024%;}
 .tab1_cont img {padding: 5px;}
 .tab1_cont span {display: block; font-size: 16px; color: #363636; font-weight: bold; margin: 3px 0;}
-.tab1_cont  ul li a > p {height: 75px; font-size: 0.85em; padding: 0px 5px 5px; color: #373737; letter-spacing: -0.3px; text-align: justify; line-height:140%} /*양쪽정렬*/
-.tab1_cont .count {display: block; margin: 5px 0;}
+.tab1_cont > ul > li a > p {height: 75px; font-size: 0.85em; padding: 0px 5px 5px; color: #373737; letter-spacing: -0.3px; text-align: justify; line-height:140%} /*양쪽정렬*/
+
+.tab1_cont .count-wrap {display: block; margin: 10px 0;}
+.tab1_cont .count-wrap li {display: inline-block; width: 30%;}
+.tab1_cont .count-wrap p.count {display: inline-block;}
 .tab1_cont .heartIcon{font-size: 14px; color: #ff5b5b;}
-.tab1_cont .reviewIcon{font-size: 14px; color: #f1c40f}
-.tab1_cont .heartCount1, .heartCount2 {margin-right: 30px; }
+.tab1_cont .reviewIcon{font-size: 14px; color: #f1c40f;}
+.tab1_cont .eyeIcon{font-size: 14px; color: #03c3c7;}
+.tab1_cont .heartCount1, .heartCount2, .reviewCount1 {margin-right: 10px; }
 .tab1_cont .heartCount1, .heartCount2, .reviewCount1, .reviewCount2 {display: inline; margin-left: 10px;}
 
 .content .top {display: none; text-align: center; width: 38px; height: 38px; position: fixed; right: 4%; bottom: 3%; background: #03c3c7;}
