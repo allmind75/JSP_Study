@@ -11,7 +11,16 @@
 
     <script>
         function writeCheck() {
-			return true;
+        	if(myform.title.value.trim() == "") {
+        		alert("제목을 입력해 주세요.");
+        		return false;
+        	}
+        	if(myform.address.value.trim() == "") {
+        		alert("주소를 입력해 주세요.");
+        		return false;
+        	}
+			
+        	return true;
         }
     </script>
 </head>
@@ -69,7 +78,7 @@
             <ul>
                 <li>
                     <label for="input-title" class="readonly">관광지 이름 입력</label>
-                    <input type="text" name="title" class="id" id="input-title" placeholder="관광지 이름 입력">
+                    <input type="text" name="title" class="id" id="input-title" placeholder="관광지 이름 입력" autofocus>
                 </li>
                 <li>
                     <label for="input-content" class="readonly">관광지 설명 입력</label>

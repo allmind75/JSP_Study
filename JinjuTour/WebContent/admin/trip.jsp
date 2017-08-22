@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+
 <%@ include file="adminCheck.jsp" %>
 
 <!DOCTYPE html>
@@ -17,7 +19,7 @@
     <header class="header">
         <div class="headerTop">
             <a href="#" class="btn_gnb" id="menu-toggle"><i class="fa fa-navicon headericon"></i></a>
-            <h1 class="logo"><a href="main.jsp">진주투어</a></h1>
+            <h1 class="logo"><a href="trip.jsp">진주투어</a></h1>
             <a href="#" class="btn_search"><i class="fa fa-search headericon"></i></a>
         </div>
         <div class="bar-search">
@@ -43,7 +45,7 @@
 				</div>
 			</div>
 			<ul class="sidebar-nav">
-				<li><i class="fa fa-home active"></i><a href="/JinjuTour/admin/main.jsp">HOME</a></li>
+				<li><i class="fa fa-home active"></i><a href="trip.jsp">HOME</a></li>
 				<li><i class="fa fa-sign-in"></i><a href="logout.admin" id="loginState">로그아웃</a></li>
 		</ul>
         </div>
@@ -54,7 +56,7 @@
                 <h2 class="readonly">탭메뉴</h2>
             </header>
             <ul>
-                <li class="active"><a href="/JinjuTour/admin/main.jsp">관광지</a></li>
+                <li class="active"><a href="/JinjuTour/admin/trip.jsp">관광지</a></li>
                 <li><a href="/JinjuTour/admin/food.jsp">맛집</a></li>
                 <li><a href="/JinjuTour/admin/product.jsp">특산물</a></li>
             </ul>
@@ -79,12 +81,14 @@
                 <th scope="col">조회수</th>
             </thead>
             <tbody>
-                <tr>
-                    <td>43</td>
-                    <td>진주성</td>
-                    <td>2017-05-27</td>
-                    <td>75</td>
-                </tr>
+            	<c:forEach items="${LIST}" var="boardVO">
+	                <tr>
+	                    <td>${boardVO.tnum}</td>
+	                    <td>${boardVO.title}</td>
+	                    <td>${boardVO.regdate}</td>
+	                    <td>${boardVO.cnt}</td>
+	                </tr>
+                </c:forEach>
             </tbody>
         </table>
         <div class="paging">

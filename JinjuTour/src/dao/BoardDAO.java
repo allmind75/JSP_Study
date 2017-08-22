@@ -10,26 +10,24 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import dto.AdminDTOIn;
 import dto.BoardTripDTOIn;
 
-public class AdminDAO {
+public class BoardDAO {
 
 	private SqlSessionFactory factory;
-	
-	public AdminDAO() throws IOException {
+
+	public BoardDAO() throws IOException {
 		String xmlPath = "dao/myBatis-config.xml";
 		Reader read = Resources.getResourceAsReader(xmlPath);
 		factory = new SqlSessionFactoryBuilder().build(read);
 	}
-	
-	public boolean login(AdminDTOIn dto) throws SQLException {
-		
-		SqlSession session = factory.openSession();
-		try {
-			AdminDTOIn result = session.selectOne("admin.selectLogin", dto);
 
-			if(result != null) {
+	public boolean insertTrip(BoardTripDTOIn dto) throws SQLException {
+
+		SqlSession session = factory.openSession(true);
+		try {
+			int result = session.insert("admin.insertTrip", dto);
+			if (result == 1) {
 				return true;
 			} else {
 				return false;
@@ -38,5 +36,15 @@ public class AdminDAO {
 			session.close();
 		}
 	}
-	
+
+	public List<BoardTripDTOIn> selectTrip() throws SQLException {
+
+		SqlSession session = factory.openSession();
+		try {
+			List<BoardTripDTOIn> list = session.selectList("admin.selectTrip");
+			return list;
+		} finally {
+			session.close();
+		}
+	}
 }

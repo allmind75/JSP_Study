@@ -10,6 +10,10 @@
 		SELECT * FROM admin WHERE id = #{id} and pw = SHA1(#{pw});
 	</select>
 	
+	<select id="selectTrip" resultType="hashmap">
+		SELECT tnum, title, regdate, cnt FROM board_trip ORDER BY tnum DESC;
+	</select>
+	
 	<insert id="insertTrip" parameterType="dto.BoardTripDTOIn">
 		INSERT INTO board_trip SET
 		title = #{title}, content = #{content}, address = #{address},
