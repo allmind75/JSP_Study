@@ -46,9 +46,10 @@ public class BoardCtrl extends HttpServlet {
 			case "write.board":
 				insertTrip(request, response);
 				break;
-			case "readTrip.board":
-				readTrip(request, response);
+			case "trip.board":
+				listTrip(request, response);
 				break;
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -89,7 +90,7 @@ public class BoardCtrl extends HttpServlet {
 
 	}
 	
-	public void readTrip(HttpServletRequest request, HttpServletResponse response)
+	public void listTrip(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 	
 		List<BoardTripDTOIn> list = dao.selectTrip();

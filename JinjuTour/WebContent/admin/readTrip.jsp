@@ -23,19 +23,10 @@
         	return true;
         }
         
-        function fileName(fis) {
+        function fileUpload(fis) {
         	var str = fis.value;
-        	var name = fis.value.substring(str.lastIndexOf("\\") + 1);
-        	document.getElementById("fileName").innerHTML = name;
-        	document.getElementById("fileName-wrap").style.display = "block";
+        	alert("파일명: "+ fis.value.substring(str.lastIndexOf("\\")+1));
         }
-        
-        function fileDelete() {
-        	var img = document.getElementById("input-img");
-        	img.value = "";		//선택한 파일 지우기
-        	document.getElementById("fileName-wrap").style.display = "none";
-        }
-        
     </script>
 </head>
 
@@ -116,11 +107,7 @@
                 </li>                                             
                 <li>
                     <label for="input-img" class="filebox">관광지 사진</label>
-                    <input type="file" name="img" id="input-img" onchange="fileName(this)">
-                    <div id="fileName-wrap" style="display:none;">
-                    	<p>파일이름 : <span id="fileName"></span></p>
-                    	<button type="button" onclick="fileDelete()">삭제</button>
-                    </div>
+                    <input type="file" name="img" id="input-img" onchange="fileUpload(this)">
                 </li>
                 <li>
                     <input type="submit" class="write-save" value="저장">
