@@ -26,8 +26,8 @@ import dto.BoardTripDTOIn;
 public class BoardCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BoardDAO dao;
-	
-	public BoardCtrl() throws IOException{
+
+	public BoardCtrl() throws IOException {
 		super();
 		dao = new BoardDAO();
 	}
@@ -43,13 +43,18 @@ public class BoardCtrl extends HttpServlet {
 
 		try {
 			switch (cmd) {
-			case "write.board":
+			case "writeTrip.board":
 				insertTrip(request, response);
 				break;
-			case "trip.board":
+			case "listTrip.board":
 				listTrip(request, response);
 				break;
-
+			case "readTrip.board":
+				readTrip(request, response);
+				break;
+			case "updateTrip.board":
+				updateTrip(request, response);
+				break;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -66,9 +71,10 @@ public class BoardCtrl extends HttpServlet {
 
 		int maxSize = 1024 * 1024 * 10; // 10Mbyte 제한
 		String savePath = "C:\\Users\\hybrid\\git\\jsp_study\\JinjuTour\\WebContent\\images\\trip\\";
-		
-		//DefaultFileRenamePolicy() - 이름 중복 방지, 중복된 이름이 있으면 파일명 뒤에 숫자 추가
-		MultipartRequest multipartRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
+
+		// DefaultFileRenamePolicy() - 이름 중복 방지, 중복된 이름이 있으면 파일명 뒤에 숫자 추가
+		MultipartRequest multipartRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
+				new DefaultFileRenamePolicy());
 
 		String img = fileUpload(request, multipartRequest, savePath);
 
@@ -83,19 +89,64 @@ public class BoardCtrl extends HttpServlet {
 
 		if (dao.insertTrip(dto)) {
 			System.out.println("게시글 추가 완료");
-			forward(request, response, "/admin/readTrip.board");
+			sendRedirect(response, "/admin/listTrip.board");
 		} else {
 			System.out.println("게시글 추가 실패");
 		}
 
 	}
-	
+
 	public void listTrip(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
-	
-		List<BoardTripDTOIn> list = dao.selectTrip();
+
+		List<BoardTripDTOIn> list = dao.selectListTrip();
 		request.setAttribute("LIST", list);
 		forward(request, response, "/admin/trip.jsp");
+	}
+
+	public void readTrip(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+
+		String tnum = request.getParameter("tnum");
+		BoardTripDTOIn dto = dao.selectReadTrip(tnum);
+
+		System.out.println("title : " + dto.getTitle());
+		if (dto != null) {
+			request.setAttribute("READTRIP", dto);
+			forward(request, response, "/admin/readTrip.jsp");
+		}
+	}
+	
+	public void updateTrip(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+				
+		int maxSize = 1024 * 1024 * 10; // 10Mbyte 제한
+		String savePath = "C:\\Users\\hybrid\\git\\jsp_study\\JinjuTour\\WebContent\\images\\trip\\";
+
+		// DefaultFileRenamePolicy() - 이름 중복 방지, 중복된 이름이 있으면 파일명 뒤에 숫자 추가
+		MultipartRequest multipartRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
+				new DefaultFileRenamePolicy());
+
+		String tnums = multipartRequest.getParameter("tnum");
+		int tnum = Integer.parseInt(tnums);
+		String title = multipartRequest.getParameter("title");
+		String content = multipartRequest.getParameter("content");
+		String address = multipartRequest.getParameter("address");
+		String phone = multipartRequest.getParameter("phone");
+		String time = multipartRequest.getParameter("time");
+		String map = multipartRequest.getParameter("map");
+		String img = fileUpload(request, multipartRequest, savePath);
+		
+		BoardTripDTOIn dto = new BoardTripDTOIn(tnum, title, content, address, phone, time, img, map);
+
+		if(dao.updateTrip(dto)) {
+			System.out.println("수정완료");
+			//글 수정 완료
+			sendRedirect(response, "../admin/listTrip.board");
+		} else {
+			System.out.println("수정실패");
+			//글 수저 실패
+		}
 	}
 	
 	public static String parseCommand(HttpServletRequest request) {
@@ -134,7 +185,7 @@ public class BoardCtrl extends HttpServlet {
 			// 파일 업로드
 			uploadFileName = multi.getFilesystemName("img");
 
-			System.out.println(uploadFileName);
+			System.out.println("uploadFileName : " + uploadFileName);
 
 			if (uploadFileName != null) {
 				// 실제 저장할 파일명

@@ -37,12 +37,37 @@ public class BoardDAO {
 		}
 	}
 
-	public List<BoardTripDTOIn> selectTrip() throws SQLException {
+	public List<BoardTripDTOIn> selectListTrip() throws SQLException {
 
 		SqlSession session = factory.openSession();
 		try {
-			List<BoardTripDTOIn> list = session.selectList("admin.selectTrip");
+			List<BoardTripDTOIn> list = session.selectList("admin.selectListTrip");
 			return list;
+		} finally {
+			session.close();
+		}
+	}
+	
+	public BoardTripDTOIn selectReadTrip(String tnum) throws SQLException {
+		
+		SqlSession session = factory.openSession();
+		try {
+			return session.selectOne("admin.selectReadTrip", tnum);
+		} finally {
+			session.close();
+		}
+	}
+	
+	public boolean updateTrip(BoardTripDTOIn dto) throws SQLException {
+		
+		SqlSession session = factory.openSession(true);
+		try {
+			int result = session.update("admin.updateTrip", dto);
+			if (result == 1) {
+				return true;
+			} else {
+				return false;
+			}			
 		} finally {
 			session.close();
 		}

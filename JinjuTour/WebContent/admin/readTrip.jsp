@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -23,10 +25,22 @@
         	return true;
         }
         
-        function fileUpload(fis) {
+        function fileName(fis) {
         	var str = fis.value;
-        	alert("파일명: "+ fis.value.substring(str.lastIndexOf("\\")+1));
+        	var name = fis.value.substring(str.lastIndexOf("\\") + 1);
+        	document.getElementById("fileName").innerHTML = name;
+        	document.getElementById("fileName-wrap").style.display = "block";
         }
+        
+        function fileDelete() {
+        	var img = document.getElementById("input-img");
+        	
+			//선택한 파일 초기화
+        	img.type="";
+        	img.type="file";
+        	document.getElementById("fileName-wrap").style.display = "none";
+        }
+        
     </script>
 </head>
 
@@ -77,37 +91,44 @@
         </div>
     </section>
 
+	
+	<c:set var="boardVO" value="${READTRIP}" />
     <div class="adminbox">
 
-        <form class="input" name="myform" action="trip.admin" method="post" enctype="multipart/form-data" onsubmit="return writeCheck()">
+        <form class="input" name="myform" action="updateTrip.board" method="post" enctype="multipart/form-data" onsubmit="return writeCheck()">
+            <input type="hidden" name="tnum" value="${boardVO.tnum}">
             <ul>
                 <li>
                     <label for="input-title" class="readonly">관광지 이름 입력</label>
-                    <input type="text" name="title" class="id" id="input-title" placeholder="관광지 이름 입력" autofocus>
+                    <input type="text" name="title" class="id" id="input-title" placeholder="관광지 이름 입력" autofocus value="${boardVO.title}">
                 </li>
                 <li>
                     <label for="input-content" class="readonly">관광지 설명 입력</label>
-                    <textarea name="content" id="content" placeholder="관광지 설명 입력"></textarea>
+                    <textarea name="content" id="content" placeholder="관광지 설명 입력" >${boardVO.content}</textarea>
                 </li>
                 <li>
                     <label for="input-address" class="readonly">관광지 주소 입력</label>
-                    <input type="text" name="address" class="id" id="input-address" placeholder="관광지 주소 입력">
+                    <input type="text" name="address" class="id" id="input-address" placeholder="관광지 주소 입력" value="${boardVO.address}">
                 </li>
                  <li>
                     <label for="input-phone" class="readonly">관광지 연락처 입력</label>
-                    <input type="text" name="phone" class="id" id="input-phone" placeholder="관광지 연락처 입력">
+                    <input type="text" name="phone" class="id" id="input-phone" placeholder="관광지 연락처 입력" value="${boardVO.phone}">
                 </li>
                 <li>
                     <label for="input-time" class="readonly">관광지 이용시간 입력</label>
-                    <input type="text" name="time" class="id" id="input-time" placeholder="관광지 이용시간 입력">
+                    <input type="text" name="time" class="id" id="input-time" placeholder="관광지 이용시간 입력" value="${boardVO.time}">
                 </li> 
                  <li>
                     <label for="input-map" class="readonly">구글 지도 경로 입력</label>
-                    <input type="text" name="map" class="id" id="input-map" placeholder="구글 지도 경로 입력">
+                    <input type="text" name="map" class="id" id="input-map" placeholder="구글 지도 경로 입력" value="${boardVO.map}">
                 </li>                                             
                 <li>
                     <label for="input-img" class="filebox">관광지 사진</label>
-                    <input type="file" name="img" id="input-img" onchange="fileUpload(this)">
+                    <input type="file" name="img" id="input-img" onchange="fileName(this)">
+                    <div id="fileName-wrap" style="display:none;">
+                    	<p>파일이름 : <span id="fileName"></span></p>
+                    	<button type="button" class="filebox" onclick="fileDelete()">삭제</button>
+                    </div>
                 </li>
                 <li>
                     <input type="submit" class="write-save" value="저장">

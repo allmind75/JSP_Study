@@ -10,8 +10,13 @@
 		SELECT * FROM admin WHERE id = #{id} and pw = SHA1(#{pw});
 	</select>
 	
-	<select id="selectTrip" resultType="hashmap">
+	<select id="selectListTrip" resultType="hashmap">
 		SELECT tnum, title, regdate, cnt FROM board_trip ORDER BY tnum DESC;
+	</select>
+	
+	<select id="selectReadTrip" resultType="dto.BoardTripDTOIn">
+		SELECT tnum, title, content, address, phone, time, map FROM board_trip
+		WHERE tnum = #{tnum};
 	</select>
 	
 	<insert id="insertTrip" parameterType="dto.BoardTripDTOIn">
@@ -19,5 +24,19 @@
 		title = #{title}, content = #{content}, address = #{address},
 		phone = #{phone}, time = #{time}, img = #{img}, map = #{map};		
 	</insert>
+	
+	<update id="updateTrip" parameterType="dto.BoardTripDTOIn">
+		UPDATE board_trip
+			<set>
+				<if test="title != null">title = #{title},</if>
+				<if test="content != null">content = #{content},</if>
+				<if test="address != null">address = #{address},</if>
+				<if test="phone != null">phone = #{phone},</if>
+				<if test="time != null">time = #{time},</if>
+				<if test="img != null">img = #{img},</if>
+				<if test="map != null">map = #{map}</if>
+			</set>
+		WHERE tnum = #{tnum};
+	</update>
 </mapper>
 

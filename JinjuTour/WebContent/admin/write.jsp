@@ -32,7 +32,10 @@
         
         function fileDelete() {
         	var img = document.getElementById("input-img");
-        	img.value = "";		//선택한 파일 지우기
+        	
+			//선택한 파일 초기화
+        	img.type="";
+        	img.type="file";
         	document.getElementById("fileName-wrap").style.display = "none";
         }
         
@@ -88,7 +91,7 @@
 
     <div class="adminbox">
 
-        <form class="input" name="myform" action="trip.admin" method="post" enctype="multipart/form-data" onsubmit="return writeCheck()">
+        <form class="input" name="myform" action="writeTrip.board" method="post" enctype="multipart/form-data" onsubmit="return writeCheck()">
             <ul>
                 <li>
                     <label for="input-title" class="readonly">관광지 이름 입력</label>
@@ -119,7 +122,7 @@
                     <input type="file" name="img" id="input-img" onchange="fileName(this)">
                     <div id="fileName-wrap" style="display:none;">
                     	<p>파일이름 : <span id="fileName"></span></p>
-                    	<button type="button" onclick="fileDelete()">삭제</button>
+                    	<button type="button" class="filebox" onclick="fileDelete()">삭제</button>
                     </div>
                 </li>
                 <li>

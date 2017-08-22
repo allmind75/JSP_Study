@@ -19,6 +19,18 @@ public class BoardTripDTOIn {
 
 	}
 
+	public BoardTripDTOIn(int tnum, String title, String content, String address, String phone, String time, String img, String map) {
+		super();
+		this.tnum = tnum;
+		this.title = title;
+		this.content = content;
+		this.address = address;
+		this.phone = phone;
+		this.time = time;
+		this.img = img;
+		this.map = map;
+	}
+	
 	public BoardTripDTOIn(String title, String content, String address, String phone, String time, String img, String map) {
 		super();
 		this.title = title;
