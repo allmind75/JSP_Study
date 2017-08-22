@@ -17,9 +17,8 @@ public class BoardDAO {
 	private SqlSessionFactory factory;
 
 	public BoardDAO() throws IOException {
-		String xmlPath = "dao/myBatis-config.xml";
-		Reader read = Resources.getResourceAsReader(xmlPath);
-		factory = new SqlSessionFactoryBuilder().build(read);
+
+		factory = FactoryBuild.factoryBuild();
 	}
 
 	public boolean insertTrip(BoardTripDTOIn dto) throws SQLException {

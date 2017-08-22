@@ -1,15 +1,9 @@
 package control;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,7 +38,7 @@ public class MemberCtrl extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 
-		String cmd = parseCommand(request);
+		String cmd = ComMethod.parseCommand(request);
 		System.out.println("cmd : " + cmd);
 
 		try {
@@ -109,7 +103,7 @@ public class MemberCtrl extends HttpServlet {
 		// img file upload
 		MultipartRequest multipartRequest = new MultipartRequest(request, SAVE_PATH, MAX_SIZE, "UTF-8",
 				new DefaultFileRenamePolicy());
-		String path = fileUpload(request, multipartRequest, SAVE_PATH);
+		String path = ComMethod.fileUpload(request, multipartRequest, SAVE_PATH, "uploadFile");
 
 		String id = multipartRequest.getParameter("id");
 		String pw = multipartRequest.getParameter("pw");
@@ -140,7 +134,7 @@ public class MemberCtrl extends HttpServlet {
 			session.setMaxInactiveInterval(600);
 
 			// 3. page 이동
-			sendRedirect(response, "main.jsp");
+			ComMethod.sendRedirect(response, "main.jsp");
 
 		} else {
 			// 회원가입실패
@@ -156,14 +150,14 @@ public class MemberCtrl extends HttpServlet {
 		String path;
 
 		MemDTOIn dto = new MemDTOIn(id, pw);
-		MemDTOIn list = dao.login(dto);
+		MemDTOIn resultDto = dao.login(dto);
 		path = dao.selectMemberImg(id);
 
-		if (list != null) {
+		if (resultDto != null) {
 			System.out.println("로그인성공 : id - " + id);
 
-			String name = list.getName();
-			String email = list.getEmail();
+			String name = resultDto.getName();
+			String email = resultDto.getEmail();
 
 			HttpSession session = request.getSession();
 
@@ -175,11 +169,11 @@ public class MemberCtrl extends HttpServlet {
 			// session 유지시간 설정(초단위) 600 = 10분, 일정 시간뒤 자동 로그아웃
 			session.setMaxInactiveInterval(600);
 
-			sendRedirect(response, "main.jsp");
+			ComMethod.sendRedirect(response, "main.jsp");
 		} else {
 			// 로그인실패
 			System.out.println("로그인실패");
-			sendRedirect(response, "loginFail.jsp");
+			ComMethod.sendRedirect(response, "loginFail.jsp");
 		}
 	}
 
@@ -190,7 +184,7 @@ public class MemberCtrl extends HttpServlet {
 
 		if (id != null) {
 			session.invalidate();
-			sendRedirect(response, "main.jsp");
+			ComMethod.sendRedirect(response, "main.jsp");
 		}
 	}
 
@@ -242,7 +236,7 @@ public class MemberCtrl extends HttpServlet {
 			request.setAttribute("PHONE2", phoneNum2);
 			request.setAttribute("PHONE3", phoneNum3);
 
-			forward(request, response, "userInfoEdit.jsp");
+			ComMethod.forward(request, response, "userInfoEdit.jsp");
 		} else {
 			// 회원정보가져오기 실패
 		}
@@ -254,7 +248,7 @@ public class MemberCtrl extends HttpServlet {
 		// img file upload
 		MultipartRequest multipartRequest = new MultipartRequest(request, SAVE_PATH, MAX_SIZE, "UTF-8",
 				new DefaultFileRenamePolicy());
-		String path = fileUpload(request, multipartRequest, SAVE_PATH);
+		String path = ComMethod.fileUpload(request, multipartRequest, SAVE_PATH, "uploadFile");
 
 		HttpSession session = request.getSession();
 
@@ -274,93 +268,25 @@ public class MemberCtrl extends HttpServlet {
 		if (dao.mod(dto)) {
 
 			// db에 회원사진이 있는지 확인 후 없으면 추가 있으면 바꿈
+			String oldImg = dao.selectMemberImg(id);
 			if (path != null) {
-				if (dao.selectMemberImg(id) == null) {
+				if (oldImg == null) {
 					dao.insertMemberImg(dto);
 				} else {
 					dao.updateMemberImg(dto);
 				}
+			} else {
+				path = oldImg;
 			}
 
 			session.setAttribute("USERNAME", name);
 			session.setAttribute("USEREMAIL", email);
 			session.setAttribute("USERIMG", path);
 
-			sendRedirect(response, "main.jsp");
+			ComMethod.sendRedirect(response, "main.jsp");
 		} else {
 			// 회원정보변경 실패
 			System.out.println("회원정보변경실패");
 		}
-	}
-
-	public String fileUpload(HttpServletRequest request, MultipartRequest multi, String savePath)
-			throws ServletException, IOException, SQLException {
-
-		String uploadFileName;
-		String newFileName = null;
-
-		int read = 0;
-		byte[] buf = new byte[1024];
-		FileInputStream fin;
-		FileOutputStream fout;
-		long currentTime = System.currentTimeMillis();
-		SimpleDateFormat simDf = new SimpleDateFormat("yyyyMMddHHmmss");
-
-		try {
-			// 파일 업로드
-			uploadFileName = multi.getFilesystemName("uploadFile");
-
-			System.out.println(uploadFileName);
-
-			if (uploadFileName != null) {
-				// 실제 저장할 파일명
-				newFileName = simDf.format(new Date(currentTime)) + "."
-						+ uploadFileName.substring(uploadFileName.lastIndexOf(".") + 1);
-
-				// 업로드된 파일 객체 생성
-				File oldFile = new File(savePath + uploadFileName);
-
-				// 실제 저장될 파일 객체 생성
-				File newFile = new File(savePath + newFileName);
-
-				if (!oldFile.renameTo(newFile)) {
-					System.out.println("rename");
-					// rename이 되지 않을 경우 강제로 파일 복사하고 기존파일 삭제
-					buf = new byte[1024];
-					fin = new FileInputStream(oldFile);
-					fout = new FileOutputStream(newFile);
-					read = 0;
-					while ((read = fin.read(buf, 0, buf.length)) != -1) {
-						fout.write(buf, 0, read);
-					}
-
-					fin.close();
-					fout.close();
-					oldFile.delete();
-				}
-			}
-			return newFileName;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	// request 객체 전달
-	public void forward(HttpServletRequest request, HttpServletResponse response, String view)
-			throws ServletException, IOException {
-
-		RequestDispatcher rd = request.getRequestDispatcher(view);
-		rd.forward(request, response);
-	}
-
-	// request 객체 새로 생성됨
-	public void sendRedirect(HttpServletResponse response, String view) throws IOException {
-		response.sendRedirect(view);
-	}
-
-	public static String parseCommand(HttpServletRequest request) {
-
-		return request.getRequestURI().substring(request.getContextPath().length() + 1);
 	}
 }

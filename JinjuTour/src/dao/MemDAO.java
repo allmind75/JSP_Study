@@ -19,9 +19,7 @@ public class MemDAO {
 
 	public MemDAO() throws IOException {
 
-		String xmlPath = "dao/myBatis-config.xml";
-		Reader read = Resources.getResourceAsReader(xmlPath);
-		factory = new SqlSessionFactoryBuilder().build(read);
+		factory = FactoryBuild.factoryBuild();
 	}
 
 	public boolean idCheck(String id) throws SQLException {

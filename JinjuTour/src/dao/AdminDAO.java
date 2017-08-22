@@ -18,9 +18,8 @@ public class AdminDAO {
 	private SqlSessionFactory factory;
 	
 	public AdminDAO() throws IOException {
-		String xmlPath = "dao/myBatis-config.xml";
-		Reader read = Resources.getResourceAsReader(xmlPath);
-		factory = new SqlSessionFactoryBuilder().build(read);
+
+		factory = FactoryBuild.factoryBuild();
 	}
 	
 	public boolean login(AdminDTOIn dto) throws SQLException {

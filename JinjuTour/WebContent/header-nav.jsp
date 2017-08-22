@@ -52,6 +52,7 @@
 		} else {
 			document.getElementById("userImg").style.backgroundImage = "url(images/userImg/default.png)";
 		}
+		console.log(path);
 	}
 </script>
 

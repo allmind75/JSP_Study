@@ -1,15 +1,8 @@
 package control;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,11 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.oreilly.servlet.MultipartRequest;
-
 import dao.AdminDAO;
 import dto.AdminDTOIn;
-import dto.BoardTripDTOIn;
 
 @WebServlet("*.admin")
 public class AdminCtrl extends HttpServlet {
@@ -40,7 +30,7 @@ public class AdminCtrl extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html); charset=UTF-8");
 
-		String cmd = parseCommand(request);
+		String cmd = ComMethod.parseAdminCommand(request);
 		System.out.println("cmd : " + cmd);
 
 		try {
@@ -77,7 +67,7 @@ public class AdminCtrl extends HttpServlet {
 			session.setAttribute("ADMINNAME", "관리자");
 			session.setMaxInactiveInterval(600);
 
-			forward(request, response, "/admin/listTrip.board");
+			ComMethod.forward(request, response, "/admin/listTrip.board");
 		} else {
 			// 로그인 실패
 		}
@@ -92,26 +82,9 @@ public class AdminCtrl extends HttpServlet {
 
 		if (id != null) {
 			session.invalidate();
-			sendRedirect(response, "/JinjuTour/admin/index.jsp");
+			ComMethod.sendRedirect(response, "/JinjuTour/admin/index.jsp");
 		}
 	}
 
-	public static String parseCommand(HttpServletRequest request) {
 
-		int idx = request.getRequestURI().lastIndexOf("/");
-		return request.getRequestURI().substring(idx + 1);
-	}
-
-	// request 객체 전달
-	public void forward(HttpServletRequest request, HttpServletResponse response, String view)
-			throws ServletException, IOException {
-
-		RequestDispatcher rd = request.getRequestDispatcher(view);
-		rd.forward(request, response);
-	}
-
-	// request 객체 새로 생성됨
-	public void sendRedirect(HttpServletResponse response, String view) throws IOException {
-		response.sendRedirect(view);
-	}
 }
