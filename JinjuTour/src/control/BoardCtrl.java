@@ -81,7 +81,7 @@ public class BoardCtrl extends HttpServlet {
 
 		if (dao.insertTrip(dto)) {
 			System.out.println("게시글 추가 완료");
-			ComMethod.sendRedirect(response, "/admin/listTrip.board");
+			ComMethod.sendRedirect(response, "listTrip.board");
 		} else {
 			System.out.println("게시글 추가 실패");
 		}
@@ -93,8 +93,8 @@ public class BoardCtrl extends HttpServlet {
 
 		List<BoardTripDTOIn> list = dao.selectListTrip();
 		if (list != null) {
-			request.setAttribute("LIST", list);
-			ComMethod.forward(request, response, "/admin/trip.jsp");
+			request.setAttribute("LISTTRIP", list);
+			ComMethod.forward(request, response, "listTrip.jsp");
 		}
 	}
 
@@ -106,7 +106,7 @@ public class BoardCtrl extends HttpServlet {
 
 		if (dto != null) {
 			request.setAttribute("READTRIP", dto);
-			ComMethod.forward(request, response, "/admin/readTrip.jsp");
+			ComMethod.forward(request, response, "readTrip.jsp");
 		}
 	}
 
@@ -132,7 +132,7 @@ public class BoardCtrl extends HttpServlet {
 		if (dao.updateTrip(dto)) {
 			System.out.println("수정완료");
 			// 글 수정 완료
-			ComMethod.sendRedirect(response, "../admin/listTrip.board");
+			ComMethod.sendRedirect(response, "listTrip.board");
 		} else {
 			System.out.println("수정실패");
 			// 글 수저 실패

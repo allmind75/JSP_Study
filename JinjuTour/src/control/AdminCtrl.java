@@ -65,9 +65,9 @@ public class AdminCtrl extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("ADMINID", id);
 			session.setAttribute("ADMINNAME", "관리자");
-			session.setMaxInactiveInterval(600);
+			session.setMaxInactiveInterval(300);
 
-			ComMethod.forward(request, response, "/admin/listTrip.board");
+			ComMethod.sendRedirect(response, "listTrip.board");
 		} else {
 			// 로그인 실패
 		}
@@ -82,7 +82,7 @@ public class AdminCtrl extends HttpServlet {
 
 		if (id != null) {
 			session.invalidate();
-			ComMethod.sendRedirect(response, "/JinjuTour/admin/index.jsp");
+			ComMethod.sendRedirect(response, "index.jsp");
 		}
 	}
 

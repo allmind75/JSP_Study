@@ -81,7 +81,7 @@
                 <th scope="col">조회수</th>
             </thead>
             <tbody>
-            	<c:forEach items="${LIST}" var="boardVO">
+            	<c:forEach items="${LISTTRIP}" var="boardVO">
 	                <tr>
 	                    <td>${boardVO.tnum}</td>
 	                    <td><a href="readTrip.board?tnum=${boardVO.tnum}">${boardVO.title}</a></td>
@@ -98,7 +98,7 @@
             <a href="#">
                 <i class="fa fa-angle-double-right"></i>
             </a>
-            <a href="write.jsp" class="write-btn">글쓰기</a>
+            <a href="writeTrip.jsp" class="write-btn">글쓰기</a>
         </div>
     </div>
 
