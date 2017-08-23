@@ -1,16 +1,15 @@
 package dao;
 
 import java.io.IOException;
-import java.io.Reader;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import dto.BoardTripDTOIn;
+import dto.PageIn;
 
 public class BoardDAO {
 
@@ -36,19 +35,20 @@ public class BoardDAO {
 		}
 	}
 
-	public List<BoardTripDTOIn> selectListTrip() throws SQLException {
+	public List<BoardTripDTOIn> selectListTrip(PageIn page) throws SQLException {
 
+		
 		SqlSession session = factory.openSession();
 		try {
-			List<BoardTripDTOIn> list = session.selectList("admin.selectListTrip");
+			List<BoardTripDTOIn> list = session.selectList("admin.selectListTrip", page);
 			return list;
 		} finally {
 			session.close();
 		}
 	}
-	
+
 	public BoardTripDTOIn selectReadTrip(String tnum) throws SQLException {
-		
+
 		SqlSession session = factory.openSession();
 		try {
 			return session.selectOne("admin.selectReadTrip", tnum);
@@ -56,9 +56,9 @@ public class BoardDAO {
 			session.close();
 		}
 	}
-	
+
 	public boolean updateTrip(BoardTripDTOIn dto) throws SQLException {
-		
+
 		SqlSession session = factory.openSession(true);
 		try {
 			int result = session.update("admin.updateTrip", dto);
@@ -66,9 +66,23 @@ public class BoardDAO {
 				return true;
 			} else {
 				return false;
-			}			
+			}
 		} finally {
 			session.close();
 		}
+	}
+
+	public int countTrip() {
+
+		SqlSession session = factory.openSession();
+		try {
+			List list = session.selectList("admin.selectCountTrip");
+			HashMap rs = (HashMap) list.get(0);
+			long cnt = (long) rs.get("cnt");
+			return (int) cnt;
+		} finally {
+			session.close();
+		}
+
 	}
 }

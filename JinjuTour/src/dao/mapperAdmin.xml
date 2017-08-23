@@ -10,13 +10,18 @@
 		SELECT * FROM admin WHERE id = #{id} and pw = SHA1(#{pw});
 	</select>
 	
-	<select id="selectListTrip" resultType="hashmap">
-		SELECT tnum, title, regdate, cnt FROM board_trip ORDER BY tnum DESC;
+	<select id="selectListTrip" parameterType="dto.PageIn" resultType="hashmap">
+		SELECT tnum, title, regdate, cnt FROM board_trip 
+		ORDER BY tnum DESC LIMIT #{start}, #{pageSize};
 	</select>
 	
 	<select id="selectReadTrip" resultType="dto.BoardTripDTOIn">
 		SELECT tnum, title, content, address, phone, time, map FROM board_trip
 		WHERE tnum = #{tnum};
+	</select>
+	
+	<select id="selectCountTrip" resultType="hashmap">
+		SELECT COUNT(*) AS cnt FROM board_trip;
 	</select>
 	
 	<insert id="insertTrip" parameterType="dto.BoardTripDTOIn">

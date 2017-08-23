@@ -15,6 +15,8 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.BoardDAO;
 import dto.BoardTripDTOIn;
+import dto.PageIn;
+import dto.PageOut;
 
 @WebServlet("*.board")
 public class BoardCtrl extends HttpServlet {
@@ -91,9 +93,28 @@ public class BoardCtrl extends HttpServlet {
 	public void listTrip(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
-		List<BoardTripDTOIn> list = dao.selectListTrip();
+		//페이징
+		int pageNum; // 현재 페이지 번호
+		int pageSize; // 페이지 글의 개수
+		int start;	  //시작번호
+		
+		try {
+			pageNum = Integer.parseInt(request.getParameter("pageNum"));
+			pageSize = Integer.parseInt(request.getParameter("pageSize"));
+		} catch(NumberFormatException e) {
+			pageNum = 0;
+			pageSize = 2;
+		}
+		
+		start = pageNum * pageSize;
+		
+		PageIn pageIn = new PageIn(start, pageSize);
+		PageOut pageOut = ComMethod.page(dao, pageNum, pageSize);
+				
+		List<BoardTripDTOIn> list = dao.selectListTrip(pageIn);
 		if (list != null) {
 			request.setAttribute("LISTTRIP", list);
+			request.setAttribute("PAGE", pageOut);
 			ComMethod.forward(request, response, "listTrip.jsp");
 		}
 	}
@@ -138,4 +159,6 @@ public class BoardCtrl extends HttpServlet {
 			// 글 수저 실패
 		}
 	}
+	
+	
 }

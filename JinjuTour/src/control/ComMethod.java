@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
 
+import dao.BoardDAO;
+import dto.PageOut;
+
 public class ComMethod {
 
 	// request 객체 전달
@@ -96,6 +99,32 @@ public class ComMethod {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static PageOut page(BoardDAO dao, int pageNum, int pageSize) {
+		
+		int totalPage; // 전체 글의 개수
+		int pageCnt; // 페이지 개수
+		int prevPage, nextPage; // 다음페이지, 이전페이지 번호
+		
+		totalPage = dao.countTrip();
+		
+		pageCnt = totalPage / pageSize;
+
+		if (totalPage % pageSize != 0) {
+			pageCnt++;
+		}
+
+		prevPage = pageNum - 1; // -1이면 이전 페이지 없음
+
+		nextPage = pageNum + 1;
+		if (nextPage >= pageCnt) {
+			nextPage = -1; // -1이면 다음 페이지 없음
+		}
+		
+		PageOut pageOut = new PageOut(pageNum, pageSize, totalPage, pageCnt, prevPage, nextPage);
+		
+		return pageOut;
 	}
 
 }
