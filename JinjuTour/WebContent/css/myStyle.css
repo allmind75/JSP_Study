@@ -331,8 +331,8 @@ input[type=submit] {-webkit-appearance:none;}
     border: 1px solid #ddd;
 }
 .pagination>li.active>a {
-    background: blue !important;
-    color: #fff !important;
+    background: #03c3c7;
+    color: #fff;
 }
 
 /*chrome에서 input tag 아웃라인 제거*/
