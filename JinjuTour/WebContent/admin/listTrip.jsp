@@ -102,6 +102,19 @@
 			</tbody>
 		</table>
 		<div class="paging">
+			<select name="searchType">
+				<option value="n" <c:out value="${cri.searchType == null? 'selected':'' }"/> >---</option>
+				<option value="t" <c:out value="${cri.searchType == 't'? 'selected':'' }"/> >제목</option>
+				<option value="c" <c:out value="${cri.searchType == 'c'? 'selected':'' }"/> >내용</option>
+				<option value="a" <c:out value="${cri.searchType == 'a'? 'selected':'' }"/> >주소</option>
+				<option value="tc" <c:out value="${cri.searchType == 'tc'? 'selected':'' }"/> >제목 + 내용</option>
+				<option value="ca" <c:out value="${cri.searchType == 'ca'? 'selected':'' }"/> >내용 + 주소</option>
+				<option value="tca" <c:out value="${cri.searchType == 'tca'? 'selected':'' }"/> >제목 + 내용 + 주소</option>
+			</select>
+			
+			<input type="text" name="keyword" id="keywordInput" value="${cri.keyword }"	>
+			<button id="searchBtn">검색</button>
+			<button id="newBtn">글추가</button>
 			<a href="writeTrip.jsp" class="write-btn">글쓰기</a>
 		</div>
 		
@@ -214,6 +227,21 @@
 					$("#goTop").fadeOut();
 				}
 				// 스크롤이 100 픽셀 이하이면 탑아이콘을 fade out 합니다. (서서히 사라집니다)
+			});
+		});
+		
+		$(document).ready(function() {
+			
+			$("#searchBtn").on("click", function() {
+				
+				self.location = "listTrip.board" +
+				"${PAGEMAKER.makeQuery(1)}" + 
+				"&searchType=" + $("select option:selected").val() +
+				"&keyword=" + encodeURIComponent($("#keywordInput").val());
+			});
+			
+			$("#newBtn").on("click", function() {
+				self.location = "writeTrip.jsp";
 			});
 		});
 	</script>

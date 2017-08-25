@@ -155,6 +155,7 @@ public class BoardCtrl extends HttpServlet {
 			
 			request.setAttribute("LISTTRIP", list);
 			request.setAttribute("PAGEMAKER", pageMaker);
+			request.setAttribute("CRI", cri);
 			
 			ComMethod.forward(request, response, "listTrip.jsp");
 		}
