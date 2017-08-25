@@ -43,5 +43,15 @@
 			</set>
 		WHERE tnum = #{tnum};
 	</update>
+	
+	<select id="listSearch" resultType="dto.BoardTripDTOIn">
+		SELECT tnum, title, regdate, cnt FROM board_trip 
+		ORDER BY tnum DESC LIMIT #{pageStart}, #{perPageNum}		
+	</select>
+	
+	<select id="listSearchCount" resultType="int">
+		SELECT COUNT(tnum) FROM board_trip
+	</select>
+	
 </mapper>
 

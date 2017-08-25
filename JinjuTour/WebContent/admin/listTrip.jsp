@@ -104,7 +104,9 @@
 		<div class="paging">
 			<a href="writeTrip.jsp" class="write-btn">글쓰기</a>
 		</div>
+		
 		<!-- paging -->
+		<!-- 
 		<div class="paging">
 			<%
 				PageOut pageOut = (PageOut) request.getAttribute("PAGE");
@@ -153,6 +155,28 @@
 				}
 				}
 			%>
+		</div>
+		-->
+		
+		<div class="paging">
+			<ul class="pagination">
+				<c:if test="${PAGEMAKER.prev }">
+					<li>
+						<a href="listTrip.board${PAGEMAKER.makeSearch(PAGEMAKER.startPage-1)}">&laquo;</a>
+					</li>
+				</c:if>
+				
+				<c:forEach begin="${PAGEMAKER.startPage }" end="${PAGEMAKER.endPage }" var="idx">
+					<li <c:out value="${PAGEMAKER.cri.page == idx? 'class= active': '' }"/>>
+						<a href="listTrip.board${PAGEMAKER.makeSearch(idx) }">${idx }</a>
+					</li>
+				</c:forEach>
+				
+				<c:if test="${PAGEMAKER.next && PAGEMAKER.endPage > 0 }">
+					<li>
+						<a href="listTrip.board${PAGEMAKER.makeSearch(PAGEMAKER.endPage + 1) }">&raquo;</a>
+				</c:if>
+			</ul>
 		</div>
 	</div>
 

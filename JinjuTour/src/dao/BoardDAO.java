@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import dto.BoardTripDTOIn;
 import dto.PageIn;
+import dto.SearchCriteria;
 
 public class BoardDAO {
 
@@ -84,5 +85,25 @@ public class BoardDAO {
 			session.close();
 		}
 
+	}
+	
+	public List<BoardTripDTOIn>	listSearch(SearchCriteria cri) throws SQLException {
+		
+		SqlSession session = factory.openSession();
+		try {
+			return session.selectList("admin.listSearch", cri);
+		} finally {
+			session.close();
+		}
+	}
+	
+	public int listSearchCount(SearchCriteria cri) throws SQLException {
+		
+		SqlSession session = factory.openSession();
+		try {
+			return session.selectOne("admin.listSearchCount", cri);
+		} finally {
+			session.close();
+		}
 	}
 }

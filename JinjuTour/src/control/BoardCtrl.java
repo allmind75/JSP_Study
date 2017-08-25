@@ -15,8 +15,8 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.BoardDAO;
 import dto.BoardTripDTOIn;
-import dto.PageIn;
-import dto.PageOut;
+import dto.PageMaker;
+import dto.SearchCriteria;
 
 @WebServlet("*.board")
 public class BoardCtrl extends HttpServlet {
@@ -94,27 +94,68 @@ public class BoardCtrl extends HttpServlet {
 			throws ServletException, IOException, SQLException {
 
 		//페이징
-		int pageNum; // 현재 페이지 번호
-		int pageSize; // 페이지 글의 개수
-		int start;	  //시작번호
+//		int pageNum; // 현재 페이지 번호
+//		int pageSize; // 페이지 글의 개수
+//		int start;	  //시작번호
+//		
+//		try {
+//			pageNum = Integer.parseInt(request.getParameter("pageNum"));
+//			pageSize = Integer.parseInt(request.getParameter("pageSize"));
+//		} catch(NumberFormatException e) {
+//			pageNum = 0;
+//			pageSize = 2;
+//		}
+//		
+//		start = pageNum * pageSize;
+//		
+//		PageIn pageIn = new PageIn(start, pageSize);
+//		PageOut pageOut = ComMethod.page(dao, pageNum, pageSize);
+				
+		//List<BoardTripDTOIn> list = dao.selectListTrip(pageIn);		
+		
+		//search
+		int page;
+		int perPageNum;
+		String searchType;
+		String keyword;
 		
 		try {
-			pageNum = Integer.parseInt(request.getParameter("pageNum"));
-			pageSize = Integer.parseInt(request.getParameter("pageSize"));
-		} catch(NumberFormatException e) {
-			pageNum = 0;
-			pageSize = 2;
+			page = Integer.parseInt(request.getParameter("page"));
+			perPageNum = Integer.parseInt(request.getParameter("perPageNum"));
+			searchType = request.getParameter("searchType");
+			keyword = request.getParameter("keyword");
+		} catch(Exception e) {
+			page = 1;
+			perPageNum = 10;
+			searchType = null;
+			keyword = null;
 		}
 		
-		start = pageNum * pageSize;
+		SearchCriteria cri = new SearchCriteria();
+		cri.setPage(page);
+		cri.setPerPageNum(perPageNum);
+		cri.setSearchType(searchType);
+		cri.setKeyword(keyword);
 		
-		PageIn pageIn = new PageIn(start, pageSize);
-		PageOut pageOut = ComMethod.page(dao, pageNum, pageSize);
-				
-		List<BoardTripDTOIn> list = dao.selectListTrip(pageIn);
+		System.out.println(cri.toString());
+		System.out.println(cri.getPage());
+		
+		List<BoardTripDTOIn> list = dao.listSearch(cri);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		
+		pageMaker.setTotalCount(dao.listSearchCount(cri));
+
+		
+		System.out.println(pageMaker.toString());
 		if (list != null) {
+			//request.setAttribute("LISTTRIP", list);
+			//request.setAttribute("PAGE", pageOut);
+			
 			request.setAttribute("LISTTRIP", list);
-			request.setAttribute("PAGE", pageOut);
+			request.setAttribute("PAGEMAKER", pageMaker);
+			
 			ComMethod.forward(request, response, "listTrip.jsp");
 		}
 	}
