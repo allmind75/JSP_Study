@@ -37,7 +37,7 @@ public class BoardCtrl extends HttpServlet {
 		response.setContentType("text/html); charset=UTF-8");
 
 		String cmd = ComMethod.parseAdminCommand(request);
-		System.out.println("cmd : " + cmd);
+		System.out.println("GET cmd : " + cmd);
 
 		try {
 			switch (cmd) {
@@ -53,6 +53,15 @@ public class BoardCtrl extends HttpServlet {
 			case "updateTrip.board":
 				updateTrip(request, response);
 				break;
+			case "modifyReadPage.board":
+				readModifyTrip(request, response);
+				break;
+			case "modifyPage.board":
+				updateTrip(request, response);
+				break;
+			case "removePage.board":
+				removeTrip(request, response);
+				break;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -61,7 +70,9 @@ public class BoardCtrl extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		doGet(request, response);
+
 	}
 
 	public void insertTrip(HttpServletRequest request, HttpServletResponse response)
@@ -93,70 +104,66 @@ public class BoardCtrl extends HttpServlet {
 	public void listTrip(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
-		//페이징
-//		int pageNum; // 현재 페이지 번호
-//		int pageSize; // 페이지 글의 개수
-//		int start;	  //시작번호
-//		
-//		try {
-//			pageNum = Integer.parseInt(request.getParameter("pageNum"));
-//			pageSize = Integer.parseInt(request.getParameter("pageSize"));
-//		} catch(NumberFormatException e) {
-//			pageNum = 0;
-//			pageSize = 2;
-//		}
-//		
-//		start = pageNum * pageSize;
-//		
-//		PageIn pageIn = new PageIn(start, pageSize);
-//		PageOut pageOut = ComMethod.page(dao, pageNum, pageSize);
-				
-		//List<BoardTripDTOIn> list = dao.selectListTrip(pageIn);		
-		
-		//search
+		// 페이징
+		// int pageNum; // 현재 페이지 번호
+		// int pageSize; // 페이지 글의 개수
+		// int start; //시작번호
+		//
+		// try {
+		// pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		// pageSize = Integer.parseInt(request.getParameter("pageSize"));
+		// } catch(NumberFormatException e) {
+		// pageNum = 0;
+		// pageSize = 2;
+		// }
+		//
+		// start = pageNum * pageSize;
+		//
+		// PageIn pageIn = new PageIn(start, pageSize);
+		// PageOut pageOut = ComMethod.page(dao, pageNum, pageSize);
+
+		// List<BoardTripDTOIn> list = dao.selectListTrip(pageIn);
+
+		// search
 		int page;
 		int perPageNum;
 		String searchType;
 		String keyword;
-		
+
 		try {
 			page = Integer.parseInt(request.getParameter("page"));
 			perPageNum = Integer.parseInt(request.getParameter("perPageNum"));
 			searchType = request.getParameter("searchType");
 			keyword = request.getParameter("keyword");
-		} catch(Exception e) {
+		} catch (Exception e) {
 			page = 1;
 			perPageNum = 10;
 			searchType = null;
-			keyword = null;
+			keyword = "";
 		}
-		
+
 		SearchCriteria cri = new SearchCriteria();
 		cri.setPage(page);
 		cri.setPerPageNum(perPageNum);
 		cri.setSearchType(searchType);
 		cri.setKeyword(keyword);
-		
-		System.out.println(cri.toString());
-		System.out.println(cri.getPage());
-		
+
 		List<BoardTripDTOIn> list = dao.listSearch(cri);
-		
+
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		
+
 		pageMaker.setTotalCount(dao.listSearchCount(cri));
 
-		
 		System.out.println(pageMaker.toString());
 		if (list != null) {
-			//request.setAttribute("LISTTRIP", list);
-			//request.setAttribute("PAGE", pageOut);
-			
+			// request.setAttribute("LISTTRIP", list);
+			// request.setAttribute("PAGE", pageOut);
+
 			request.setAttribute("LISTTRIP", list);
 			request.setAttribute("PAGEMAKER", pageMaker);
 			request.setAttribute("CRI", cri);
-			
+
 			ComMethod.forward(request, response, "listTrip.jsp");
 		}
 	}
@@ -164,11 +171,22 @@ public class BoardCtrl extends HttpServlet {
 	public void readTrip(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
-		String tnum = request.getParameter("tnum");
+		int tnum = Integer.parseInt(request.getParameter("tnum"));
+		int page = Integer.parseInt(request.getParameter("page"));
+		int perPageNum = Integer.parseInt(request.getParameter("perPageNum"));
+		String searchType = request.getParameter("searchType");
+		String keyword = request.getParameter("keyword");
+
+		SearchCriteria scri = new SearchCriteria(searchType, keyword);
+
+		scri.setPage(page);
+		scri.setPerPageNum(perPageNum);
+
 		BoardTripDTOIn dto = dao.selectReadTrip(tnum);
 
 		if (dto != null) {
 			request.setAttribute("READTRIP", dto);
+			request.setAttribute("CRI", scri);
 			ComMethod.forward(request, response, "readTrip.jsp");
 		}
 	}
@@ -192,15 +210,77 @@ public class BoardCtrl extends HttpServlet {
 
 		BoardTripDTOIn dto = new BoardTripDTOIn(tnum, title, content, address, phone, time, img, map);
 
+		
+		
+		PageMaker pageMaker = new PageMaker();
+
+		
+		
+		int page = Integer.parseInt(multipartRequest.getParameter("page"));
+		int perPageNum = Integer.parseInt(multipartRequest.getParameter("perPageNum"));
+		String searchType = multipartRequest.getParameter("searchType");
+		String keyword = multipartRequest.getParameter("keyword");
+
+		SearchCriteria scri = new SearchCriteria(searchType, pageMaker.encoding(keyword));
+
+		scri.setPage(page);
+		scri.setPerPageNum(perPageNum);
+		
+		pageMaker.setCri(scri);
+		
+		
 		if (dao.updateTrip(dto)) {
 			System.out.println("수정완료");
 			// 글 수정 완료
-			ComMethod.sendRedirect(response, "listTrip.board");
+			request.setAttribute("CRI", scri);
+			ComMethod.sendRedirect(response, "listTrip.board" + pageMaker.makeSearch(page));
 		} else {
 			System.out.println("수정실패");
 			// 글 수저 실패
 		}
 	}
-	
-	
+
+	public void removeTrip(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+
+		int tnum = Integer.parseInt(request.getParameter("tnum"));
+		int page = Integer.parseInt(request.getParameter("page"));
+		int perPageNum = Integer.parseInt(request.getParameter("perPageNum"));
+		String searchType = request.getParameter("searchType");
+		String keyword = request.getParameter("keyword");
+
+		SearchCriteria scri = new SearchCriteria(searchType, keyword);
+
+		scri.setPage(page);
+		scri.setPerPageNum(perPageNum);
+
+		if (dao.deleteTrip(tnum)) {
+
+			request.setAttribute("CRI", scri);
+			ComMethod.forward(request, response, "listTrip.board");
+		}
+	}
+
+	public void readModifyTrip(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+		
+		int tnum = Integer.parseInt(request.getParameter("tnum"));
+		int page = Integer.parseInt(request.getParameter("page"));
+		int perPageNum = Integer.parseInt(request.getParameter("perPageNum"));
+		String searchType = request.getParameter("searchType");
+		String keyword = request.getParameter("keyword");
+
+		SearchCriteria scri = new SearchCriteria(searchType, keyword);
+
+		scri.setPage(page);
+		scri.setPerPageNum(perPageNum);
+
+		BoardTripDTOIn dto = dao.selectReadTrip(tnum);
+
+		if (dto != null) {
+			request.setAttribute("READTRIP", dto);
+			request.setAttribute("CRI", scri);
+			ComMethod.forward(request, response, "modifyTrip.jsp");
+		}
+	}
 }

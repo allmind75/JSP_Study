@@ -48,7 +48,7 @@ public class BoardDAO {
 		}
 	}
 
-	public BoardTripDTOIn selectReadTrip(String tnum) throws SQLException {
+	public BoardTripDTOIn selectReadTrip(int tnum) throws SQLException {
 
 		SqlSession session = factory.openSession();
 		try {
@@ -106,4 +106,21 @@ public class BoardDAO {
 			session.close();
 		}
 	}
+	
+	public boolean deleteTrip(int tnum) {
+		
+		SqlSession session = factory.openSession(true);
+		try {
+			int result = session.delete("admin.deleteTrip", tnum);
+			if(result == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		} finally {
+			session.close();
+		}
+	}
+	
+	
 }

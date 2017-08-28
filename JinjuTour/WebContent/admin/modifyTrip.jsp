@@ -95,31 +95,41 @@
 	<c:set var="boardVO" value="${READTRIP}" />
     <div class="adminbox">
 
-        <form class="input" name="myform" action="updateTrip.board" method="post" enctype="multipart/form-data" onsubmit="return writeCheck()">
+        <form class="input" name="myform" action="modifyPage.board" method="post" enctype="multipart/form-data" onsubmit="return writeCheck()">
+            
+            <input type="hidden" name="page" value="${CRI.page }">
+        	<input type="hidden" name="perPageNum" value="${CRI.perPageNum }">
+        	<input type="hidden" name="searchType" value="${CRI.searchType }">
+        	<input type="hidden" name="keyword" value="${CRI.keyword }">
+        	
             <ul>
+            	<li>
+            		<label for="input-tnum" class="readonly">관광지 게시물 번호</label>
+            		<input type="text" name="tnum" value="${boardVO.tnum}" readonly="readonly">
+            	</li>
                 <li>
                     <label for="input-title" class="readonly">관광지 이름 입력</label>
-                    <input type="text" name="title" class="id" id="input-title" placeholder="관광지 이름 입력" autofocus value="${boardVO.title}" readonly="readonly">
+                    <input type="text" name="title" class="id" id="input-title" placeholder="관광지 이름 입력" autofocus value="${boardVO.title}">
                 </li>
                 <li>
                     <label for="input-content" class="readonly">관광지 설명 입력</label>
-                    <textarea name="content" id="content" placeholder="관광지 설명 입력" readonly="readonly">${boardVO.content}</textarea>
+                    <textarea name="content" id="content" placeholder="관광지 설명 입력" >${boardVO.content}</textarea>
                 </li>
                 <li>
                     <label for="input-address" class="readonly">관광지 주소 입력</label>
-                    <input type="text" name="address" class="id" id="input-address" placeholder="관광지 주소 입력" value="${boardVO.address}" readonly="readonly">
+                    <input type="text" name="address" class="id" id="input-address" placeholder="관광지 주소 입력" value="${boardVO.address}">
                 </li>
                  <li>
                     <label for="input-phone" class="readonly">관광지 연락처 입력</label>
-                    <input type="text" name="phone" class="id" id="input-phone" placeholder="관광지 연락처 입력" value="${boardVO.phone}" readonly="readonly">
+                    <input type="text" name="phone" class="id" id="input-phone" placeholder="관광지 연락처 입력" value="${boardVO.phone}">
                 </li>
                 <li>
                     <label for="input-time" class="readonly">관광지 이용시간 입력</label>
-                    <input type="text" name="time" class="id" id="input-time" placeholder="관광지 이용시간 입력" value="${boardVO.time}" readonly="readonly">
+                    <input type="text" name="time" class="id" id="input-time" placeholder="관광지 이용시간 입력" value="${boardVO.time}">
                 </li> 
                  <li>
                     <label for="input-map" class="readonly">구글 지도 경로 입력</label>
-                    <input type="text" name="map" class="id" id="input-map" placeholder="구글 지도 경로 입력" value="${boardVO.map}" readonly="readonly">
+                    <input type="text" name="map" class="id" id="input-map" placeholder="구글 지도 경로 입력" value="${boardVO.map}">
                 </li>                                             
                 <li>
                     <label for="input-img" class="filebox">관광지 사진</label>
@@ -131,27 +141,18 @@
                 </li>
                 <li>
                     <input type="submit" class="write-save" value="저장">
-                    <input type="reset" class="write-save write-cancel" value="리셋">
+                    <input type="button" class="write-save write-cancel" value="취소">
                 </li>
             </ul>
             
         </form>
         
         <form role="form" action="modifyPage" method="post">
-        	<input type="hidden" name="tnum" value="${boardVO.tnum }">
         	<input type="hidden" name="page" value="${CRI.page }">
         	<input type="hidden" name="perPageNum" value="${CRI.perPageNum }">
         	<input type="hidden" name="searchType" value="${CRI.searchType }">
         	<input type="hidden" name="keyword" value="${CRI.keyword }">
-        </form>
-        
-        <div class="box-footer">
-        	<button type="submit" class="btn btn-warning" id="modifyBtn">수정</button>
-        	<button type="submit" class="btn btn-danger" id="removeBtn">삭제</button>
-        	<button type="submit" class="btn btn-primary" id="goListBtn">목록</button>
-        	
-        </div>
-        
+        </form>      
                 
     </div>
 
@@ -191,27 +192,11 @@
             });
         });
         
-        
-        $(document).ready(function() {
-        	var formObj = $("form[role='form']");
-        	
-        	$("#modifyBtn").on("click", function() {
-        		formObj.attr("action", "modifyReadPage.board");
-        		formObj.attr("method", "get");
-        		formObj.submit();
-        	});
-        	
-        	$("#removeBtn").on("click", function() {
-        		formObj.attr("action", "removePage.board");
-        		formObj.submit();
-        	});
-        	
-        	$("#goListBtn").on("click", function() {
-        		formObj.attr("action", "listTrip.board");
-        		formObj.attr("method", "get");
-        		formObj.submit();
-        	})
-        })
+        $(".write-cancel").on("click", function() {
+        	self.location = "listTrip.board?page=${CRI.page}&perPageNum=${CRI.perPageNum}" +
+        			"&searchType=${CRI.searchType}&keyword=${CRI.keyword}";
+        });
+
     </script>
 </body>
 

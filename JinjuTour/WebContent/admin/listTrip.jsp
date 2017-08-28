@@ -94,103 +94,51 @@
 				<c:forEach items="${LISTTRIP}" var="boardVO">
 					<tr>
 						<td>${boardVO.tnum}</td>
-						<td><a href="readTrip.board?tnum=${boardVO.tnum}">${boardVO.title}</a></td>
+						<td><a href="readTrip.board${PAGEMAKER.makeSearch(PAGEMAKER.cri.page)}&tnum=${boardVO.tnum}">${boardVO.title}</a></td>
 						<td>${boardVO.regdate.toString().substring(0, 11)}</td>
 						<td>${boardVO.cnt}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<div class="paging">
-			<select name="searchType">
-				<option value="n" <c:out value="${cri.searchType == null? 'selected':'' }"/> >---</option>
-				<option value="t" <c:out value="${cri.searchType == 't'? 'selected':'' }"/> >제목</option>
-				<option value="c" <c:out value="${cri.searchType == 'c'? 'selected':'' }"/> >내용</option>
-				<option value="a" <c:out value="${cri.searchType == 'a'? 'selected':'' }"/> >주소</option>
-				<option value="tc" <c:out value="${cri.searchType == 'tc'? 'selected':'' }"/> >제목 + 내용</option>
-				<option value="ca" <c:out value="${cri.searchType == 'ca'? 'selected':'' }"/> >내용 + 주소</option>
-				<option value="tca" <c:out value="${cri.searchType == 'tca'? 'selected':'' }"/> >제목 + 내용 + 주소</option>
-			</select>
+	</div>
+	
+	<div class="paging">
+		<select name="searchType">
+			<option value="n" <c:out value="${CRI.searchType == null? 'selected':'' }"/> >---</option>
+			<option value="t" <c:out value="${CRI.searchType == 't'? 'selected':'' }"/> >제목</option>
+			<option value="c" <c:out value="${CRI.searchType == 'c'? 'selected':'' }"/> >내용</option>
+			<option value="a" <c:out value="${CRI.searchType == 'a'? 'selected':'' }"/> >주소</option>
+			<option value="tc" <c:out value="${CRI.searchType == 'tc'? 'selected':'' }"/> >제목 + 내용</option>
+			<option value="ca" <c:out value="${CRI.searchType == 'ca'? 'selected':'' }"/> >내용 + 주소</option>
+			<option value="tca" <c:out value="${CRI.searchType == 'tca'? 'selected':'' }"/> >제목 + 내용 + 주소</option>
+		</select>
 			
-			<input type="text" name="keyword" id="keywordInput" value="${cri.keyword }"	>
-			<button id="searchBtn">검색</button>
-			<button id="newBtn">글추가</button>
-			<a href="writeTrip.jsp" class="write-btn">글쓰기</a>
-		</div>
+		<input type="text" name="keyword" id="keywordInput" value="${CRI.keyword }"	>
+		<button id="searchBtn">검색</button>
+		<button id="newBtn">글추가</button>
+	</div>
 		
-		<!-- paging -->
-		<!-- 
-		<div class="paging">
-			<%
-				PageOut pageOut = (PageOut) request.getAttribute("PAGE");
-
-				if (pageOut != null) {
-					if (pageOut.getPrevPage() == -1) {
-			%>
-			<span> < </span>
-			<%
-				} else {
-			%>
-			<a
-				href="listTrip.board?pageNum=<%=pageOut.getPrevPage()%>&pageSize=<%=pageOut.getPageSize()%>">
-				< </a>
-			<%
-				}
-			%>
-
-			<%
-				for (int i = 0; i < pageOut.getPageCnt(); i++) {
-
-						if (i == pageOut.getPageNum()) {
-			%>
-			<span style="font-size: 25px; color: red"><%=i + 1%></span>
-			<%
-				} else {
-			%>
-			<a
-				href="listTrip.board?pageNum=<%=i%>&pageSize=<%=pageOut.getPageSize()%>"><%=i + 1%></a>
-			<%
-				}
-					}
-			%>
-
-			<%
-				if (pageOut.getNextPage() == -1) {
-			%>
-			<span> > </span>
-			<%
-				} else {
-			%>
-			<a
-				href="listTrip.board?pageNum=<%=pageOut.getNextPage()%>&pageSize=<%=pageOut.getPageSize()%>">
-				> </a>
-			<%
-				}
-				}
-			%>
-		</div>
-		-->
-		
-		<div class="paging">
-			<ul class="pagination">
-				<c:if test="${PAGEMAKER.prev }">
-					<li>
-						<a href="listTrip.board${PAGEMAKER.makeSearch(PAGEMAKER.startPage-1)}">&laquo;</a>
-					</li>
-				</c:if>
-				
-				<c:forEach begin="${PAGEMAKER.startPage }" end="${PAGEMAKER.endPage }" var="idx">
-					<li <c:out value="${PAGEMAKER.cri.page == idx? 'class= active': '' }"/>>
-						<a href="listTrip.board${PAGEMAKER.makeSearch(idx) }">${idx }</a>
-					</li>
-				</c:forEach>
-				
-				<c:if test="${PAGEMAKER.next && PAGEMAKER.endPage > 0 }">
-					<li>
-						<a href="listTrip.board${PAGEMAKER.makeSearch(PAGEMAKER.endPage + 1) }">&raquo;</a>
-				</c:if>
-			</ul>
-		</div>
+	<!-- paging -->	
+	<div class="paging">
+		<ul class="pagination">
+			<c:if test="${PAGEMAKER.prev }">
+				<li>
+					<a href="listTrip.board${PAGEMAKER.makeSearch(PAGEMAKER.startPage-1)}">&laquo;</a>
+				</li>
+			</c:if>
+			
+			<c:forEach begin="${PAGEMAKER.startPage }" end="${PAGEMAKER.endPage }" var="idx">
+				<li <c:out value="${PAGEMAKER.cri.page == idx? 'class= active': '' }"/>>
+					<a href="listTrip.board${PAGEMAKER.makeSearch(idx) }">${idx }</a>
+				</li>
+			</c:forEach>
+			
+			<c:if test="${PAGEMAKER.next && PAGEMAKER.endPage > 0 }">
+				<li>
+					<a href="listTrip.board${PAGEMAKER.makeSearch(PAGEMAKER.endPage + 1) }">&raquo;</a>
+			</c:if>
+		</ul>
 	</div>
 
 	<footer class="footer">

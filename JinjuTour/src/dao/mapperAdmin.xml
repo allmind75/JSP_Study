@@ -57,6 +57,11 @@
 		<include refid="search"></include>
 	</select>
 	
+	<delete id="deleteTrip">
+		DELETE FROM board_trip WHERE tnum = #{tnum}
+	</delete>
+	
+	
 	
 	<sql id="search">
 		<if test="searchType != null">
