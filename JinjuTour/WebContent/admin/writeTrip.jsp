@@ -92,6 +92,7 @@
     <div class="adminbox">
 
         <form class="input" name="myform" action="writeTrip.board" method="post" enctype="multipart/form-data" onsubmit="return writeCheck()">
+            
             <ul>
                 <li>
                     <label for="input-title" class="readonly">관광지 이름 입력</label>
@@ -127,7 +128,7 @@
                 </li>
                 <li>
                     <input type="submit" class="write-save" value="저장">
-                    <input type="reset" class="write-save write-cancel" value="리셋">
+                    <input type="reset" class="write-save write-cancel" value="목록">
                 </li>
             </ul>
         </form>
@@ -167,6 +168,10 @@
                 }
                 // 스크롤이 100 픽셀 이하이면 탑아이콘을 fade out 합니다. (서서히 사라집니다)
             });
+        });
+        
+        $(".write-cancel").on("click", function() {
+        	self.location = "listTrip.board";
         });
     </script>
 </body>

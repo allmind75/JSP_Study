@@ -1,17 +1,12 @@
 package dao;
 
 import java.io.IOException;
-import java.io.Reader;
 import java.sql.SQLException;
-import java.util.List;
 
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import dto.AdminDTOIn;
-import dto.BoardTripDTOIn;
 
 public class AdminDAO {
 

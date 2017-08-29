@@ -1,6 +1,6 @@
 package dto;
 
-public class BoardTripDTOIn {
+public class BoardTripDTO {
 
 	private int tnum;
 	private String title;
@@ -15,11 +15,11 @@ public class BoardTripDTOIn {
 	private int cnt;
 	private String regdate;
 
-	public BoardTripDTOIn() {
+	public BoardTripDTO() {
 
 	}
 
-	public BoardTripDTOIn(int tnum, String title, String content, String address, String phone, String time, String img, String map) {
+	public BoardTripDTO(int tnum, String title, String content, String address, String phone, String time, String img, String map) {
 		super();
 		this.tnum = tnum;
 		this.title = title;
@@ -31,7 +31,7 @@ public class BoardTripDTOIn {
 		this.map = map;
 	}
 	
-	public BoardTripDTOIn(String title, String content, String address, String phone, String time, String img, String map) {
+	public BoardTripDTO(String title, String content, String address, String phone, String time, String img, String map) {
 		super();
 		this.title = title;
 		this.content = content;

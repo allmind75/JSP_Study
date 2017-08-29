@@ -188,8 +188,7 @@
 			});
 			
 			$("#newBtn").on("click", function() {
-				self.location = "writeTrip.jsp?page=${CRI.page}&perPageNum=${CRI.perPageNum}" +
-    			"&searchType=${CRI.searchType}&keyword=${CRI.keyword}";
+				self.location = "writeTrip.jsp";
 			});
 		});
 	</script>

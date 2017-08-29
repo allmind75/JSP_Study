@@ -13,21 +13,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import dao.BoardDAO;
-import dto.BoardTripDTOIn;
+import dao.BoardTripDAO;
+import dto.BoardTripDTO;
 import dto.PageMaker;
 import dto.SearchCriteria;
 
 @WebServlet("*.board")
 public class BoardCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private BoardDAO dao;
+	private BoardTripDAO dao;
 	private static final int MAX_SIZE = 1024 * 1024 * 10; // 10Mbyte 제한
 	private static final String SAVE_PATH = "C:\\Users\\hybrid\\git\\jsp_study\\JinjuTour\\WebContent\\images\\trip\\";
 
 	public BoardCtrl() throws IOException {
 		super();
-		dao = new BoardDAO();
+		dao = new BoardTripDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -90,7 +90,7 @@ public class BoardCtrl extends HttpServlet {
 		String map = multipartRequest.getParameter("map");
 		String img = ComMethod.fileUpload(request, multipartRequest, SAVE_PATH, "img");
 
-		BoardTripDTOIn dto = new BoardTripDTOIn(title, content, address, phone, time, img, map);
+		BoardTripDTO dto = new BoardTripDTO(title, content, address, phone, time, img, map);
 
 		if (dao.insertTrip(dto)) {
 			System.out.println("게시글 추가 완료");
@@ -107,7 +107,7 @@ public class BoardCtrl extends HttpServlet {
 		// search cri
 		SearchCriteria cri = ComMethod.searchCriteria(request);
 
-		List<BoardTripDTOIn> list = dao.listSearch(cri);
+		List<BoardTripDTO> list = dao.listSearch(cri);
 
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
@@ -117,8 +117,6 @@ public class BoardCtrl extends HttpServlet {
 		System.out.println(cri.toString());
 		
 		if (list != null) {
-			// request.setAttribute("LISTTRIP", list);
-			// request.setAttribute("PAGE", pageOut);
 
 			request.setAttribute("LISTTRIP", list);
 			request.setAttribute("PAGEMAKER", pageMaker);
@@ -133,7 +131,7 @@ public class BoardCtrl extends HttpServlet {
 
 		int tnum = Integer.parseInt(request.getParameter("tnum"));
 
-		BoardTripDTOIn dto = dao.selectReadTrip(tnum);
+		BoardTripDTO dto = dao.selectReadTrip(tnum);
 		
 		SearchCriteria scri = ComMethod.searchCriteria(request);
 
@@ -162,7 +160,7 @@ public class BoardCtrl extends HttpServlet {
 		String map = multipartRequest.getParameter("map").trim();
 		String img = ComMethod.fileUpload(request, multipartRequest, SAVE_PATH, "img");
 
-		BoardTripDTOIn dto = new BoardTripDTOIn(tnum, title, content, address, phone, time, img, map);
+		BoardTripDTO dto = new BoardTripDTO(tnum, title, content, address, phone, time, img, map);
 
 		PageMaker pageMaker = new PageMaker();
 
@@ -205,7 +203,7 @@ public class BoardCtrl extends HttpServlet {
 	
 		SearchCriteria scri = ComMethod.searchCriteria(request);
 
-		BoardTripDTOIn dto = dao.selectReadTrip(tnum);
+		BoardTripDTO dto = dao.selectReadTrip(tnum);
 
 		if (dto != null) {
 			request.setAttribute("READTRIP", dto);
