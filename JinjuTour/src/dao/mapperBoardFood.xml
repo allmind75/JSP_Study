@@ -6,55 +6,51 @@
 <!-- namespace : package처럼 용도별로 구분하기 위한 이름 -->
 <mapper namespace="boardFood">
 	
-	<select id="selectListFood" parameterType="dto.PageIn" resultType="hashmap">
-		SELECT tnum, title, regdate, cnt FROM board_trip 
-		ORDER BY tnum DESC LIMIT #{start}, #{pageSize};
-	</select>
-	
-	<select id="selectReadFood" resultType="dto.BoardTripDTOIn">
-		SELECT tnum, title, content, address, phone, time, map FROM board_trip
-		WHERE tnum = #{tnum};
+	<select id="selectReadFood" resultType="dto.BoardFoodDTO">
+		SELECT fnum, title, content, address, phone, time, menu, map FROM board_food
+		WHERE fnum = #{fnum};
 	</select>
 	
 	<select id="selectCountFood" resultType="hashmap">
-		SELECT COUNT(*) AS cnt FROM board_trip;
+		SELECT COUNT(*) AS cnt FROM board_food;
 	</select>
 	
-	<insert id="insertFood" parameterType="dto.BoardTripDTOIn">
-		INSERT INTO board_trip SET
+	<insert id="insertFood" parameterType="dto.BoardFoodDTO">
+		INSERT INTO board_food SET
 		title = #{title}, content = #{content}, address = #{address},
-		phone = #{phone}, time = #{time}, img = #{img}, map = #{map};		
+		phone = #{phone}, time = #{time}, menu = #{menu}, img = #{img}, map = #{map};		
 	</insert>
 	
-	<update id="updateFood" parameterType="dto.BoardTripDTOIn">
-		UPDATE board_trip
+	<update id="updateFood" parameterType="dto.BoardFoodDTO">
+		UPDATE board_food
 			<set>
 				<if test="title != null">title = #{title},</if>
 				<if test="content != null">content = #{content},</if>
 				<if test="address != null">address = #{address},</if>
 				<if test="phone != null">phone = #{phone},</if>
 				<if test="time != null">time = #{time},</if>
+				<if test="menu != null">menu = #{menu},</if>
 				<if test="img != null">img = #{img},</if>
 				<if test="map != null">map = #{map}</if>
 			</set>
-		WHERE tnum = #{tnum};
+		WHERE fnum = #{fnum};
 	</update>
 	
-	<select id="listSearch" resultType="dto.BoardTripDTOIn">
-		SELECT tnum, title, regdate, cnt FROM board_trip WHERE tnum > 0
+	<select id="listSearch" resultType="dto.BoardFoodDTO">
+		SELECT fnum, title, regdate, cnt FROM board_food WHERE fnum > 0
 		
 		<include refid="search"></include>
 		
-		ORDER BY tnum DESC LIMIT #{pageStart}, #{perPageNum}		
+		ORDER BY fnum DESC LIMIT #{pageStart}, #{perPageNum}		
 	</select>
 	
 	<select id="listSearchCount" resultType="int">
-		SELECT COUNT(tnum) FROM board_trip WHERE tnum > 0
+		SELECT COUNT(fnum) FROM board_food WHERE fnum > 0
 		<include refid="search"></include>
 	</select>
 	
-	<delete id="deleteTrip">
-		DELETE FROM board_trip WHERE tnum = #{tnum}
+	<delete id="deleteFood">
+		DELETE FROM board_food WHERE fnum = #{fnum}
 	</delete>
 	
 	
@@ -75,7 +71,7 @@
 				OR content LIKE CONCAT('%', #{keyword}, '%'))
 			</if>
 			<if test="searchType == 'ca'.toString()">
-				(content LIKE CONCAT('%', #{keyword}, '%')
+				AND (content LIKE CONCAT('%', #{keyword}, '%')
 				OR address LIKE CONCAT('%', #{keyword}, '%'))			
 			</if>
 			<if test="searchType == 'tca'.toString()">

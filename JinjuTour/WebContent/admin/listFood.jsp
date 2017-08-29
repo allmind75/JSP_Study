@@ -65,8 +65,8 @@
 				<h2 class="readonly">탭메뉴</h2>
 			</header>
 			<ul>
-				<li class="active"><a href="/JinjuTour/admin/listTrip.board">관광지</a></li>
-				<li><a href="/JinjuTour/admin/listFood.board">맛집</a></li>
+				<li><a href="/JinjuTour/admin/listTrip.board">관광지</a></li>
+				<li class="active"><a href="/JinjuTour/admin/list.fo">맛집</a></li>
 				<li><a href="/JinjuTour/admin/listProduct.board">특산물</a></li>
 			</ul>
 		</div>
@@ -90,10 +90,10 @@
 				<th scope="col">조회수</th>
 			</thead>
 			<tbody>
-				<c:forEach items="${LISTTRIP}" var="boardVO">
+				<c:forEach items="${LIST}" var="boardVO">
 					<tr>
-						<td>${boardVO.tnum}</td>
-						<td><a href="readTrip.board${PAGEMAKER.makeSearch(PAGEMAKER.cri.page)}&tnum=${boardVO.tnum}">${boardVO.title}</a></td>
+						<td>${boardVO.fnum}</td>
+						<td><a href="read.fo${PAGEMAKER.makeSearch(PAGEMAKER.cri.page)}&fnum=${boardVO.fnum}">${boardVO.title}</a></td>
 						<td>${boardVO.regdate.toString().substring(0, 11)}</td>
 						<td>${boardVO.cnt}</td>
 					</tr>
@@ -123,19 +123,19 @@
 		<ul class="pagination">
 			<c:if test="${PAGEMAKER.prev }">
 				<li>
-					<a href="listTrip.board${PAGEMAKER.makeSearch(PAGEMAKER.startPage-1)}">&laquo;</a>
+					<a href="list.fo${PAGEMAKER.makeSearch(PAGEMAKER.startPage-1)}">&laquo;</a>
 				</li>
 			</c:if>
 			
 			<c:forEach begin="${PAGEMAKER.startPage }" end="${PAGEMAKER.endPage }" var="idx">
 				<li <c:out value="${PAGEMAKER.cri.page == idx? 'class= active': '' }"/>>
-					<a href="listTrip.board${PAGEMAKER.makeSearch(idx) }">${idx }</a>
+					<a href="list.fo${PAGEMAKER.makeSearch(idx) }">${idx }</a>
 				</li>
 			</c:forEach>
 			
 			<c:if test="${PAGEMAKER.next && PAGEMAKER.endPage > 0 }">
 				<li>
-					<a href="listTrip.board${PAGEMAKER.makeSearch(PAGEMAKER.endPage + 1) }">&raquo;</a>
+					<a href="list.fo${PAGEMAKER.makeSearch(PAGEMAKER.endPage + 1) }">&raquo;</a>
 			</c:if>
 		</ul>
 	</div>
@@ -181,14 +181,14 @@
 			
 			$("#searchBtn").on("click", function() {
 				
-				self.location = "listTrip.board" +
+				self.location = "list.fo" +
 				"${PAGEMAKER.makeQuery(1)}" + 
 				"&searchType=" + $("select option:selected").val() +
 				"&keyword=" + encodeURIComponent($("#keywordInput").val());
 			});
 			
 			$("#newBtn").on("click", function() {
-				self.location = "writeTrip.jsp";
+				self.location = "writeFood.jsp";
 			});
 		});
 	</script>

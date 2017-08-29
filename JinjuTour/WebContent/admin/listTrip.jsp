@@ -66,7 +66,7 @@
 			</header>
 			<ul>
 				<li class="active"><a href="/JinjuTour/admin/listTrip.board">관광지</a></li>
-				<li><a href="/JinjuTour/admin/listFood.board">맛집</a></li>
+				<li><a href="/JinjuTour/admin/list.fo">맛집</a></li>
 				<li><a href="/JinjuTour/admin/listProduct.board">특산물</a></li>
 			</ul>
 		</div>
