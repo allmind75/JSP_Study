@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 
 import dao.BoardDAO;
+import dto.PageMaker;
 import dto.PageOut;
+import dto.SearchCriteria;
 
 public class ComMethod {
 
@@ -125,6 +127,58 @@ public class ComMethod {
 		PageOut pageOut = new PageOut(pageNum, pageSize, totalPage, pageCnt, prevPage, nextPage);
 		
 		return pageOut;
+	}
+	
+	public static SearchCriteria searchCriteria(HttpServletRequest request) {
+		
+		int page;
+		int perPageNum;
+		String searchType;
+		String keyword;
+		
+		try {
+			page = Integer.parseInt(request.getParameter("page"));
+			perPageNum = Integer.parseInt(request.getParameter("perPageNum"));
+			searchType = request.getParameter("searchType");
+			keyword = request.getParameter("keyword");			
+		} catch (Exception e) {
+			page = 1;
+			perPageNum = 10;
+			searchType = null;
+			keyword = "";	
+		}
+		
+		SearchCriteria cri = new SearchCriteria(searchType, keyword);
+		cri.setPage(page);
+		cri.setPerPageNum(perPageNum);
+		
+		return cri;
+	}
+	
+	public static SearchCriteria searchCriteria(MultipartRequest request) {
+		
+		int page;
+		int perPageNum;
+		String searchType;
+		String keyword = null;
+				
+		try {
+			page = Integer.parseInt(request.getParameter("page"));
+			perPageNum = Integer.parseInt(request.getParameter("perPageNum"));
+			searchType = request.getParameter("searchType");
+			keyword = request.getParameter("keyword");			
+		} catch (Exception e) {
+			page = 1;
+			perPageNum = 10;
+			searchType = null;
+			keyword = "";	
+		}
+		
+		SearchCriteria cri = new SearchCriteria(searchType, keyword);
+		cri.setPage(page);
+		cri.setPerPageNum(perPageNum);
+		
+		return cri;
 	}
 
 }

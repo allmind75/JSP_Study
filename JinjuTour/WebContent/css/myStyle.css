@@ -293,13 +293,14 @@ input[type=submit] {-webkit-appearance:none;}
 .paging > a {margin-right: 5px; padding: 0px 6px; display: inline-block;}
 .paging a.write-btn {background: #03c3c7; color: #fff; padding: 5px; float: right;}
 
-.paging select {width: 140px; height: 25px;} 
-.paging input {height: 25px;}
-.paging button {width: 60px; height: 25px;}
+.paging select {width: 140px; height: 35px;} 
+.paging input {height: 35px;}
+.paging button {width: 70px; height: 35px; background: #03c3c7; color: #fff;}
 
 
-
+.box-footer {text-align: center;}
 .btn {
+	width: 32%;
     display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;

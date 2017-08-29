@@ -52,7 +52,7 @@ public class PageMaker {
 	public String makeSearch(int page) {
 		return "?page=" + page + "&perPageNum=" + cri.getPerPageNum() + 
 				"&searchType=" + ((SearchCriteria) cri).getSearchType() +
-				"&keyword=" + ((SearchCriteria) cri).getKeyword();
+				"&keyword=" + encoding(((SearchCriteria) cri).getKeyword());
 	}
 	
 	public String encoding(String keyword) {

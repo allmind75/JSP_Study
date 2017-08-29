@@ -95,7 +95,7 @@
 	<c:set var="boardVO" value="${READTRIP}" />
     <div class="adminbox">
 
-        <form class="input" name="myform" action="updateTrip.board" method="post" enctype="multipart/form-data" onsubmit="return writeCheck()">
+        <form class="input" name="myform" method="post" onsubmit="return writeCheck()">
             <ul>
                 <li>
                     <label for="input-title" class="readonly">관광지 이름 입력</label>
@@ -121,18 +121,6 @@
                     <label for="input-map" class="readonly">구글 지도 경로 입력</label>
                     <input type="text" name="map" class="id" id="input-map" placeholder="구글 지도 경로 입력" value="${boardVO.map}" readonly="readonly">
                 </li>                                             
-                <li>
-                    <label for="input-img" class="filebox">관광지 사진</label>
-                    <input type="file" name="img" id="input-img" onchange="fileName(this)">
-                    <div id="fileName-wrap" style="display:none;">
-                    	<p>파일이름 : <span id="fileName"></span></p>
-                    	<button type="button" class="filebox" onclick="fileDelete()">삭제</button>
-                    </div>
-                </li>
-                <li>
-                    <input type="submit" class="write-save" value="저장">
-                    <input type="reset" class="write-save write-cancel" value="리셋">
-                </li>
             </ul>
             
         </form>

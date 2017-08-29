@@ -31,7 +31,7 @@ public class SearchCriteria extends Criteria {
 
 	@Override
 	public String toString() {
-		return "SearchCriteria [searchType=" + searchType + ", keyword=" + keyword + "]";
+		return "SearchCriteria [page=" + super.getPage() + ", perPageNum=" + super.getPerPageNum() + ", searchType=" + searchType + ", keyword=" + keyword + "]";
 	}
 
 }

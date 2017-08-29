@@ -115,8 +115,8 @@
 		</select>
 			
 		<input type="text" name="keyword" id="keywordInput" value="${CRI.keyword }"	>
-		<button id="searchBtn">검색</button>
-		<button id="newBtn">글추가</button>
+		<button id="searchBtn" class="btn">검색</button>
+		<button id="newBtn" class="btn">글추가</button>
 	</div>
 		
 	<!-- paging -->	
