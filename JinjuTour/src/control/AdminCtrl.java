@@ -67,7 +67,7 @@ public class AdminCtrl extends HttpServlet {
 			session.setAttribute("ADMINNAME", "관리자");
 			session.setMaxInactiveInterval(300);
 
-			ComMethod.sendRedirect(response, "listTrip.board");
+			ComMethod.sendRedirect(response, "list.to");
 		} else {
 			// 로그인 실패
 		}

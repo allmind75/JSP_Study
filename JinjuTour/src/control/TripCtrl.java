@@ -18,14 +18,14 @@ import dto.BoardTripDTO;
 import dto.PageMaker;
 import dto.SearchCriteria;
 
-@WebServlet("*.board")
-public class BoardCtrl extends HttpServlet {
+@WebServlet("*.to")
+public class TripCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BoardTripDAO dao;
 	private static final int MAX_SIZE = 1024 * 1024 * 10; // 10Mbyte 제한
 	private static final String SAVE_PATH = "C:\\Users\\hybrid\\git\\jsp_study\\JinjuTour\\WebContent\\images\\trip\\";
 
-	public BoardCtrl() throws IOException {
+	public TripCtrl() throws IOException {
 		super();
 		dao = new BoardTripDAO();
 	}
@@ -41,26 +41,23 @@ public class BoardCtrl extends HttpServlet {
 
 		try {
 			switch (cmd) {
-			case "writeTrip.board":
-				insertTrip(request, response);
+			case "write.to":
+				insert(request, response);
 				break;
-			case "listTrip.board":
-				listTrip(request, response);
+			case "list.to":
+				list(request, response);
 				break;
-			case "readTrip.board":
-				readTrip(request, response);
+			case "read.to":
+				read(request, response);
 				break;
-			case "updateTrip.board":
-				updateTrip(request, response);
+			case "modifyReadPage.to":
+				modifyRead(request, response);
 				break;
-			case "modifyReadPage.board":
-				modifyReadTrip(request, response);
+			case "modifyPage.to":
+				update(request, response);
 				break;
-			case "modifyPage.board":
-				updateTrip(request, response);
-				break;
-			case "removePage.board":
-				removeTrip(request, response);
+			case "removePage.to":
+				remove(request, response);
 				break;
 			}
 		} catch (SQLException e) {
@@ -75,7 +72,7 @@ public class BoardCtrl extends HttpServlet {
 
 	}
 
-	public void insertTrip(HttpServletRequest request, HttpServletResponse response)
+	public void insert(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
 		// DefaultFileRenamePolicy() - 이름 중복 방지, 중복된 이름이 있으면 파일명 뒤에 숫자 추가
@@ -94,14 +91,14 @@ public class BoardCtrl extends HttpServlet {
 
 		if (dao.insertTrip(dto)) {
 			System.out.println("게시글 추가 완료");
-			ComMethod.sendRedirect(response, "listTrip.board");
+			ComMethod.sendRedirect(response, "list.to");
 		} else {
 			System.out.println("게시글 추가 실패");
 		}
 
 	}
 
-	public void listTrip(HttpServletRequest request, HttpServletResponse response)
+	public void list(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
 		// search cri
@@ -118,7 +115,7 @@ public class BoardCtrl extends HttpServlet {
 		
 		if (list != null) {
 
-			request.setAttribute("LISTTRIP", list);
+			request.setAttribute("LIST", list);
 			request.setAttribute("PAGEMAKER", pageMaker);
 			request.setAttribute("CRI", cri);
 
@@ -126,7 +123,7 @@ public class BoardCtrl extends HttpServlet {
 		}
 	}
 
-	public void readTrip(HttpServletRequest request, HttpServletResponse response)
+	public void read(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
 		int tnum = Integer.parseInt(request.getParameter("tnum"));
@@ -137,13 +134,13 @@ public class BoardCtrl extends HttpServlet {
 
 
 		if (dto != null) {
-			request.setAttribute("READTRIP", dto);
+			request.setAttribute("READ", dto);
 			request.setAttribute("CRI", scri);
 			ComMethod.forward(request, response, "readTrip.jsp");
 		}
 	}
 
-	public void updateTrip(HttpServletRequest request, HttpServletResponse response)
+	public void update(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
 		// DefaultFileRenamePolicy() - 이름 중복 방지, 중복된 이름이 있으면 파일명 뒤에 숫자 추가
@@ -173,14 +170,14 @@ public class BoardCtrl extends HttpServlet {
 			System.out.println("수정완료");
 			// 글 수정 완료
 			request.setAttribute("CRI", scri);
-			ComMethod.sendRedirect(response, "listTrip.board" + pageMaker.makeSearch(scri.getPage()));
+			ComMethod.sendRedirect(response, "list.to" + pageMaker.makeSearch(scri.getPage()));
 		} else {
 			System.out.println("수정실패");
 			// 글 수저 실패
 		}
 	}
 
-	public void removeTrip(HttpServletRequest request, HttpServletResponse response)
+	public void remove(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
 		int tnum = Integer.parseInt(request.getParameter("tnum"));
@@ -192,11 +189,11 @@ public class BoardCtrl extends HttpServlet {
 		
 		if (dao.deleteTrip(tnum)) {
 
-			ComMethod.sendRedirect(response, "listTrip.board" + pageMaker.makeSearch(scri.getPage()));
+			ComMethod.sendRedirect(response, "list.to" + pageMaker.makeSearch(scri.getPage()));
 		}
 	}
 
-	public void modifyReadTrip(HttpServletRequest request, HttpServletResponse response)
+	public void modifyRead(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 		
 		int tnum = Integer.parseInt(request.getParameter("tnum"));
@@ -206,7 +203,7 @@ public class BoardCtrl extends HttpServlet {
 		BoardTripDTO dto = dao.selectReadTrip(tnum);
 
 		if (dto != null) {
-			request.setAttribute("READTRIP", dto);
+			request.setAttribute("READ", dto);
 			request.setAttribute("CRI", scri);
 			ComMethod.forward(request, response, "modifyTrip.jsp");
 		}

@@ -48,7 +48,7 @@
     <header class="header">
         <div class="headerTop">
             <a href="#" class="btn_gnb" id="menu-toggle"><i class="fa fa-navicon headericon"></i></a>
-            <h1 class="logo"><a href="trip.jsp">진주투어</a></h1>
+            <h1 class="logo"><a href="list.to">진주투어</a></h1>
             <a href="#" class="btn_search"><i class="fa fa-search headericon"></i></a>
         </div>
         <div class="bar-search">
@@ -84,15 +84,15 @@
                 <h2 class="readonly">탭메뉴</h2>
             </header>
             <ul>
-                <li class="active"><a href="main.html">관광지</a></li>
-                <li><a href="../food.html">맛집</a></li>
-                <li><a href="../product.html">특산물</a></li>
+                <li class="active"><a href="list.to">관광지</a></li>
+                <li><a href="list.fo">맛집</a></li>
+                <li><a href="list.po">특산물</a></li>
             </ul>
         </div>
     </section>
 
 	
-	<c:set var="boardVO" value="${READTRIP}" />
+	<c:set var="boardVO" value="${READ}" />
     <div class="adminbox">
 
         <form class="input" name="myform" method="post" onsubmit="return writeCheck()">
@@ -184,18 +184,18 @@
         	var formObj = $("form[role='form']");
         	
         	$("#modifyBtn").on("click", function() {
-        		formObj.attr("action", "modifyReadPage.board");
+        		formObj.attr("action", "modifyReadPage.to");
         		formObj.attr("method", "get");
         		formObj.submit();
         	});
         	
         	$("#removeBtn").on("click", function() {
-        		formObj.attr("action", "removePage.board");
+        		formObj.attr("action", "removePage.to");
         		formObj.submit();
         	});
         	
         	$("#goListBtn").on("click", function() {
-        		formObj.attr("action", "listTrip.board");
+        		formObj.attr("action", "list.to");
         		formObj.attr("method", "get");
         		formObj.submit();
         	})

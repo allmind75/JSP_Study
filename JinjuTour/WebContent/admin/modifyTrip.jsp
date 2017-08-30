@@ -48,7 +48,7 @@
     <header class="header">
         <div class="headerTop">
             <a href="#" class="btn_gnb" id="menu-toggle"><i class="fa fa-navicon headericon"></i></a>
-            <h1 class="logo"><a href="trip.jsp">진주투어</a></h1>
+            <h1 class="logo"><a href="list.to">진주투어</a></h1>
             <a href="#" class="btn_search"><i class="fa fa-search headericon"></i></a>
         </div>
         <div class="bar-search">
@@ -84,18 +84,18 @@
                 <h2 class="readonly">탭메뉴</h2>
             </header>
             <ul>
-                <li class="active"><a href="main.html">관광지</a></li>
-                <li><a href="../food.html">맛집</a></li>
-                <li><a href="../product.html">특산물</a></li>
+                <li class="active"><a href="list.to">관광지</a></li>
+                <li><a href="list.fo">맛집</a></li>
+                <li><a href="list.po">특산물</a></li>
             </ul>
         </div>
     </section>
 
 	
-	<c:set var="boardVO" value="${READTRIP}" />
+	<c:set var="boardVO" value="${READ}" />
     <div class="adminbox">
 
-        <form class="input" name="myform" action="modifyPage.board" method="post" enctype="multipart/form-data" onsubmit="return writeCheck()">
+        <form class="input" name="myform" action="modifyPage.to" method="post" enctype="multipart/form-data" onsubmit="return writeCheck()">
             
             <input type="hidden" name="page" value="${CRI.page }">
         	<input type="hidden" name="perPageNum" value="${CRI.perPageNum }">
@@ -193,7 +193,7 @@
         });
         
         $(".write-cancel").on("click", function() {
-        	self.location = "listTrip.board?page=${CRI.page}&perPageNum=${CRI.perPageNum}" +
+        	self.location = "list.to?page=${CRI.page}&perPageNum=${CRI.perPageNum}" +
         			"&searchType=${CRI.searchType}&keyword=${CRI.keyword}";
         });
 
