@@ -14,6 +14,8 @@
 	}
 
 	String uri = request.getRequestURI().substring(request.getContextPath().length() + 1);
+	
+	System.out.println(uri);
 %>
 
 <!-- ajax -->
@@ -35,7 +37,7 @@
 					
 					if(data.ret == true) {
 						alert("회원탈퇴가 완료되었습니다.");
-						location.href="main.jsp";
+						location.href="main.mo";
 					} else {
 						alert("회원탈퇴를 할 수 없습니다.");
 					}
@@ -61,7 +63,7 @@
 		<a class="btn_gnb" id="menu-toggle"><i
 			class="fa fa-navicon headericon"></i></a>
 		<h1 class="logo">
-			<a href="main.jsp">진주투어</a>
+			<a href="main.mo">진주투어</a>
 		</h1>
 		<a class="btn_search"><i class="fa fa-search headericon"></i></a>
 	</div>
@@ -82,7 +84,7 @@
 <nav id="slidebar-wrapper">
 	<div id="nav-wrapper">
 		<div class="nav-top">
-			<a href="main.jsp" id="menu-close" class="btn-close"><i
+			<a href="main.mo" id="menu-close" class="btn-close"><i
 				class="fa fa-close"></i></a>
 			<div class="slidebar-wrap">
 				<div id="userImg" class="slidebar-brand"></div>
@@ -104,7 +106,7 @@
 			%>
 		</div>
 		<ul class="sidebar-nav">
-			<li><i class="fa fa-home active"></i><a href="main.jsp">HOME</a></li>
+			<li><i class="fa fa-home active"></i><a href="main.mo">HOME</a></li>
 
 			<%
 				if (userId == null || userId == "") {
@@ -137,11 +139,11 @@
 			<%
 				if (uri.equals("main.jsp")) {
 			%>
-					<li class="active" id="active-main"><a href="main.jsp">추천</a></li>
+					<li class="active" id="active-main"><a href="main.mo">추천</a></li>
 			<%
 				} else {
 			%>
-					<li id="active-main"><a href="main.jsp">추천</a></li>
+					<li id="active-main"><a href="main.mo">추천</a></li>
 			<%
 				}
 			%>

@@ -134,7 +134,7 @@ public class MemberCtrl extends HttpServlet {
 			session.setMaxInactiveInterval(600);
 
 			// 3. page 이동
-			ComMethod.sendRedirect(response, "main.jsp");
+			ComMethod.sendRedirect(response, "main.mo");
 
 		} else {
 			// 회원가입실패
@@ -169,7 +169,7 @@ public class MemberCtrl extends HttpServlet {
 			// session 유지시간 설정(초단위) 600 = 10분, 일정 시간뒤 자동 로그아웃
 			session.setMaxInactiveInterval(600);
 
-			ComMethod.sendRedirect(response, "main.jsp");
+			ComMethod.sendRedirect(response, "main.mo");
 		} else {
 			// 로그인실패
 			System.out.println("로그인실패");
@@ -184,7 +184,7 @@ public class MemberCtrl extends HttpServlet {
 
 		if (id != null) {
 			session.invalidate();
-			ComMethod.sendRedirect(response, "main.jsp");
+			ComMethod.sendRedirect(response, "main.mo");
 		}
 	}
 
@@ -283,7 +283,7 @@ public class MemberCtrl extends HttpServlet {
 			session.setAttribute("USEREMAIL", email);
 			session.setAttribute("USERIMG", path);
 
-			ComMethod.sendRedirect(response, "main.jsp");
+			ComMethod.sendRedirect(response, "main.mo");
 		} else {
 			// 회원정보변경 실패
 			System.out.println("회원정보변경실패");

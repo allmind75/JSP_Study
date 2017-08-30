@@ -433,18 +433,6 @@ textarea:focus {
     margin-right: 2.439024%;
     margin-left: 2.439024%;
   }
-  .tab1_cont li:nth-child(1) .imgw100 {
-    content: url(../images/trip_01d.jpg);
-  }
-  .tab1_cont li:nth-child(4) .imgw100 {
-    content: url(../images/food_01d.jpg);
-  }
-  .tab1_cont li:nth-child(5) .imgw100 {
-    content: url(../images/food_03d.jpg);
-  }
-  .tab1_cont li:nth-child(6) .imgw100 {
-    content: url(../images/product_01d.jpg);
-  }
 }
 @media (min-width: 1200px) {
   /* index.html */
@@ -474,17 +462,5 @@ textarea:focus {
   }
   .tab1_cont ul li:nth-child(4n) {
     margin-right: 0% !important;
-  }
-  .tab1_cont li:nth-child(1) .imgw100 {
-    content: url(../images/trip_01d.jpg);
-  }
-  .tab1_cont li:nth-child(4) .imgw100 {
-    content: url(../images/food_01d.jpg);
-  }
-  .tab1_cont li:nth-child(5) .imgw100 {
-    content: url(../images/food_03d.jpg);
-  }
-  .tab1_cont li:nth-child(6) .imgw100 {
-    content: url(../images/product_01d.jpg);
   }
 }

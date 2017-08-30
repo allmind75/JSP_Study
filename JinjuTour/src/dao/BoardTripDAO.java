@@ -94,5 +94,15 @@ public class BoardTripDAO {
 		}
 	}
 	
+	public List<BoardTripDTO> selectRecommend() throws SQLException {
+		
+		SqlSession session = factory.openSession();
+		try {
+			return session.selectList("boardTrip.selectRecommend");
+		} finally {
+			session.close();
+		}
+	}
+	
 	
 }

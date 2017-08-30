@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import dto.BoardProductDTO;
+import dto.BoardTripDTO;
 import dto.SearchCriteria;
 
 public class BoardProductDAO {
@@ -89,6 +90,16 @@ public class BoardProductDAO {
 			} else {
 				return false;
 			}
+		} finally {
+			session.close();
+		}
+	}
+	
+	public List<BoardProductDTO> selectRecommend() throws SQLException {
+		
+		SqlSession session = factory.openSession();
+		try {
+			return session.selectList("boardProduct.selectRecommend");
 		} finally {
 			session.close();
 		}

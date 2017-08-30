@@ -42,7 +42,7 @@
 <body>
 	<header class="header">
 		<div class="headerTop">
-			<a href="main.jsp" class="btn_back" id="menu-toggle"><i
+			<a href="main.mo" class="btn_back" id="menu-toggle"><i
 				class="fa fa-chevron-left"></i></a>
 			<h1 class="logo">로그인</h1>
 		</div>

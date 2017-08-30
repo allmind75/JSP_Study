@@ -5,16 +5,7 @@
 
 <!-- namespace : package처럼 용도별로 구분하기 위한 이름 -->
 <mapper namespace="boardProduct">	
-	
-	<select id="selectReadProduct" resultType="dto.BoardProductDTO">
-		SELECT pnum, title, content, address, phone, link, img, map FROM board_product
-		WHERE pnum = #{pnum};
-	</select>
-	
-	<select id="selectCountProduct" resultType="hashmap">
-		SELECT COUNT(*) AS cnt FROM board_product;
-	</select>
-	
+
 	<insert id="insertProduct" parameterType="dto.BoardProductDTO">
 		INSERT INTO board_product SET
 		title = #{title}, content = #{content}, address = #{address},
@@ -35,6 +26,19 @@
 		WHERE pnum = #{pnum};
 	</update>
 	
+	<delete id="deleteProduct">
+		DELETE FROM board_product WHERE pnum = #{pnum}
+	</delete>
+		
+	<select id="selectReadProduct" resultType="dto.BoardProductDTO">
+		SELECT pnum, title, content, address, phone, link, img, map FROM board_product
+		WHERE pnum = #{pnum};
+	</select>
+	
+	<select id="selectCountProduct" resultType="hashmap">
+		SELECT COUNT(*) AS cnt FROM board_product;
+	</select>
+	
 	<select id="listSearch" resultType="dto.BoardProductDTO">
 		SELECT pnum, title, regdate, cnt FROM board_product WHERE pnum > 0
 		
@@ -48,11 +52,9 @@
 		<include refid="search"></include>
 	</select>
 	
-	<delete id="deleteProduct">
-		DELETE FROM board_product WHERE pnum = #{pnum}
-	</delete>
-	
-	
+	<select id="selectRecommend" resultType="dto.BoardProductDTO">
+		SELECT pnum, title, img, heart, reply, cnt FROM board_product ORDER BY cnt DESC LIMIT 0, 2;
+	</select>
 	
 	<sql id="search">
 		<if test="searchType != null">

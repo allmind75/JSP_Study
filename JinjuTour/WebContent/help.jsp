@@ -15,7 +15,7 @@
 <body>
 	<header class="header">
 		<div class="headerTop">
-			<a href="main.jsp" class="btn_back"><i class="fa fa-chevron-left"></i></a>
+			<a href="main.mo" class="btn_back"><i class="fa fa-chevron-left"></i></a>
 			<h1 class="logo">도움말</h1>
 		</div>
 	</header>

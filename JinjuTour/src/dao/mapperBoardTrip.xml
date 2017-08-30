@@ -6,11 +6,6 @@
 <!-- namespace : package처럼 용도별로 구분하기 위한 이름 -->
 <mapper namespace="boardTrip">
 	
-	<select id="selectReadTrip" resultType="dto.BoardTripDTO">
-		SELECT tnum, title, content, address, phone, time, img, map FROM board_trip
-		WHERE tnum = #{tnum};
-	</select>
-	
 	<insert id="insertTrip" parameterType="dto.BoardTripDTO">
 		INSERT INTO board_trip SET
 		title = #{title}, content = #{content}, address = #{address},
@@ -31,6 +26,15 @@
 		WHERE tnum = #{tnum};
 	</update>
 	
+	<delete id="deleteTrip">
+		DELETE FROM board_trip WHERE tnum = #{tnum}
+	</delete>
+	
+	<select id="selectReadTrip" resultType="dto.BoardTripDTO">
+		SELECT tnum, title, content, address, phone, time, img, map FROM board_trip
+		WHERE tnum = #{tnum};
+	</select>
+
 	<select id="listSearch" resultType="dto.BoardTripDTO">
 		SELECT tnum, title, regdate, cnt FROM board_trip WHERE tnum > 0
 		
@@ -44,10 +48,9 @@
 		<include refid="search"></include>
 	</select>
 	
-	<delete id="deleteTrip">
-		DELETE FROM board_trip WHERE tnum = #{tnum}
-	</delete>
-	
+	<select id="selectRecommend" resultType="dto.BoardTripDTO">
+		SELECT tnum, title, img, heart, reply, cnt FROM board_trip ORDER BY cnt DESC LIMIT 0, 2;
+	</select>
 	
 	
 	<sql id="search">

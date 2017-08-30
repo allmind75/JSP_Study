@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -58,68 +60,74 @@
 			<h2 class="readonly">콘텐츠내용</h2>
 			<div class="tab1_cont">
 				<ul>
-					<li><a href="trip-view.jsp"> <img class="imgw100"
-							src="images/trip_01.jpg" alt="진주성"> <span>진주성</span>
-							<ul class="count-wrap">
-								<li><i class="fa fa-heart heartIcon"></i>
-									<p class="count">29</p></li>
-								<li><i class="fa fa-weixin reviewIcon"></i>
-									<p class="count">21</p></li>
-								<li><i class="fa fa-eye eyeIcon"></i>
-									<p class="count">52</p></li>
-							</ul>
-					</a></li>
-					<li><a href="food-view.jsp"> <img class="imgw100"
-							src="images/food_01.jpg" alt="진주냉면"> <span>박군자 진주냉면</span>
-							<ul class="count-wrap">
-								<li>
-									<i class="fa fa-heart heartIcon"></i>
-									<p class="count">17</p>
-								</li>
-								<li>										
-		                            <i class="fa fa-weixin reviewIcon"></i>
-		                            <p class="count">18</p>
-								</li>
-								<li>
-									<i class="fa fa-eye eyeIcon"></i>
-									<p class="count">52</p>
-								</li>
-							</ul>
-					</a></li>
-					<li><a href="food-view.jsp"> <img class="imgw100"
-							src="images/food_03.jpg" alt="진주냉면"> <span>유정장어</span>
-							<ul class="count-wrap">
-								<li>
-									<i class="fa fa-heart heartIcon"></i>
-									<p class="count">24</p>
-								</li>
-								<li>										
-		                            <i class="fa fa-weixin reviewIcon"></i>
-		                            <p class="count">19</p>
-								</li>
-								<li>
-									<i class="fa fa-eye eyeIcon"></i>
-									<p class="count">52</p>
-								</li>
-							</ul>
-					</a></li>
-					<li><a href="product-view.jsp"> <img class="imgw100"
-							src="images/product_01.jpg" alt="진주실크"> <span>실키안</span>
-							<ul class="count-wrap">
-								<li>
-									<i class="fa fa-heart heartIcon"></i>
-									<p class="count">11</p>
-								</li>
-								<li>										
-		                            <i class="fa fa-weixin reviewIcon"></i>
-		                            <p class="count">10</p>
-								</li>
-								<li>
-									<i class="fa fa-eye eyeIcon"></i>
-									<p class="count">52</p>
-								</li>
-							</ul>
-					</a></li>
+					<c:forEach items="${TRIPLIST}" var="tripVO">
+						<li>
+							<a href="#">
+								<img class="imgw100" src="images/trip/${tripVO.img}" alt="${tripVO.title}">
+								<span>${tripVO.title}</span>
+								<ul class="count-wrap">
+									<li>
+										<i class="fa fa-heart heartIcon"></i>
+										<p class="count">${tripVO.heart}</p>
+									</li>
+									<li>
+										<i class="fa fa-weixin reviewIcon"></i>
+										<p class="count">${tripVO.reply}</p>
+									</li>
+									<li>
+										<i class="fa fa-eye eyeIcon"></i>
+										<p class="count">${tripVO.cnt}</p>
+									</li>
+								</ul>
+							</a>
+						</li>
+					</c:forEach>
+
+					<c:forEach items="${FOODLIST}" var="foodVO">
+						<li>
+							<a href="#">
+								<img class="imgw100" src="images/food/${foodVO.img}" alt="${foodVO.title}">
+								<span>${foodVO.title}</span>
+								<ul class="count-wrap">
+									<li>
+										<i class="fa fa-heart heartIcon"></i>
+										<p class="count">${foodVO.heart}</p>
+									</li>
+									<li>
+										<i class="fa fa-weixin reviewIcon"></i>
+										<p class="count">${foodVO.reply}</p>
+									</li>
+									<li>
+										<i class="fa fa-eye eyeIcon"></i>
+										<p class="count">${foodVO.cnt}</p>
+									</li>
+								</ul>
+							</a>
+						</li>
+					</c:forEach>
+
+					<c:forEach items="${PRODUCTLIST}" var="productVO">
+						<li>
+							<a href="trip-view.jsp">
+								<img class="imgw100" src="images/product/${productVO.img}" alt="${productVO.title}">
+								<span>${productVO.title}</span>
+								<ul class="count-wrap">
+									<li>
+										<i class="fa fa-heart heartIcon"></i>
+										<p class="count">${productVO.heart}</p>
+									</li>
+									<li>
+										<i class="fa fa-weixin reviewIcon"></i>
+										<p class="count">${productVO.reply}</p>
+									</li>
+									<li>
+										<i class="fa fa-eye eyeIcon"></i>
+										<p class="count">${productVO.cnt}</p>
+									</li>
+								</ul>
+							</a>
+						</li>
+					</c:forEach>					
 				</ul>
 			</div>
 		</section>

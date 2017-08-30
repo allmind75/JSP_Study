@@ -28,7 +28,7 @@ public class AdminCtrl extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html); charset=UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 
 		String cmd = ComMethod.parseAdminCommand(request);
 		System.out.println("cmd : " + cmd);
