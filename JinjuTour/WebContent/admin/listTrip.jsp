@@ -33,7 +33,7 @@
 			</tbody>
 		</table>
 	</div>
-	
+
 	<div class="paging">
 		<select name="searchType">
 			<option value="n" <c:out value="${CRI.searchType == null? 'selected':'' }"/> >---</option>

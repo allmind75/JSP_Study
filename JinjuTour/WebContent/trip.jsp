@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -23,127 +25,80 @@
 	<section class="sub-contents">
 		<h2 class="readonly">콘텐츠내용</h2>
 		<ul>
-			<li><a href="trip-view.jsp"> <img class="imgw100"
-					src="images/trip_01d.jpg" alt="진주성">
+			<c:forEach items="${LIST}" var="boardVO">
+			<li>
+				<a href="readTrip.mo${PAGEMAKER.makeSearch(PAGEMAKER.cri.page)}&tnum${boardVO.tnum}"> 
+				<img class="imgw100" src="images/trip/${boardVO.img }" alt="${boardVO.title }">
 					<div class="content">
-						<p class="sub-title">진주성</p>
-						<p class="sub-content">진주성(晉州城)은 경상남도 진주시 남성동에서 본성동에 걸쳐 있는
-							석성으로, 삼국시대 백제 때 제작되었다.</p>
+						<p class="sub-title">${boardVO.title }</p>
+						<p class="sub-content">${boardVO.content }</p>
 						<p class="sub-address">
-							<i class="fa fa-map-marker"></i> 경상남도 진주시 남강로 626
+							<i class="fa fa-map-marker"></i>
+							${boardVO.address }
 						</p>
-						<div class="count">
-							<i class="fa fa-heart heartIcon"></i>
-							<p class="heartCount1">29</p>
-							<i class="fa fa-weixin reviewIcon"></i>
-							<p class="reviewCount1">21</p>
-						</div>
+						<ul class="count-wrap">
+							<li>
+								<i class="fa fa-heart heartIcon"></i>
+								<p class="count">${boardVO.heart }</p>
+							</li>
+							<li>
+								<i class="fa fa-weixin reviewIcon"></i>
+								<p class="count">${boardVO.reply }</p>
+							</li>
+							<li>
+								<i class="fa fa-eye eyeIcon"></i>
+								<p class= "count">${boardVO.cnt }</p>							
+							</li>
+
+						</ul>
 					</div>
 
-			</a></li>
-			<li><a href="trip-view.html"> <img class="imgw100"
-					src="images/trip_02.jpg" alt="진양호">
-					<div class="content">
-						<p class="sub-title">진양호</p>
-						<p class="sub-content">진양호(晉陽湖)는 1970년 7월에 완성된 낙동강 유역 최초의
-							다목적댐인 남강댐의 건설로 형성된 호수이다.</p>
-						<p class="sub-address">
-							<i class="fa fa-map-marker"></i> 경상남도 진주시 판문동
-						</p>
-						<div class="count">
-							<i class="fa fa-heart heartIcon"></i>
-							<p class="heartCount1">17</p>
-							<i class="fa fa-weixin reviewIcon"></i>
-							<p class="reviewCount1">13</p>
-						</div>
-
-					</div>
-			</a></li>
-			<li><a href="trip-view.html"> <img class="imgw100"
-					src="images/trip_03.jpg" alt="진양호 동물원">
-					<div class="content">
-						<p class="sub-title">진양호 동물원</p>
-						<p class="sub-content">1986년 1월 20일 개원하여 연차적으로 시설물을 확충하여 현재
-							55종 300여마리의 동물을 사육하고 있다.</p>
-						<p class="sub-address">
-							<i class="fa fa-map-marker"></i> 경상남도 진주시 판문동 171
-						</p>
-						<div class="count">
-							<i class="fa fa-heart heartIcon"></i>
-							<p class="heartCount1">14</p>
-							<i class="fa fa-weixin reviewIcon"></i>
-							<p class="reviewCount1">12</p>
-						</div>
-
-					</div>
-			</a></li>
-			<li><a href="trip-view.html"> <img class="imgw100"
-					src="images/trip_04.jpg" alt="망진상 봉수대">
-					<div class="content">
-						<p class="sub-title">망진상 봉수대</p>
-						<p class="sub-content">이곳 봉수대는 예부터 외적의 침입을 알리는 통신 수단으로 이용된 것으로
-							크기는 옛날의 것보다 1/3로 축소 조성되었다.</p>
-						<p class="sub-address">
-							<i class="fa fa-map-marker"></i> 경상남도 진주시 망경동
-						</p>
-						<div class="count">
-							<i class="fa fa-heart heartIcon"></i>
-							<p class="heartCount1">25</p>
-							<i class="fa fa-weixin reviewIcon"></i>
-							<p class="reviewCount1">23</p>
-						</div>
-
-					</div>
-
-			</a></li>
-			<li><a href="trip-view.html"> <img class="imgw100"
-					src="images/trip_05.jpg" alt="월아산 해돋이">
-					<div class="content">
-						<p class="sub-title">월아산 해돋이</p>
-						<p class="sub-content">장군대봉과 국사봉 사이 밑바닥(질매재)에서 튀어 오르는 해돋이 광경은
-							금호지와 어우러져 탄성을 자아낸다.</p>
-						<p class="sub-address">
-							<i class="fa fa-map-marker"></i> 경상남도 진주시 금산면 갈전리
-						</p>
-						<div class="count">
-							<i class="fa fa-heart heartIcon"></i>
-							<p class="heartCount1">36</p>
-							<i class="fa fa-weixin reviewIcon"></i>
-							<p class="reviewCount1">23</p>
-						</div>
-
-					</div>
-			</a></li>
-			<li><a href="trip-view.html"> <img class="imgw100"
-					src="images/trip_06.jpg" alt="음악분수">
-					<div class="content">
-						<p class="sub-title">음악분수</p>
-						<p class="sub-content">음악에 맞추어 수동으로 분수 모양을 조합하여 조명과 각종 효과들을
-							연출함으로써 예술성이 요구되는 종합창작 예술품이다.</p>
-						<p class="sub-address">
-							<i class="fa fa-map-marker"></i> 경상남도 진주시 신안동
-						</p>
-						<div class="count">
-							<i class="fa fa-heart heartIcon"></i>
-							<p class="heartCount1">43</p>
-							<i class="fa fa-weixin reviewIcon"></i>
-							<p class="reviewCount1">31</p>
-						</div>
-
-					</div>
-			</a></li>
+				</a>
+			</li>
+			</c:forEach>
 		</ul>
-		<div class="paging">
-			<strong>1</strong> <a href="#">2</a> <a href="#">3</a> <a href="#">
-				<i class="fa fa-angle-double-right"></i>
-			</a>
-			<div class="top" id="goTop">
-				<a href="#top"><i class="fa fa-chevron-up"></i>TOP</a>
-			</div>
+		<div class="top" id="goTop">
+			<a href="#top"><i class="fa fa-chevron-up"></i>TOP</a>
 		</div>
-
 	</section>
 
+		
+		<div class="paging">
+			<select name="searchType">
+				<option value="n" <c:out value="${CRI.searchType == null? 'selected':'' }"/> >---</option>
+				<option value="t" <c:out value="${CRI.searchType == 't'? 'selected':'' }"/> >제목</option>
+				<option value="c" <c:out value="${CRI.searchType == 'c'? 'selected':'' }"/> >내용</option>
+				<option value="a" <c:out value="${CRI.searchType == 'a'? 'selected':'' }"/> >주소</option>
+				<option value="tc" <c:out value="${CRI.searchType == 'tc'? 'selected':'' }"/> >제목 + 내용</option>
+				<option value="ca" <c:out value="${CRI.searchType == 'ca'? 'selected':'' }"/> >내용 + 주소</option>
+				<option value="tca" <c:out value="${CRI.searchType == 'tca'? 'selected':'' }"/> >제목 + 내용 + 주소</option>
+			</select>
+				
+			<input type="text" name="keyword" id="keywordInput" value="${CRI.keyword }"	>
+			<button id="searchBtn" class="btn">검색</button>
+		</div>	
+			
+		<!-- paging -->	
+		<div class="paging">
+			<ul class="pagination">
+				<c:if test="${PAGEMAKER.prev }">
+					<li>
+						<a href="trip.mo${PAGEMAKER.makeSearch(PAGEMAKER.startPage-1)}">&laquo;</a>
+					</li>
+				</c:if>
+				
+				<c:forEach begin="${PAGEMAKER.startPage }" end="${PAGEMAKER.endPage }" var="idx">
+					<li <c:out value="${PAGEMAKER.cri.page == idx? 'class= active': '' }"/>>
+						<a href="trip.mo${PAGEMAKER.makeSearch(idx) }">${idx }</a>
+					</li>
+				</c:forEach>
+				
+				<c:if test="${PAGEMAKER.next && PAGEMAKER.endPage > 0 }">
+					<li>
+						<a href="trip.mo${PAGEMAKER.makeSearch(PAGEMAKER.endPage + 1) }">&raquo;</a>
+				</c:if>
+			</ul>
+		</div>	
 	<!-- sub contents end -->
 
 	<footer class="footer">
@@ -187,6 +142,14 @@
 		$("#goTop").click(function(e) {
 			e.preventDefault();
 			$('body, html, .sub-contents-view').scrollTop(0);
+		});
+		
+			
+		$("#searchBtn").on("click", function() {				
+			self.location = "trip.mo" +
+			"${PAGEMAKER.makeQuery(1)}" + 
+			"&searchType=" + $("select option:selected").val() +
+			"&keyword=" + encodeURIComponent($("#keywordInput").val());
 		});
 	</script>
 </body>

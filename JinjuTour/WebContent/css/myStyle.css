@@ -238,12 +238,12 @@ input[type=submit] {-webkit-appearance:none;}
 .tab1_cont span {display: block; font-size: 16px; color: #363636; font-weight: bold; margin: 3px 0;}
 .tab1_cont > ul > li a > p {height: 75px; font-size: 0.85em; padding: 0px 5px 5px; color: #373737; letter-spacing: -0.3px; text-align: justify; line-height:140%} /*양쪽정렬*/
 
-.tab1_cont .count-wrap {display: block; margin: 10px 0;}
-.tab1_cont .count-wrap li {display: inline-block; width: 30%;}
-.tab1_cont .count-wrap p.count {display: inline-block;}
-.tab1_cont .heartIcon{font-size: 14px; color: #ff5b5b;}
-.tab1_cont .reviewIcon{font-size: 14px; color: #f1c40f;}
-.tab1_cont .eyeIcon{font-size: 14px; color: #03c3c7;}
+.count-wrap {display: block; margin: 10px 0; text-align: center;}
+.count-wrap li {display: inline-block; width: 30%;}
+.count-wrap p.count {display: inline-block;}
+.heartIcon{font-size: 14px; color: #ff5b5b;}
+.reviewIcon{font-size: 14px; color: #f1c40f;}
+.eyeIcon{font-size: 14px; color: #03c3c7;}
 .tab1_cont .heartCount1, .heartCount2, .reviewCount1 {margin-right: 10px; }
 .tab1_cont .heartCount1, .heartCount2, .reviewCount1, .reviewCount2 {display: inline; margin-left: 10px;}
 

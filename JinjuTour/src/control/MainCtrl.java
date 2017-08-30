@@ -16,6 +16,8 @@ import dao.BoardTripDAO;
 import dto.BoardFoodDTO;
 import dto.BoardProductDTO;
 import dto.BoardTripDTO;
+import dto.PageMaker;
+import dto.SearchCriteria;
 
 @WebServlet("*.mo")
 public class MainCtrl extends HttpServlet {
@@ -45,6 +47,9 @@ public class MainCtrl extends HttpServlet {
 			case "main.mo":
 				recommend(request, response);
 				break;
+			case "trip.mo":
+				listTrip(request, response);
+				break;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -72,7 +77,27 @@ public class MainCtrl extends HttpServlet {
 			
 			ComMethod.forward(request, response, "main.jsp");
 		}
-
+	}
+	
+	public void listTrip(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+		
+		SearchCriteria cri = ComMethod.searchCriteria(request);
+		
+		List<BoardTripDTO> list = tripDAO.selectListSearch(cri);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(tripDAO.listSearchCount(cri));
+		
+		if(list != null) {
+			
+			request.setAttribute("LIST", list);
+			request.setAttribute("PAGEMAKER", pageMaker);
+			request.setAttribute("CRI", cri);
+			
+			ComMethod.forward(request, response, "trip.jsp");
+		}
 	}
 
 }

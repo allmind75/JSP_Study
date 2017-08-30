@@ -114,7 +114,7 @@ public class ComMethod {
 			keyword = request.getParameter("keyword");			
 		} catch (Exception e) {
 			page = 1;
-			perPageNum = 10;
+			perPageNum = 6;
 			searchType = null;
 			keyword = "";	
 		}

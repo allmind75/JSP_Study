@@ -104,5 +104,15 @@ public class BoardTripDAO {
 		}
 	}
 	
+	public List<BoardTripDTO> selectListSearch(SearchCriteria cri) throws SQLException {
+		
+		SqlSession session = factory.openSession();
+		try {
+			return session.selectList("boardTrip.selectListSearch", cri);
+		} finally {
+			session.close();
+		}
+	}
+	
 	
 }
