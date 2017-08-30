@@ -27,7 +27,7 @@
 		<ul>
 			<c:forEach items="${LIST}" var="boardVO">
 			<li>
-				<a href="readTrip.mo${PAGEMAKER.makeSearch(PAGEMAKER.cri.page)}&tnum${boardVO.tnum}"> 
+				<a href="readTrip.mo${PAGEMAKER.makeSearch(PAGEMAKER.cri.page)}&tnum=${boardVO.tnum}"> 
 				<img class="imgw100" src="images/trip/${boardVO.img }" alt="${boardVO.title }">
 					<div class="content">
 						<p class="sub-title">${boardVO.title }</p>

@@ -151,22 +151,22 @@
 			<%
 				if (uri.equals("trip.jsp") || uri.equals("trip-view.jsp")) {
 			%>
-					<li class="active" id="active-main"><a href="trip.jsp">관광지</a></li>
+					<li class="active" id="active-main"><a href="trip.mo">관광지</a></li>
 			<%
 				} else {
 			%>
-					<li id="active-main"><a href="trip.jsp">관광지</a></li>
+					<li id="active-main"><a href="trip.mo">관광지</a></li>
 			<%
 				}
 			%>
 			<%
 				if (uri.equals("food.jsp") || uri.equals("food-view.jsp")) {
 			%>
-					<li class="active" id="active-main"><a href="foodn.jsp">맛집</a></li>
+					<li class="active" id="active-main"><a href="food.mo">맛집</a></li>
 			<%
 				} else {
 			%>
-					<li id="active-main"><a href="food.jsp">맛집</a></li>
+					<li id="active-main"><a href="food.mo">맛집</a></li>
 			<%
 				}
 			%>
@@ -174,11 +174,11 @@
 			<%
 				if (uri.equals("product.jsp") || uri.equals("product-view.jsp")) {
 			%>
-					<li class="active" id="active-main"><a href="product.jsp">특산물</a></li>
+					<li class="active" id="active-main"><a href="product.mo">특산물</a></li>
 			<%
 				} else {
 			%>
-					<li id="active-main"><a href="product.jsp">특산물</a></li>
+					<li id="active-main"><a href="product.mo">특산물</a></li>
 			<%
 				}
 			%>

@@ -25,13 +25,13 @@
 			</set>
 		WHERE tnum = #{tnum};
 	</update>
-	
+		
 	<delete id="deleteTrip">
 		DELETE FROM board_trip WHERE tnum = #{tnum}
 	</delete>
 	
 	<select id="selectReadTrip" resultType="dto.BoardTripDTO">
-		SELECT tnum, title, content, address, phone, time, img, map FROM board_trip
+		SELECT tnum, title, content, address, phone, time, img, map, heart, reply, cnt FROM board_trip
 		WHERE tnum = #{tnum};
 	</select>
 

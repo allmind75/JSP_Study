@@ -50,6 +50,9 @@ public class MainCtrl extends HttpServlet {
 			case "trip.mo":
 				listTrip(request, response);
 				break;
+			case "readTrip.mo":
+				readTrip(request, response);
+				break;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -98,6 +101,24 @@ public class MainCtrl extends HttpServlet {
 			
 			ComMethod.forward(request, response, "trip.jsp");
 		}
+	}
+	
+	public void readTrip(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+		
+		int tnum = Integer.parseInt(request.getParameter("tnum"));
+		
+		//조회수 증가 추가해야함  
+		
+		BoardTripDTO dto = tripDAO.selectReadTrip(tnum);
+		
+		SearchCriteria scri = ComMethod.searchCriteria(request);
+		
+		if(dto != null) {
+			request.setAttribute("READ", dto);
+			request.setAttribute("CRI", scri);
+			ComMethod.forward(request, response, "trip-view.jsp");
+		}		
 	}
 
 }

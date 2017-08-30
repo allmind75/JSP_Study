@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+	
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -20,33 +22,30 @@
 	<!-- sub contents start -->
 
 	<section class="sub-contents-view">
-		<img class="imgw100" src="images/trip_01d.jpg" alt="진주성">
+		<c:set var="boardVO" value="${READ }"/>
+		<img class="imgw100" src="images/trip/${boardVO.img }" alt="${boardVO.title }">
 		<div class="content">
-			<h2 class="sub-title">진주성</h2>
+			<h2 class="sub-title">${boardVO.title }</h2>
 
 			<div class="info">
 				<a href="#">
 					<p class="sub-address">
-						<i class="fa fa-map-marker"></i>경상남도 진주시 남강로 626
+						<i class="fa fa-map-marker"></i>${boardVO.address }
 					</p>
 				</a>
 				<p class="sub-address">
-					<i class="fa fa-phone"></i>055-749-5175
+					<i class="fa fa-phone"></i>${boardVO.phone }
 				</p>
 				<p class="sub-address">
-					<i class="fa fa-clock-o"></i>하절기(3월~10월) 05:00 ~ 23:00
+					<i class="fa fa-clock-o"></i>${boardVO.time }
 				</p>
 				<p class="sub-address">
-					<i class="fa fa-clock-o" style="color: #fff"></i>동절기(11월~2월) 05:00
-					~ 22:00
+					<i class="fa fa-clock-o" style="color: #fff"></i>
 				</p>
 			</div>
 
 
-			<p class="sub-content">진주성(晉州城)은 경상남도 진주시 남성동에서 본성동에 걸쳐 있는 석성으로,
-				삼국시대 백제 때 제작되었다. 1963년 1월 21일에 사적 제 118호로 지정되었다. 진주성 내의 촉석루는
-				1604년부터는 경상우병영의 병영이었고, 1895년 5월부터는 경상도관찰사부가 경남관찰사부, 경북관찰사부로 나뉘면서
-				경상남도관찰사부의 소재지가 되었다.</p>
+			<p class="sub-content">${boardVO.content }</p>
 
 
 			<div class="sns-box">
@@ -58,17 +57,17 @@
 			<div class="count">
 				<ul>
 					<li><i class="fa fa-heart heartIcon"></i>
-						<p class="heartCount1">29</p></li>
+						<p class="heartCount1">${boardVO.heart }</p></li>
 					<li><i class="fa fa-weixin reviewIcon"></i>
-						<p class="reviewCount1">21</p></li>
+						<p class="reviewCount1">${boardVO.reply }</p></li>
 					<li><i class="fa fa-eye"></i>
-						<p class="reviewCount1">52</p></li>
+						<p class="reviewCount1">${boardVO.cnt }</p></li>
 				</ul>
 
 			</div>
 
 			<iframe title="구글지도"
-				src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6521.455838923855!2d128.07540093208635!3d35.188333339611056!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x356efc8a2ed0b8bb%3A0x7ce375182eea6ea8!2z7KeE7KO87ISx!5e0!3m2!1sko!2skr!4v1496277634196"
+				src="${boardVO.map }"
 				width="100%" height="300" frameborder="0" style="border: 0"
 				allowfullscreen></iframe>
 		</div>
