@@ -62,7 +62,7 @@
 				<ul>
 					<c:forEach items="${TRIPLIST}" var="tripVO">
 						<li>
-							<a href="#">
+							<a href="readTrip.mo?tnum=${tripVO.tnum}">
 								<img class="imgw100" src="images/trip/${tripVO.img}" alt="${tripVO.title}">
 								<span>${tripVO.title}</span>
 								<ul class="count-wrap">
@@ -85,7 +85,7 @@
 
 					<c:forEach items="${FOODLIST}" var="foodVO">
 						<li>
-							<a href="#">
+							<a href="readFood.mo?fnum=${foodVO.fnum}">
 								<img class="imgw100" src="images/food/${foodVO.img}" alt="${foodVO.title}">
 								<span>${foodVO.title}</span>
 								<ul class="count-wrap">
@@ -108,7 +108,7 @@
 
 					<c:forEach items="${PRODUCTLIST}" var="productVO">
 						<li>
-							<a href="trip-view.jsp">
+							<a href="readProduct.mo?pnum=${productVO.pnum}">
 								<img class="imgw100" src="images/product/${productVO.img}" alt="${productVO.title}">
 								<span>${productVO.title}</span>
 								<ul class="count-wrap">

@@ -13,7 +13,10 @@
 <link rel="stylesheet" href="css/myStyle.css">
 <link rel="stylesheet" href="css/subContentsStyle.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
+
 <link rel="shortcut icon" href="images/size57.png">
+<link rel="apple-touch-icon" href="images/size57.png">
+<link rel="apple-touch-icon-precomposed" href="images/size114.png">
 </head>
 
 <body id="top">
@@ -52,7 +55,6 @@
 
 						</ul>
 					</div>
-
 				</a>
 			</li>
 			</c:forEach>
@@ -63,42 +65,42 @@
 	</section>
 
 		
-		<div class="paging">
-			<select name="searchType">
-				<option value="n" <c:out value="${CRI.searchType == null? 'selected':'' }"/> >---</option>
-				<option value="t" <c:out value="${CRI.searchType == 't'? 'selected':'' }"/> >제목</option>
-				<option value="c" <c:out value="${CRI.searchType == 'c'? 'selected':'' }"/> >내용</option>
-				<option value="a" <c:out value="${CRI.searchType == 'a'? 'selected':'' }"/> >주소</option>
-				<option value="tc" <c:out value="${CRI.searchType == 'tc'? 'selected':'' }"/> >제목 + 내용</option>
-				<option value="ca" <c:out value="${CRI.searchType == 'ca'? 'selected':'' }"/> >내용 + 주소</option>
-				<option value="tca" <c:out value="${CRI.searchType == 'tca'? 'selected':'' }"/> >제목 + 내용 + 주소</option>
-			</select>
-				
-			<input type="text" name="keyword" id="keywordInput" value="${CRI.keyword }"	>
-			<button id="searchBtn" class="btn">검색</button>
-		</div>	
+	<div class="paging">
+		<select name="searchType">
+			<option value="n" <c:out value="${CRI.searchType == null? 'selected':'' }"/> >---</option>
+			<option value="t" <c:out value="${CRI.searchType == 't'? 'selected':'' }"/> >제목</option>
+			<option value="c" <c:out value="${CRI.searchType == 'c'? 'selected':'' }"/> >내용</option>
+			<option value="a" <c:out value="${CRI.searchType == 'a'? 'selected':'' }"/> >주소</option>
+			<option value="tc" <c:out value="${CRI.searchType == 'tc'? 'selected':'' }"/> >제목 + 내용</option>
+			<option value="ca" <c:out value="${CRI.searchType == 'ca'? 'selected':'' }"/> >내용 + 주소</option>
+			<option value="tca" <c:out value="${CRI.searchType == 'tca'? 'selected':'' }"/> >제목 + 내용 + 주소</option>
+		</select>
 			
-		<!-- paging -->	
-		<div class="paging">
-			<ul class="pagination">
-				<c:if test="${PAGEMAKER.prev }">
-					<li>
-						<a href="trip.mo${PAGEMAKER.makeSearch(PAGEMAKER.startPage-1)}">&laquo;</a>
-					</li>
-				</c:if>
-				
-				<c:forEach begin="${PAGEMAKER.startPage }" end="${PAGEMAKER.endPage }" var="idx">
-					<li <c:out value="${PAGEMAKER.cri.page == idx? 'class= active': '' }"/>>
-						<a href="trip.mo${PAGEMAKER.makeSearch(idx) }">${idx }</a>
-					</li>
-				</c:forEach>
-				
-				<c:if test="${PAGEMAKER.next && PAGEMAKER.endPage > 0 }">
-					<li>
-						<a href="trip.mo${PAGEMAKER.makeSearch(PAGEMAKER.endPage + 1) }">&raquo;</a>
-				</c:if>
-			</ul>
-		</div>	
+		<input type="text" name="keyword" id="keywordInput" value="${CRI.keyword }"	>
+		<button id="searchBtn" class="btn">검색</button>
+	</div>	
+		
+	<!-- paging -->	
+	<div class="paging">
+		<ul class="pagination">
+			<c:if test="${PAGEMAKER.prev }">
+				<li>
+					<a href="trip.mo${PAGEMAKER.makeSearch(PAGEMAKER.startPage-1)}">&laquo;</a>
+				</li>
+			</c:if>
+			
+			<c:forEach begin="${PAGEMAKER.startPage }" end="${PAGEMAKER.endPage }" var="idx">
+				<li <c:out value="${PAGEMAKER.cri.page == idx? 'class= active': '' }"/>>
+					<a href="trip.mo${PAGEMAKER.makeSearch(idx) }">${idx }</a>
+				</li>
+			</c:forEach>
+			
+			<c:if test="${PAGEMAKER.next && PAGEMAKER.endPage > 0 }">
+				<li>
+					<a href="trip.mo${PAGEMAKER.makeSearch(PAGEMAKER.endPage + 1) }">&raquo;</a>
+			</c:if>
+		</ul>
+	</div>	
 	<!-- sub contents end -->
 
 	<footer class="footer">

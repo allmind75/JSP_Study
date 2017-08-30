@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -11,6 +13,9 @@
 <link rel="stylesheet" href="css/subContentsStyle.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
 
+<link rel="shortcut icon" href="images/size57.png">
+<link rel="apple-touch-icon" href="images/size57.png">
+<link rel="apple-touch-icon-precomposed" href="images/size114.png">
 </head>
 
 <body id="top">
@@ -20,38 +25,36 @@
 	<!-- sub contents start -->
 
 	<section class="sub-contents-view">
-		<img class="imgw100" src="images/food_01d.jpg" alt="박군자 진주 냉면">
+		<c:set var="boardVO" value="${READ}"/>
+		<img class="imgw100" src="images/food/${boardVO.img }" alt="${boardVO.title }">
 		<div class="content">
-			<h2 class="sub-title">박군자 진주 냉면</h2>
+			<h2 class="sub-title">${boardVO.title }</h2>
 
 			<div class="info">
 				<a href="#">
 					<p class="sub-address">
-						<i class="fa fa-map-marker"></i>경남 진주시 망경로 308
+						<i class="fa fa-map-marker"></i>${boardVO.address }
 					</p>
 				</a>
 				<p class="sub-address">
-					<i class="fa fa-phone"></i>055-753-1230
+					<i class="fa fa-phone"></i>${boardVO.phone }
 				</p>
 				<p class="sub-address">
-					<i class="fa fa-clock-o"></i>매일 09:00 - 22:00
+					<i class="fa fa-clock-o"></i>${boardVO.time }
 				</p>
 				<p class="sub-address">
-					<i class="fa fa-cutlery"></i>진주 물냉면 - 8,000원
+					<i class="fa fa-cutlery"></i>${boardVO.menu }
 				</p>
 				<p class="sub-address">
-					<i class="fa fa-cutlery" style="color: #fff"></i>진주 비빔냉면 - 8,000원
+					<i class="fa fa-cutlery" style="color: #fff"></i>
 				</p>
 				<p class="sub-address">
-					<i class="fa fa-cutlery" style="color: #fff"></i>한우육회비빔밥 - 8,000원
+					<i class="fa fa-cutlery" style="color: #fff"></i>
 				</p>
 			</div>
 
 
-			<p class="sub-content">일제의 강점과 더불어 신분제도가 철폐되고 진주교방이 폐쇄 되면서 교방음식인
-				진주냉면의 명맥이 끊어지고 말았다. 진주교방에서 만든 진주냉면의 원형을 알고 있었던 하거홍(작고), 황덕이 부부가
-				광복(1945년)이후 진주 중앙시장에서 영업을 시작하면서 다시 진주냉면이 보존되었고, 장남인 하연규, 박군자 부부가 가업을
-				이어 '박군자 진주냉면' 으로 2대에 걸쳐 천년 진주냉면의 정통 명맥을 이어오고 있다.</p>
+			<p class="sub-content">${boardVO.content }</p>
 
 			<div class="sns-box">
 				<i class="fa fa-facebook-square facebook"></i> <i
@@ -62,17 +65,17 @@
 			<div class="count">
 				<ul>
 					<li><i class="fa fa-heart heartIcon"></i>
-						<p class="heartCount1">17</p></li>
+						<p class="heartCount1">${boardVO.heart}</p></li>
 					<li><i class="fa fa-weixin reviewIcon"></i>
-						<p class="reviewCount1">18</p></li>
+						<p class="reviewCount1">${boardVO.reply}</p></li>
 					<li><i class="fa fa-eye"></i>
-						<p class="reviewCount1">34</p></li>
+						<p class="reviewCount1">${boardVO.cnt}</p></li>
 				</ul>
 
 			</div>
 
 			<iframe title="구글지도"
-				src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3260.843917908553!2d128.08459461553352!3d35.18544256460913!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x356efc6cf8555b89%3A0x4ef148f18b4283b5!2z67CV6rWw7J6QIOynhOyjvOuDieuptCDrs7jsoJA!5e0!3m2!1sko!2skr!4v1496278200164"
+				src="${boardVO.map }"
 				width="100%" height="300" frameborder="0" style="border: 0"
 				allowfullscreen></iframe>
 		</div>

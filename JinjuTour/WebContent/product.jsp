@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -8,9 +10,13 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<link rel="stylesheet" href="css/myStyle.css">	
 <link rel="stylesheet" href="css/subContentsStyle.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
+
 <link rel="shortcut icon" href="images/size57.png">
+<link rel="apple-touch-icon" href="images/size57.png">
+<link rel="apple-touch-icon-precomposed" href="images/size114.png">
 </head>
 
 <body id="top">
@@ -22,70 +28,78 @@
 	<section class="sub-contents">
 		<h2 class="readonly">콘텐츠내용</h2>
 		<ul>
-			<li><a href="product-view.jsp"> <img class="imgw100"
-					src="images/product_01d.jpg" alt="실키안">
+			<c:forEach items="${LIST}" var="boardVO">
+			<li>
+				<a href="readProduct.mo${PAGEMAKER.makeSearch(PAGEMAKER.cri.page)}&pnum=${boardVO.pnum}"> 
+				<img class="imgw100" src="images/product/${boardVO.img }" alt="${boardVO.title }">
 					<div class="content">
-						<p class="sub-title">실키안</p>
-						<p class="sub-content">진주에서 생산된 천연섬유실크를 활용해서, 넥타이, 스카프, 양장지,
-							한복지 등을 생산하고 있습니다.</p>
+						<p class="sub-title">${boardVO.title }</p>
+						<p class="sub-content">${boardVO.content }</p>
 						<p class="sub-address">
-							<i class="fa fa-map-marker"></i> 경상남도 진주시 본성동 10-4
+							<i class="fa fa-map-marker"></i>
+							${boardVO.address }
 						</p>
-						<div class="count">
-							<i class="fa fa-heart heartIcon"></i>
-							<p class="heartCount1">11</p>
-							<i class="fa fa-weixin reviewIcon"></i>
-							<p class="reviewCount1">10</p>
-						</div>
-					</div>
+						<ul class="count-wrap">
+							<li>
+								<i class="fa fa-heart heartIcon"></i>
+								<p class="count">${boardVO.heart }</p>
+							</li>
+							<li>
+								<i class="fa fa-weixin reviewIcon"></i>
+								<p class="count">${boardVO.reply }</p>
+							</li>
+							<li>
+								<i class="fa fa-eye eyeIcon"></i>
+								<p class= "count">${boardVO.cnt }</p>							
+							</li>
 
-			</a></li>
-			<li><a href="product-view.html"> <img class="imgw100"
-					src="images/product_02.jpg" alt="진주 사잇길도예공방">
-					<div class="content">
-						<p class="sub-title">진주 사잇길도예공방</p>
-						<p class="sub-content">진주 도자기를 직접 만들어 볼 수있는 공방으로 취미, 일일 체험 등
-							다양한 도예 체험을할 수 있습니다.</p>
-						<p class="sub-address">
-							<i class="fa fa-map-marker"></i> 경상남도 진주시 강남로227
-						</p>
-						<div class="count">
-							<i class="fa fa-heart heartIcon"></i>
-							<p class="heartCount1">13</p>
-							<i class="fa fa-weixin reviewIcon"></i>
-							<p class="reviewCount1">11</p>
-						</div>
+						</ul>
 					</div>
-			</a></li>
-			<li><a href="product-view.html"> <img class="imgw100"
-					src="images/product_03.jpg" alt="진주 딸기">
-					<div class="content">
-						<p class="sub-title">진주 딸기</p>
-						<p class="sub-content">경남 진주는 딸기 주산지이다. 하우스에서 재배를 하며, 겨울과이른 봄에
-							주로 낸다.</p>
-						<p class="sub-address">
-							<i class="fa fa-map-marker"></i> 경상남도 진주시 강남로7
-						</p>
-						<div class="count">
-							<i class="fa fa-heart heartIcon"></i>
-							<p class="heartCount1">24</p>
-							<i class="fa fa-weixin reviewIcon"></i>
-							<p class="reviewCount1">19</p>
-						</div>
-						<p class="sub-address"></p>
-					</div>
-			</a></li>
+				</a>
+			</li>
+			</c:forEach>
 		</ul>
-		<div class="paging">
-			<strong>1</strong> <a href="#">2</a> <a href="#">3</a> <a href="#">
-				<i class="fa fa-angle-double-right"></i>
-			</a>
-			<div class="top" id="goTop">
-				<a href="#top"><i class="fa fa-chevron-up"></i>TOP</a>
-			</div>
+		<div class="top" id="goTop">
+			<a href="#top"><i class="fa fa-chevron-up"></i>TOP</a>
 		</div>
 	</section>
 
+	<div class="paging">
+		<select name="searchType">
+			<option value="n" <c:out value="${CRI.searchType == null? 'selected':'' }"/> >---</option>
+			<option value="t" <c:out value="${CRI.searchType == 't'? 'selected':'' }"/> >제목</option>
+			<option value="c" <c:out value="${CRI.searchType == 'c'? 'selected':'' }"/> >내용</option>
+			<option value="a" <c:out value="${CRI.searchType == 'a'? 'selected':'' }"/> >주소</option>
+			<option value="tc" <c:out value="${CRI.searchType == 'tc'? 'selected':'' }"/> >제목 + 내용</option>
+			<option value="ca" <c:out value="${CRI.searchType == 'ca'? 'selected':'' }"/> >내용 + 주소</option>
+			<option value="tca" <c:out value="${CRI.searchType == 'tca'? 'selected':'' }"/> >제목 + 내용 + 주소</option>
+		</select>
+			
+		<input type="text" name="keyword" id="keywordInput" value="${CRI.keyword }"	>
+		<button id="searchBtn" class="btn">검색</button>
+	</div>	
+		
+	<!-- paging -->	
+	<div class="paging">
+		<ul class="pagination">
+			<c:if test="${PAGEMAKER.prev }">
+				<li>
+					<a href="product.mo${PAGEMAKER.makeSearch(PAGEMAKER.startPage-1)}">&laquo;</a>
+				</li>
+			</c:if>
+			
+			<c:forEach begin="${PAGEMAKER.startPage }" end="${PAGEMAKER.endPage }" var="idx">
+				<li <c:out value="${PAGEMAKER.cri.page == idx? 'class= active': '' }"/>>
+					<a href="product.mo${PAGEMAKER.makeSearch(idx) }">${idx }</a>
+				</li>
+			</c:forEach>
+			
+			<c:if test="${PAGEMAKER.next && PAGEMAKER.endPage > 0 }">
+				<li>
+					<a href="product.mo${PAGEMAKER.makeSearch(PAGEMAKER.endPage + 1) }">&raquo;</a>
+			</c:if>
+		</ul>
+	</div>
 	<!-- sub contents end -->
 
 	<footer class="footer">
@@ -129,6 +143,13 @@
 		$("#goTop").click(function(e) {
 			e.preventDefault();
 			$('body, html, .sub-contents-view').scrollTop(0);
+		});
+		
+		$("#searchBtn").on("click", function() {				
+			self.location = "product.mo" +
+			"${PAGEMAKER.makeQuery(1)}" + 
+			"&searchType=" + $("select option:selected").val() +
+			"&keyword=" + encodeURIComponent($("#keywordInput").val());
 		});
 	</script>
 </body>

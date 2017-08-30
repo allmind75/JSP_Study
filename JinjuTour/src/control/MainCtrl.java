@@ -53,6 +53,18 @@ public class MainCtrl extends HttpServlet {
 			case "readTrip.mo":
 				readTrip(request, response);
 				break;
+			case "food.mo":
+				listFood(request, response);
+				break;
+			case "readFood.mo":
+				readFood(request, response);
+				break;
+			case "product.mo":
+				listProduct(request, response);
+				break;
+			case "readProduct.mo":
+				readProduct(request, response);
+				break;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -81,7 +93,7 @@ public class MainCtrl extends HttpServlet {
 			ComMethod.forward(request, response, "main.jsp");
 		}
 	}
-	
+		
 	public void listTrip(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 		
@@ -118,6 +130,84 @@ public class MainCtrl extends HttpServlet {
 			request.setAttribute("READ", dto);
 			request.setAttribute("CRI", scri);
 			ComMethod.forward(request, response, "trip-view.jsp");
+		}		
+	}
+	
+	public void listFood(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+		
+		SearchCriteria cri = ComMethod.searchCriteria(request);
+		
+		List<BoardFoodDTO> list = foodDAO.selectListSearch(cri);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(foodDAO.listSearchCount(cri));
+		
+		if(list != null) {
+			
+			request.setAttribute("LIST", list);
+			request.setAttribute("PAGEMAKER", pageMaker);
+			request.setAttribute("CRI", cri);
+			
+			ComMethod.forward(request, response, "food.jsp");
+		}
+	}
+	
+	public void readFood(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+		
+		int fnum = Integer.parseInt(request.getParameter("fnum"));
+		
+		//조회수 증가 추가해야함  
+		
+		BoardFoodDTO dto = foodDAO.selectRead(fnum);
+		
+		SearchCriteria scri = ComMethod.searchCriteria(request);
+		
+		if(dto != null) {
+			request.setAttribute("READ", dto);
+			request.setAttribute("CRI", scri);
+			ComMethod.forward(request, response, "food-view.jsp");
+		}		
+	}
+	
+	public void listProduct(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+		
+		SearchCriteria cri = ComMethod.searchCriteria(request);
+		
+		List<BoardProductDTO> list = productDAO.selectListSearch(cri);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(productDAO.listSearchCount(cri));
+		
+		if(list != null) {
+			
+			request.setAttribute("LIST", list);
+			request.setAttribute("PAGEMAKER", pageMaker);
+			request.setAttribute("CRI", cri);
+			
+			ComMethod.forward(request, response, "product.jsp");
+		}
+	}
+	
+	public void readProduct(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+		
+		int pnum = Integer.parseInt(request.getParameter("pnum"));
+		
+		//조회수 증가 추가해야함  
+		
+		BoardProductDTO dto = productDAO.selectRead(pnum);
+		
+		SearchCriteria scri = ComMethod.searchCriteria(request);
+		
+		if(dto != null) {
+			request.setAttribute("READ", dto);
+			request.setAttribute("CRI", scri);
+			ComMethod.forward(request, response, "product-view.jsp");
 		}		
 	}
 

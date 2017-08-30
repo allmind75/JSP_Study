@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -11,6 +13,10 @@
 <link rel="stylesheet" href="css/subContentsStyle.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
 
+<link rel="shortcut icon" href="images/size57.png">
+<link rel="apple-touch-icon" href="images/size57.png">
+<link rel="apple-touch-icon-precomposed" href="images/size114.png">
+
 </head>
 
 <body id="top">
@@ -20,30 +26,29 @@
 	<!-- sub contents start -->
 
 	<section class="sub-contents-view">
-		<img class="imgw100" src="images/product_01d.jpg" alt="실키안">
+		<c:set var="boardVO" value="${READ}"/>
+		<img class="imgw100" src="images/product/${boardVO.img}" alt="${boardVO.title}">
 		<div class="content">
-			<h2 class="sub-title">실키안</h2>
+			<h2 class="sub-title">${boardVO.title}</h2>
 
 			<div class="info">
 				<a href="#">
 					<p class="sub-address">
-						<i class="fa fa-map-marker"></i>경상남도 진주시 본성동 10-4
+						<i class="fa fa-map-marker"></i>${boardVO.address}
 					</p>
 				</a>
 				<p class="sub-address">
-					<i class="fa fa-phone"></i>055-753-1230
+					<i class="fa fa-phone"></i>${boardVO.phone}
 				</p>
-				<a href="http://jinjusilk.co.kr/">
+				<a href="${boardVO.link}" target="_blank">
 					<p class="sub-address">
-						<i class="fa fa-home"></i>http://jinjusilk.co.kr/
+						<i class="fa fa-home"></i>${boardVO.link}
 					</p>
 				</a>
 			</div>
 
 
-			<p class="sub-content">진주에서 생산된 천연섬유실크를 주력제품으로 하고 있으며 28곳의
-				실크생산업체의 지원아래 다양한 넥타이, 스카프, 양장지, 한복지, 인테리어 제품등을 생산하고 있으며 우수한 디자인과
-				상품성으로 특화상품으로 지정되어 있어 앞으로 세계속의 명품진주실크를 만들어 가기 위해 추진중입니다.</p>
+			<p class="sub-content">${boardVO.content}</p>
 
 			<div class="sns-box">
 				<i class="fa fa-facebook-square facebook"></i> <i
@@ -54,11 +59,11 @@
 			<div class="count">
 				<ul>
 					<li><i class="fa fa-heart heartIcon"></i>
-						<p class="heartCount1">11</p></li>
+						<p class="heartCount1">${boardVO.heart}</p></li>
 					<li><i class="fa fa-weixin reviewIcon"></i>
-						<p class="reviewCount1">10</p></li>
+						<p class="reviewCount1">${boardVO.reply}</p></li>
 					<li><i class="fa fa-eye"></i>
-						<p class="reviewCount1">29</p></li>
+						<p class="reviewCount1">${boardVO.cnt}</p></li>
 				</ul>
 
 			</div>
@@ -66,9 +71,10 @@
 		</div>
 
 		<iframe title="구글지도"
-			src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3260.652759973739!2d128.0816565155334!3d35.19020626435089!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x356efc14d1db023d%3A0xa8c677e4d9f768dd!2z7Iuk7YKk7JWI!5e0!3m2!1sko!2skr!4v1496278247875"
+			src="${boardVO.map }"
 			width="100%" height="300" frameborder="0" style="border: 0"
 			allowfullscreen></iframe>
+			
 		<div class="top" id="goTop">
 			<a href="#top"><i class="fa fa-chevron-up"></i>TOP</a>
 		</div>

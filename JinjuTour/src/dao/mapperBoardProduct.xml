@@ -31,14 +31,10 @@
 	</delete>
 		
 	<select id="selectReadProduct" resultType="dto.BoardProductDTO">
-		SELECT pnum, title, content, address, phone, link, img, map FROM board_product
+		SELECT pnum, title, content, address, phone, link, img, map, heart, reply, cnt FROM board_product
 		WHERE pnum = #{pnum};
 	</select>
-	
-	<select id="selectCountProduct" resultType="hashmap">
-		SELECT COUNT(*) AS cnt FROM board_product;
-	</select>
-	
+		
 	<select id="listSearch" resultType="dto.BoardProductDTO">
 		SELECT pnum, title, regdate, cnt FROM board_product WHERE pnum > 0
 		
@@ -54,6 +50,15 @@
 	
 	<select id="selectRecommend" resultType="dto.BoardProductDTO">
 		SELECT pnum, title, img, heart, reply, cnt FROM board_product ORDER BY cnt DESC LIMIT 0, 2;
+	</select>
+	
+	<select id="selectListSearch" resultType="dto.BoardProductDTO">
+		SELECT pnum, title, content, address, heart, reply, cnt, img FROM board_product
+		WHERE pnum > 0
+		
+		<include refid="search"></include>		
+		
+		ORDER BY pnum DESC LIMIT #{pageStart}, #{perPageNum}
 	</select>
 	
 	<sql id="search">

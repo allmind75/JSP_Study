@@ -230,9 +230,9 @@ input[type=submit] {-webkit-appearance:none;}
   top: 170px;
 }*/
 
-.contents {overflow: hidden;}
+.contents {overflow: hidden; background: #e3e3e3;}
 .tab1_cont { clear: both; padding: 10px 8px;}
-.tab1_cont > ul > li {width: 48.7804%; height: 100%;; float: left; background: #f7f7f7; text-align: center; margin-bottom: 2.4%;}
+.tab1_cont > ul > li {width: 48.7804%; height: 100%;; float: left; background: #fff; text-align: center; margin-bottom: 2.4%;}
 .tab1_cont > ul > li:nth-child(odd){margin-right: 2.439024%;}
 .tab1_cont img {padding: 5px;}
 .tab1_cont span {display: block; font-size: 16px; color: #363636; font-weight: bold; margin: 3px 0;}

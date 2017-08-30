@@ -13,6 +13,9 @@
 <link rel="stylesheet" href="css/subContentsStyle.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
 
+<link rel="shortcut icon" href="images/size57.png">
+<link rel="apple-touch-icon" href="images/size57.png">
+<link rel="apple-touch-icon-precomposed" href="images/size114.png">
 </head>
 
 <body id="top">

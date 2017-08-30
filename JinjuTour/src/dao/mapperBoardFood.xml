@@ -32,14 +32,10 @@
 	</delete>
 	
 	<select id="selectReadFood" resultType="dto.BoardFoodDTO">
-		SELECT fnum, title, content, address, phone, time, menu, img, map FROM board_food
+		SELECT fnum, title, content, address, phone, time, menu, img, map, heart, reply, cnt FROM board_food
 		WHERE fnum = #{fnum};
 	</select>
-	
-	<select id="selectCountFood" resultType="hashmap">
-		SELECT COUNT(*) AS cnt FROM board_food;
-	</select>
-	
+		
 	<select id="listSearch" resultType="dto.BoardFoodDTO">
 		SELECT fnum, title, regdate, cnt FROM board_food WHERE fnum > 0
 		
@@ -56,6 +52,15 @@
 	<select id="selectRecommend" resultType="dto.BoardFoodDTO">
 		SELECT fnum, title, img, heart, reply, cnt FROM board_food ORDER BY cnt DESC LIMIT 0, 2;
 	</select>
+	
+	<select id="selectListSearch" resultType="dto.BoardFoodDTO">
+		SELECT fnum, title, content, address, heart, reply, cnt, img FROM board_food
+		WHERE fnum > 0
+		
+		<include refid="search"></include>		
+		
+		ORDER BY fnum DESC LIMIT #{pageStart}, #{perPageNum}
+	</select>	
 	
 	<sql id="search">
 		<if test="searchType != null">
