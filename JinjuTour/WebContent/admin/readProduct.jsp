@@ -5,7 +5,7 @@
 	
 	<c:set var="boardVO" value="${READ}" />
     <div class="adminbox">
-
+		<div><img src="../images/product/${boardVO.img }"></div>
         <form class="input" name="myform" method="post" onsubmit="return writeCheck()">
             <ul>
                 <li>
@@ -38,6 +38,7 @@
         
         <form role="form" action="modifyPage" method="post">
         	<input type="hidden" name="pnum" value="${boardVO.pnum }">
+        	<input type="hidden" name="img" value="${boardVO.img }">        	
         	<input type="hidden" name="page" value="${CRI.page }">
         	<input type="hidden" name="perPageNum" value="${CRI.perPageNum }">
         	<input type="hidden" name="searchType" value="${CRI.searchType }">

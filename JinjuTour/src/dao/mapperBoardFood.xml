@@ -7,7 +7,7 @@
 <mapper namespace="boardFood">
 	
 	<select id="selectReadFood" resultType="dto.BoardFoodDTO">
-		SELECT fnum, title, content, address, phone, time, menu, map FROM board_food
+		SELECT fnum, title, content, address, phone, time, menu, img, map FROM board_food
 		WHERE fnum = #{fnum};
 	</select>
 	

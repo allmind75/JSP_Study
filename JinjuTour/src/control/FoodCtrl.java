@@ -1,5 +1,6 @@
 package control;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -184,6 +185,13 @@ public class FoodCtrl extends HttpServlet {
 			throws ServletException, IOException, SQLException {
 
 		int fnum = Integer.parseInt(request.getParameter("fnum"));
+		String img = request.getParameter("img");
+		
+		//파일 삭제
+		String path = SAVE_PATH + img;
+		File file = new File(path);
+		
+		System.out.println(path);
 		
 		SearchCriteria scri = ComMethod.searchCriteria(request);
 		
@@ -191,7 +199,14 @@ public class FoodCtrl extends HttpServlet {
 		pageMaker.setCri(scri);
 		
 		if (dao.delete(fnum)) {
-
+			
+			//경로에 파일이 존재하면 삭제
+			if(file.exists()) {
+				file.delete();
+			} else {
+				//파일 없음
+			}
+			
 			ComMethod.sendRedirect(response, "list.fo" + pageMaker.makeSearch(scri.getPage()));
 		}
 	}

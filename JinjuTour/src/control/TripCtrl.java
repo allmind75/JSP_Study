@@ -1,5 +1,6 @@
 package control;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -181,15 +182,29 @@ public class TripCtrl extends HttpServlet {
 			throws ServletException, IOException, SQLException {
 
 		int tnum = Integer.parseInt(request.getParameter("tnum"));
-		
+		String img = request.getParameter("img");
+				
+		//파일 삭제
+		String path = SAVE_PATH + img;
+		File file = new File(path);
+				
 		SearchCriteria scri = ComMethod.searchCriteria(request);
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
 		
 		if (dao.deleteTrip(tnum)) {
-
+			
+			//경로에 파일이 존재하면 삭제
+			if(file.exists()) {
+				file.delete();
+			} else {
+				//파일 없음
+			}
+			
 			ComMethod.sendRedirect(response, "list.to" + pageMaker.makeSearch(scri.getPage()));
+		} else {
+			//삭제실패
 		}
 	}
 

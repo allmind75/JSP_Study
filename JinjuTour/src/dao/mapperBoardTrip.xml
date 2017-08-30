@@ -7,7 +7,7 @@
 <mapper namespace="boardTrip">
 	
 	<select id="selectReadTrip" resultType="dto.BoardTripDTO">
-		SELECT tnum, title, content, address, phone, time, map FROM board_trip
+		SELECT tnum, title, content, address, phone, time, img, map FROM board_trip
 		WHERE tnum = #{tnum};
 	</select>
 	
