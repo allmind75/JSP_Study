@@ -13,22 +13,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import dao.BoardFoodDAO;
-import dto.BoardFoodDTO;
-import dto.BoardTripDTO;
+import dao.BoardProductDAO;
+import dto.BoardProductDTO;
 import dto.PageMaker;
 import dto.SearchCriteria;
 
-@WebServlet("*.fo")
-public class FoodCtrl extends HttpServlet {
+@WebServlet("*.po")
+public class ProductCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private BoardFoodDAO dao;
+	private BoardProductDAO dao;
 	private static final int MAX_SIZE = 1024 * 1024 * 10; // 10Mbyte 제한
-	private static final String SAVE_PATH = "C:\\Users\\hybrid\\git\\jsp_study\\JinjuTour\\WebContent\\images\\food\\";
+	private static final String SAVE_PATH = "C:\\Users\\hybrid\\git\\jsp_study\\JinjuTour\\WebContent\\images\\product\\";
 
-	public FoodCtrl() throws IOException {
+	public ProductCtrl() throws IOException {
 		super();
-		dao = new BoardFoodDAO();
+		dao = new BoardProductDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -42,22 +41,22 @@ public class FoodCtrl extends HttpServlet {
 
 		try {
 			switch (cmd) {
-			case "write.fo":
+			case "write.po":
 				insert(request, response);
 				break;
-			case "list.fo":
+			case "list.po":
 				list(request, response);
 				break;
-			case "read.fo":
+			case "read.po":
 				read(request, response);
 				break;
-			case "modifyReadPage.fo":
+			case "modifyReadPage.po":
 				modifyRead(request, response);
 				break;
-			case "modifyPage.fo":
+			case "modifyPage.po":
 				update(request, response);
 				break;
-			case "removePage.fo":
+			case "removePage.po":
 				remove(request, response);
 				break;
 			}
@@ -84,16 +83,15 @@ public class FoodCtrl extends HttpServlet {
 		String content = multipartRequest.getParameter("content");
 		String address = multipartRequest.getParameter("address");
 		String phone = multipartRequest.getParameter("phone");
-		String time = multipartRequest.getParameter("time");
-		String menu = multipartRequest.getParameter("menu");
+		String link = multipartRequest.getParameter("link");
 		String map = multipartRequest.getParameter("map");
 		String img = ComMethod.fileUpload(request, multipartRequest, SAVE_PATH, "img");
 
-		BoardFoodDTO dto = new BoardFoodDTO(title, content, address, phone, time, menu, img, map);
+		BoardProductDTO dto = new BoardProductDTO(title, content, address, phone, link, img, map);
 
 		if (dao.insert(dto)) {
 			System.out.println("게시글 추가 완료");
-			ComMethod.sendRedirect(response, "list.fo");
+			ComMethod.sendRedirect(response, "list.po");
 		} else {
 			System.out.println("게시글 추가 실패");
 		}
@@ -106,7 +104,7 @@ public class FoodCtrl extends HttpServlet {
 		// search cri
 		SearchCriteria cri = ComMethod.searchCriteria(request);
 
-		List<BoardFoodDTO> list = dao.listSearch(cri);
+		List<BoardProductDTO> list = dao.listSearch(cri);
 
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
@@ -121,16 +119,16 @@ public class FoodCtrl extends HttpServlet {
 			request.setAttribute("PAGEMAKER", pageMaker);
 			request.setAttribute("CRI", cri);
 
-			ComMethod.forward(request, response, "listFood.jsp");
+			ComMethod.forward(request, response, "listProduct.jsp");
 		}
 	}
 
 	public void read(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
-		int fnum = Integer.parseInt(request.getParameter("fnum"));
+		int pnum = Integer.parseInt(request.getParameter("pnum"));
 
-		BoardFoodDTO dto = dao.selectRead(fnum);
+		BoardProductDTO dto = dao.selectRead(pnum);
 		
 		SearchCriteria scri = ComMethod.searchCriteria(request);
 
@@ -138,7 +136,7 @@ public class FoodCtrl extends HttpServlet {
 		if (dto != null) {
 			request.setAttribute("READ", dto);
 			request.setAttribute("CRI", scri);
-			ComMethod.forward(request, response, "readFood.jsp");
+			ComMethod.forward(request, response, "readProduct.jsp");
 		}
 	}
 
@@ -149,18 +147,17 @@ public class FoodCtrl extends HttpServlet {
 		MultipartRequest multipartRequest = new MultipartRequest(request, SAVE_PATH, MAX_SIZE, "UTF-8",
 				new DefaultFileRenamePolicy());
 
-		String fnums = multipartRequest.getParameter("fnum");
-		int fnum = Integer.parseInt(fnums);
+		String pnums = multipartRequest.getParameter("pnum");
+		int pnum = Integer.parseInt(pnums);
 		String title = multipartRequest.getParameter("title").trim();
 		String content = multipartRequest.getParameter("content").trim();
 		String address = multipartRequest.getParameter("address").trim();
 		String phone = multipartRequest.getParameter("phone").trim();
-		String time = multipartRequest.getParameter("time").trim();
-		String menu = multipartRequest.getParameter("menu").trim();
+		String link = multipartRequest.getParameter("link").trim();
 		String map = multipartRequest.getParameter("map").trim();
 		String img = ComMethod.fileUpload(request, multipartRequest, SAVE_PATH, "img");
 
-		BoardFoodDTO dto = new BoardFoodDTO(fnum, title, content, address, phone, time, menu, img, map);
+		BoardProductDTO dto = new BoardProductDTO(pnum, title, content, address, phone, link, img, map);
 
 		PageMaker pageMaker = new PageMaker();
 
@@ -168,12 +165,13 @@ public class FoodCtrl extends HttpServlet {
 		
 		pageMaker.setCri(scri);
 		
+		System.out.println(scri.toString());
 		
 		if (dao.update(dto)) {
 			System.out.println("수정완료");
 			// 글 수정 완료
 			request.setAttribute("CRI", scri);
-			ComMethod.sendRedirect(response, "list.fo" + pageMaker.makeSearch(scri.getPage()));
+			ComMethod.sendRedirect(response, "list.po" + pageMaker.makeSearch(scri.getPage()));
 		} else {
 			System.out.println("수정실패");
 			// 글 수저 실패
@@ -183,32 +181,32 @@ public class FoodCtrl extends HttpServlet {
 	public void remove(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
-		int fnum = Integer.parseInt(request.getParameter("fnum"));
+		int pnum = Integer.parseInt(request.getParameter("pnum"));
 		
 		SearchCriteria scri = ComMethod.searchCriteria(request);
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
 		
-		if (dao.delete(fnum)) {
+		if (dao.delete(pnum)) {
 
-			ComMethod.sendRedirect(response, "list.fo" + pageMaker.makeSearch(scri.getPage()));
+			ComMethod.sendRedirect(response, "list.po" + pageMaker.makeSearch(scri.getPage()));
 		}
 	}
 
 	public void modifyRead(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 		
-		int fnum = Integer.parseInt(request.getParameter("fnum"));
+		int pnum = Integer.parseInt(request.getParameter("pnum"));
 	
 		SearchCriteria scri = ComMethod.searchCriteria(request);
 
-		BoardFoodDTO dto = dao.selectRead(fnum);
+		BoardProductDTO dto = dao.selectRead(pnum);
 
 		if (dto != null) {
 			request.setAttribute("READ", dto);
 			request.setAttribute("CRI", scri);
-			ComMethod.forward(request, response, "modifyFood.jsp");
+			ComMethod.forward(request, response, "modifyProduct.jsp");
 		}
 	}
 }

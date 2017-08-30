@@ -149,14 +149,7 @@
                 </li>
             </ul>
             
-        </form>
-        
-        <form role="form" action="modifyPage" method="post">
-        	<input type="hidden" name="page" value="${CRI.page }">
-        	<input type="hidden" name="perPageNum" value="${CRI.perPageNum }">
-        	<input type="hidden" name="searchType" value="${CRI.searchType }">
-        	<input type="hidden" name="keyword" value="${CRI.keyword }">
-        </form>      
+        </form>    
                 
     </div>
 

@@ -46,7 +46,7 @@
     <header class="header">
         <div class="headerTop">
             <a href="#" class="btn_gnb" id="menu-toggle"><i class="fa fa-navicon headericon"></i></a>
-            <h1 class="logo"><a href="trip.jsp">진주투어</a></h1>
+            <h1 class="logo"><a href="listTrip.board">진주투어</a></h1>
             <a href="#" class="btn_search"><i class="fa fa-search headericon"></i></a>
         </div>
         <div class="bar-search">

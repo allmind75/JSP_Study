@@ -7,7 +7,7 @@ public class BoardProductDTO {
 	private String content;
 	private String address;
 	private String phone;
-	private String page;
+	private String link;
 	private String img;
 	private String map;
 	private int heart;
@@ -19,21 +19,29 @@ public class BoardProductDTO {
 
 	}
 
-	public BoardProductDTO(int pnum, String title, String content, String address, String phone, String page,
-			String img, String map, int heart, int reply, int cnt, String regdate) {
+	public BoardProductDTO(int pnum, String title, String content, String address, String phone, String link,
+			String img, String map) {
 		super();
 		this.pnum = pnum;
 		this.title = title;
 		this.content = content;
 		this.address = address;
 		this.phone = phone;
-		this.page = page;
+		this.link = link;
 		this.img = img;
 		this.map = map;
-		this.heart = heart;
-		this.reply = reply;
-		this.cnt = cnt;
-		this.regdate = regdate;
+	}
+
+	public BoardProductDTO(String title, String content, String address, String phone, String link, String img,
+			String map) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.address = address;
+		this.phone = phone;
+		this.link = link;
+		this.img = img;
+		this.map = map;
 	}
 
 	public int getPnum() {
@@ -76,12 +84,12 @@ public class BoardProductDTO {
 		this.phone = phone;
 	}
 
-	public String getPage() {
-		return page;
+	public String getLink() {
+		return link;
 	}
 
-	public void setPage(String page) {
-		this.page = page;
+	public void setLink(String link) {
+		this.link = link;
 	}
 
 	public String getImg() {

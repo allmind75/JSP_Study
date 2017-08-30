@@ -65,9 +65,9 @@
 				<h2 class="readonly">탭메뉴</h2>
 			</header>
 			<ul>
-				<li class="active"><a href="/JinjuTour/admin/listTrip.board">관광지</a></li>
-				<li><a href="/JinjuTour/admin/list.fo">맛집</a></li>
-				<li><a href="/JinjuTour/admin/listProduct.board">특산물</a></li>
+				<li class="active"><a href="listTrip.board">관광지</a></li>
+				<li><a href="list.fo">맛집</a></li>
+				<li><a href="list.po">특산물</a></li>
 			</ul>
 		</div>
 	</section>

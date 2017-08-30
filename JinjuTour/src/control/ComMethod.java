@@ -131,7 +131,7 @@ public class ComMethod {
 		int page;
 		int perPageNum;
 		String searchType;
-		String keyword = null;
+		String keyword;
 				
 		try {
 			page = Integer.parseInt(request.getParameter("page"));
@@ -143,6 +143,8 @@ public class ComMethod {
 			perPageNum = 10;
 			searchType = null;
 			keyword = "";	
+			
+			e.printStackTrace();
 		}
 		
 		SearchCriteria cri = new SearchCriteria(searchType, keyword);

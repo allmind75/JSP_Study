@@ -53,7 +53,7 @@
 				</div>
 			</div>
 			<ul class="sidebar-nav">
-				<li><i class="fa fa-home active"></i><a href="trip.jsp">HOME</a></li>
+				<li><i class="fa fa-home active"></i><a href="lsitTrip.board">HOME</a></li>
 				<li><i class="fa fa-sign-in"></i><a href="logout.admin"
 					id="loginState">로그아웃</a></li>
 			</ul>
@@ -65,9 +65,9 @@
 				<h2 class="readonly">탭메뉴</h2>
 			</header>
 			<ul>
-				<li class="active"><a href="/JinjuTour/admin/listTrip.board">관광지</a></li>
-				<li><a href="/JinjuTour/admin/listFood.board">맛집</a></li>
-				<li><a href="/JinjuTour/admin/listProduct.board">특산물</a></li>
+				<li><a href="/JinjuTour/admin/listTrip.board">관광지</a></li>
+				<li><a href="/JinjuTour/admin/list.fo">맛집</a></li>
+				<li class="active"><a href="/JinjuTour/admin/list.po">특산물</a></li>
 			</ul>
 		</div>
 	</section>
@@ -90,10 +90,10 @@
 				<th scope="col">조회수</th>
 			</thead>
 			<tbody>
-				<c:forEach items="${LISTTRIP}" var="boardVO">
+				<c:forEach items="${LIST}" var="boardVO">
 					<tr>
-						<td>${boardVO.tnum}</td>
-						<td><a href="readTrip.board${PAGEMAKER.makeSearch(PAGEMAKER.cri.page)}&tnum=${boardVO.tnum}">${boardVO.title}</a></td>
+						<td>${boardVO.pnum}</td>
+						<td><a href="read.po${PAGEMAKER.makeSearch(PAGEMAKER.cri.page)}&pnum=${boardVO.pnum}">${boardVO.title}</a></td>
 						<td>${boardVO.regdate.toString().substring(0, 11)}</td>
 						<td>${boardVO.cnt}</td>
 					</tr>
@@ -123,19 +123,19 @@
 		<ul class="pagination">
 			<c:if test="${PAGEMAKER.prev }">
 				<li>
-					<a href="listTrip.board${PAGEMAKER.makeSearch(PAGEMAKER.startPage-1)}">&laquo;</a>
+					<a href="list.po${PAGEMAKER.makeSearch(PAGEMAKER.startPage-1)}">&laquo;</a>
 				</li>
 			</c:if>
 			
 			<c:forEach begin="${PAGEMAKER.startPage }" end="${PAGEMAKER.endPage }" var="idx">
 				<li <c:out value="${PAGEMAKER.cri.page == idx? 'class= active': '' }"/>>
-					<a href="listTrip.board${PAGEMAKER.makeSearch(idx) }">${idx }</a>
+					<a href="list.po${PAGEMAKER.makeSearch(idx) }">${idx }</a>
 				</li>
 			</c:forEach>
 			
 			<c:if test="${PAGEMAKER.next && PAGEMAKER.endPage > 0 }">
 				<li>
-					<a href="listTrip.board${PAGEMAKER.makeSearch(PAGEMAKER.endPage + 1) }">&raquo;</a>
+					<a href="list.po${PAGEMAKER.makeSearch(PAGEMAKER.endPage + 1) }">&raquo;</a>
 			</c:if>
 		</ul>
 	</div>
@@ -181,14 +181,14 @@
 			
 			$("#searchBtn").on("click", function() {
 				
-				self.location = "listTrip.board" +
+				self.location = "list.po" +
 				"${PAGEMAKER.makeQuery(1)}" + 
 				"&searchType=" + $("select option:selected").val() +
 				"&keyword=" + encodeURIComponent($("#keywordInput").val());
 			});
 			
 			$("#newBtn").on("click", function() {
-				self.location = "writeTrip.jsp";
+				self.location = "writeProduct.jsp";
 			});
 		});
 	</script>

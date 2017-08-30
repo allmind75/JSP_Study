@@ -7,7 +7,7 @@
 <mapper namespace="boardProduct">	
 	
 	<select id="selectReadProduct" resultType="dto.BoardProductDTO">
-		SELECT pnum, title, content, address, phone, page, map FROM board_product
+		SELECT pnum, title, content, address, phone, link, map FROM board_product
 		WHERE pnum = #{pnum};
 	</select>
 	
@@ -18,7 +18,7 @@
 	<insert id="insertProduct" parameterType="dto.BoardProductDTO">
 		INSERT INTO board_product SET
 		title = #{title}, content = #{content}, address = #{address},
-		phone = #{phone}, page = #{page}, img = #{img}, map = #{map};		
+		phone = #{phone}, link = #{link}, img = #{img}, map = #{map};		
 	</insert>
 	
 	<update id="updateProduct" parameterType="dto.BoardProductDTO">
@@ -28,7 +28,7 @@
 				<if test="content != null">content = #{content},</if>
 				<if test="address != null">address = #{address},</if>
 				<if test="phone != null">phone = #{phone},</if>
-				<if test="page != null">time = #{page},</if>
+				<if test="link != null">link = #{link},</if>
 				<if test="img != null">img = #{img},</if>
 				<if test="map != null">map = #{map}</if>
 			</set>
