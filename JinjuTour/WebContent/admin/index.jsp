@@ -8,7 +8,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <link rel="stylesheet" href="../css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/login.css">
-
+	<!-- 바로기가 이이콘-->
+	<link rel="shortcut icon" href="../images/size57.png">
+	<link rel="apple-touch-icon" href="../images/size57.png">
+	<link rel="apple-touch-icon-precomposed" href="../images/size114.png">
+	
     <script>
         function loginCheck() {
 
