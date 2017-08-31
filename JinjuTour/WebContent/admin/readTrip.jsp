@@ -52,7 +52,6 @@
         	
         </div>
         
-                
     </div>
 
     <footer class="footer">
