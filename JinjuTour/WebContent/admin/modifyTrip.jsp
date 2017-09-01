@@ -6,6 +6,7 @@
 	<c:set var="boardVO" value="${READ}" />
     <div class="adminbox">
 
+		<div><img src="../images/trip/${boardVO.img }"></div>
         <form class="input" name="myform" action="modifyPage.to" method="post" enctype="multipart/form-data" onsubmit="return writeCheck()">
             
             <input type="hidden" name="page" value="${CRI.page }">
@@ -44,7 +45,7 @@
                 </li>                                             
                 <li>
                     <label for="input-img" class="filebox">관광지 사진</label>
-                    <input type="file" name="img" id="input-img" onchange="fileName(this)">
+                    <input type="file" id="input-img" onchange="fileName(this)">
                     <div id="fileName-wrap" style="display:none;">
                     	<p>파일이름 : <span id="fileName"></span></p>
                     	<button type="button" class="filebox" onclick="fileDelete()">삭제</button>
@@ -55,7 +56,11 @@
                     <input type="button" class="write-save write-cancel" value="취소">
                 </li>
             </ul>
-            
+        </form>
+        
+        <form method="post" enctype="multipart/form-data" id="photo">
+        	<input type="button" id="" value="사진 삭제" onclick="delPhoto()">
+        	<input type="button" id="" value="사진 수정" onclick="modPhoto()">        	
         </form>
         
         <form role="form" action="modifyPage" method="post">
@@ -135,6 +140,36 @@
         	img.type="";
         	img.type="file";
         	document.getElementById("fileName-wrap").style.display = "none";
+        }
+        
+        function delPhoto() {
+        	console.log("del");
+        }
+        
+        function modPhoto() {
+        	console.log("mod");
+        	
+        	var formTag = document.getElementById("photo");
+        	var formData = new FormData(formTag[0]);
+        	
+        	$.ajax({
+        		type:"POST",
+        		enctype: 'multipart/form-data',
+        		proccessData: false,
+        		contentType: false,
+        		cache: false,
+        		timeout: 600000,
+        		url: "modPhoto.to",
+        		data: formData,						//사진 데이터가 있는 폼데이터
+        		dataType:"json",					//결과를 json 형식으로 리턴
+        		success:function(res) {
+        			
+        		}, error: function() {
+        			
+        		}
+        	});
+        	
+        	event.prventDefault();
         }
 
     </script>

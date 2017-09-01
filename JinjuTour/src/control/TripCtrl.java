@@ -60,6 +60,9 @@ public class TripCtrl extends HttpServlet {
 			case "removePage.to":
 				remove(request, response);
 				break;
+			case "modPhoto.to":
+				modPhoto(request, response);
+				break;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -222,5 +225,11 @@ public class TripCtrl extends HttpServlet {
 			request.setAttribute("CRI", scri);
 			ComMethod.forward(request, response, "modifyTrip.jsp");
 		}
+	}
+	
+	public void modPhoto(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+				
+		System.out.println("mod photo");
 	}
 }
