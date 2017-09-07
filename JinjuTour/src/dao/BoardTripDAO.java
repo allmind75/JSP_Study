@@ -2,7 +2,9 @@ package dao;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -109,6 +111,41 @@ public class BoardTripDAO {
 		SqlSession session = factory.openSession();
 		try {
 			return session.selectList("boardTrip.selectListSearch", cri);
+		} finally {
+			session.close();
+		}
+	}
+	
+	public void updateHeart(int tnum, int amount) throws SQLException {
+		
+		SqlSession session = factory.openSession(true);
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("tnum", tnum);
+		paramMap.put("amount", amount);
+		
+		try {
+			session.update("boardTrip.updateHeart", paramMap);
+		} finally {
+			session.close();
+		}
+	}
+	
+	public void updateHeartSync() throws SQLException {
+		
+		SqlSession session = factory.openSession(true);
+		try {
+			session.update("boardTrip.updateHeartSync");
+		} finally {
+			session.close();
+		}
+	}
+	
+	public int heartCnt(int tnum) throws SQLException {
+		
+		SqlSession session = factory.openSession();
+		try {
+			return session.selectOne("boardTrip.selectHeartCnt", tnum);
 		} finally {
 			session.close();
 		}

@@ -35,8 +35,7 @@
 	function idCheck() {
 		if (idRegExpCheck()) {
 			var bIdCheck = false;
-			$
-					.ajax({
+			$.ajax({
 						type : "GET", //get, post
 						url : "idCheck.mem", //웹페이지 경로
 						async : false,
@@ -45,19 +44,19 @@
 							"id" : $("#input-join-id").val()
 						},
 						dataType : "json", //url 페이지를 내부적으로 처리하고 처리한결과를 가져오는 형식
-
+	
 						error : function() //내부페이지를 처리중에 발생하는 에러를 알림
 						{
 							alert('통신실패!!');
 						},
 						complete : function(data) //내부처리 완료, data는 내부페이지에서 넘겨준 값
 						{
-
+	
 						},
 						success : function(data) //내부처리 성공
 						{
 							var result;
-
+	
 							if (data.ret == true) {
 								bIdCheck = true;
 								result = "<font color='blue'>사용가능한 아이디</font>";
@@ -67,7 +66,7 @@
 								result = "<font color='red'>이미 등록된 아이디</font>";
 								document.getElementById("resultIdCheck").innerHTML = result;
 							}
-
+	
 						}
 					});
 			if (bIdCheck) {

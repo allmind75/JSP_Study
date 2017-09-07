@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import dao.BoardTripDAO;
 import dao.MemDAO;
 import dto.MemDTOIn;
 
@@ -22,6 +23,7 @@ public class MemberCtrl extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private MemDAO dao;
+	private BoardTripDAO boardTripDAO;
 
 	// file save
 	private static final int MAX_SIZE = 1024 * 1024 * 10; // 10Mbyte 제한
@@ -30,6 +32,7 @@ public class MemberCtrl extends HttpServlet {
 	public MemberCtrl() throws IOException {
 		super();
 		dao = new MemDAO();
+		boardTripDAO = new BoardTripDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -195,7 +198,13 @@ public class MemberCtrl extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String id = (String) session.getAttribute("USERID");
 
+		//회원 탈퇴시 사진 있으면 삭제하는 부분 추가해야함
+		
+		
 		if (dao.delete(id)) {
+			//탈퇴 후 좋아요 숫자 갱신
+			boardTripDAO.updateHeartSync();
+			
 			System.out.println("회원탈퇴 성공");
 			session.invalidate();
 			out.print("{\"ret\":true}");

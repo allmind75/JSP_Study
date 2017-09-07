@@ -26,6 +26,16 @@
 		WHERE tnum = #{tnum};
 	</update>
 		
+	<update id="updateHeart">
+		UPDATE board_trip set heart = heart + #{amount} WHERE tnum = #{tnum} 
+	</update>
+	
+	<update id="updateHeartSync">
+		UPDATE board_trip SET heart = 
+		(SELECT COUNT(hnum) FROM heart_trip WHERE num = board_trip.tnum)
+		WHERE tnum > 0;
+	</update>
+	
 	<delete id="deleteTrip">
 		DELETE FROM board_trip WHERE tnum = #{tnum}
 	</delete>
@@ -61,6 +71,9 @@
 		ORDER BY tnum DESC LIMIT #{pageStart}, #{perPageNum}
 	</select>
 	
+	<select id="selectHeartCnt" resultType="int">
+		SELECT heart FROM board_trip WHERE tnum =#{tnum};
+	</select>
 	
 	<sql id="search">
 		<if test="searchType != null">
