@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="heartProduct">
+
+	<select id="count" resultType="int">
+		SELECT COUNT(hnum) FROM heart_product WHERE num = #{num}
+	</select>
+	
+	<select id="select" parameterType="dto.HeartDTO" resultType="int">
+		SELECT COUNT(id) FROM heart_product WHERE id = #{id} AND num = #{num};
+	</select>
+	
+	<insert id="insert" parameterType="dto.HeartDTO">
+		INSERT INTO heart_product SET id = #{id}, num = #{num} 
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM heart_product WHERE id = #{id};
+	</delete>
+
+</mapper>
+

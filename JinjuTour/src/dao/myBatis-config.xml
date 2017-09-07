@@ -33,5 +33,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="dao/mapperBoardFood.xml"/>
 		<mapper resource="dao/mapperBoardProduct.xml"/>
 		<mapper resource="dao/mapperHeartTrip.xml"/>
+		<mapper resource="dao/mapperHeartFood.xml"/>
+		<mapper resource="dao/mapperHeartProduct.xml"/>
 	</mappers>
 </configuration>

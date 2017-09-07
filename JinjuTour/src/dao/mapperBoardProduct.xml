@@ -26,6 +26,16 @@
 		WHERE pnum = #{pnum};
 	</update>
 	
+	<update id="updateHeart">
+		UPDATE board_product SET heart = heart + #{amount} WHERE pnum = #{pnum} 
+	</update>
+	
+	<update id="updateHeartSync">
+		UPDATE board_product SET heart = 
+		(SELECT COUNT(hnum) FROM heart_product WHERE num = board_trip.pnum)
+		WHERE pnum > 0;
+	</update>
+	
 	<delete id="deleteProduct">
 		DELETE FROM board_product WHERE pnum = #{pnum}
 	</delete>
@@ -59,6 +69,10 @@
 		<include refid="search"></include>		
 		
 		ORDER BY pnum DESC LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="selectHeartCnt" resultType="int">
+		SELECT heart FROM board_product WHERE pnum =#{pnum};
 	</select>
 	
 	<sql id="search">

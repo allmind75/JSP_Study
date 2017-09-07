@@ -58,8 +58,12 @@
 
 			<div class="count">
 				<ul>
-					<li><i class="fa fa-heart heartIcon"></i>
-						<p class="heartCount1">${boardVO.heart}</p></li>
+					<li>
+						<button class="btn-cnt" onclick="heartCnt()">
+							<i class="fa fa-heart heartIcon"></i>
+							<p class="heartCount1" id="heartCnt">${boardVO.heart}</p>
+						</button>
+					</li>
 					<li><i class="fa fa-weixin reviewIcon"></i>
 						<p class="reviewCount1">${boardVO.reply}</p></li>
 					<li><i class="fa fa-eye"></i>
@@ -124,6 +128,38 @@
 			e.preventDefault();
 			$('body, html, .sub-contents-view').scrollTop(0);
 		});
+		
+		function heartCnt() {
+			
+			var id = "<%=userId%>";
+			var pnum = ${boardVO.pnum};
+			
+			console.log(id + ", " + pnum);
+			
+			if(id != "") {
+				
+				$.ajax({
+					type : "GET",
+					url : "heart.po",
+					data : {
+						"id" : id, 
+						"num" : pnum
+					},
+					dataType : "JSON",
+					error : function() {
+						console.log("실패");
+					},
+					success : function(data) {
+						console.log("성공");
+						console.log(data.cnt);
+						
+						document.getElementById("heartCnt").innerHTML = data.cnt;
+					}
+				});
+			} else {
+				alert("로그인 후 사용가능합니다.");
+			}
+		}
 	</script>
 </body>
 

@@ -27,6 +27,16 @@
 		WHERE fnum = #{fnum};
 	</update>
 	
+	<update id="updateHeart">
+		UPDATE board_food SET heart = heart + #{amount} WHERE fnum = #{fnum} 
+	</update>
+	
+	<update id="updateHeartSync">
+		UPDATE board_food SET heart = 
+		(SELECT COUNT(hnum) FROM heart_food WHERE num = board_food.fnum)
+		WHERE fnum > 0;
+	</update>
+	
 	<delete id="deleteFood">
 		DELETE FROM board_food WHERE fnum = #{fnum}
 	</delete>
@@ -61,6 +71,10 @@
 		
 		ORDER BY fnum DESC LIMIT #{pageStart}, #{perPageNum}
 	</select>	
+	
+	<select id="selectHeartCnt" resultType="int">
+		SELECT heart FROM board_food WHERE fnum =#{fnum};
+	</select>
 	
 	<sql id="search">
 		<if test="searchType != null">

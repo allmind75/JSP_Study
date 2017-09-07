@@ -2,6 +2,7 @@ package control;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,7 +16,9 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.BoardProductDAO;
+import dao.HeartProductDAO;
 import dto.BoardProductDTO;
+import dto.HeartDTO;
 import dto.PageMaker;
 import dto.SearchCriteria;
 
@@ -23,12 +26,15 @@ import dto.SearchCriteria;
 public class ProductCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BoardProductDAO dao;
+	private HeartProductDAO heartDAO;
+	
 	private static final int MAX_SIZE = 1024 * 1024 * 10; // 10Mbyte 제한
 	private static final String SAVE_PATH = "C:\\Users\\hybrid\\git\\jsp_study\\JinjuTour\\WebContent\\images\\product\\";
 
 	public ProductCtrl() throws IOException {
 		super();
 		dao = new BoardProductDAO();
+		heartDAO = new HeartProductDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -59,6 +65,9 @@ public class ProductCtrl extends HttpServlet {
 				break;
 			case "removePage.po":
 				remove(request, response);
+				break;
+			case "heart.po":
+				heart(request, response);
 				break;
 			}
 		} catch (SQLException e) {
@@ -224,5 +233,30 @@ public class ProductCtrl extends HttpServlet {
 			request.setAttribute("CRI", scri);
 			ComMethod.forward(request, response, "modifyProduct.jsp");
 		}
+	}
+	
+	public void heart(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+				
+		String id = request.getParameter("id");
+		int num = Integer.parseInt(request.getParameter("num"));
+		
+		HeartDTO dto = new HeartDTO(id, num);
+				
+		if(heartDAO.select(dto) != 0) {
+			heartDAO.delete(id);
+			dao.updateHeart(num, -1);
+		} else {
+			heartDAO.insert(dto);
+			dao.updateHeart(num, 1);
+		}
+		
+		//좋아요 수 
+		int cnt = dao.heartCnt(num);
+				
+		PrintWriter out = response.getWriter();
+		out.print("{\"cnt\":" + cnt + "}");
+		
+		out.close();
 	}
 }

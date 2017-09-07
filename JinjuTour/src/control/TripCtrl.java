@@ -71,6 +71,7 @@ public class TripCtrl extends HttpServlet {
 				break;
 			case "heart.to":
 				heart(request, response);
+				break;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
