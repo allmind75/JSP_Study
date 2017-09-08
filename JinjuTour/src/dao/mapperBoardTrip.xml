@@ -59,7 +59,7 @@
 	</select>
 	
 	<select id="selectRecommend" resultType="dto.BoardTripDTO">
-		SELECT tnum, title, img, heart, reply, cnt FROM board_trip ORDER BY cnt DESC LIMIT 0, 2;
+		SELECT tnum, title, img, heart, reply, cnt FROM board_trip ORDER BY heart DESC LIMIT 0, 2;
 	</select>
 	
 	<select id="selectListSearch" resultType="dto.BoardTripDTO">
