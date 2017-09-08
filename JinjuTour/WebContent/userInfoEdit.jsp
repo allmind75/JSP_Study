@@ -11,6 +11,9 @@
 <link rel="stylesheet" href="css/font-awesome.min.css">
 <link rel="stylesheet" href="css/login.css">
 
+<link rel="shortcut icon" href="images/size57.png">
+<link rel="apple-touch-icon" href="images/size57.png">
+<link rel="apple-touch-icon-precomposed" href="images/size114.png">
 <script>
 		
        //휴대폰 번호 앞자리 확인 후 select 선택
