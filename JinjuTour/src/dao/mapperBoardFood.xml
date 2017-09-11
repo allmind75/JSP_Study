@@ -37,6 +37,10 @@
 		WHERE fnum > 0;
 	</update>
 	
+	<update id="updateCnt">
+		UPDATE board_food SET cnt = cnt + 1 WHERE fnum = #{fnum}
+	</update>
+	
 	<delete id="deleteFood">
 		DELETE FROM board_food WHERE fnum = #{fnum}
 	</delete>

@@ -120,7 +120,8 @@ public class MainCtrl extends HttpServlet {
 		
 		int tnum = Integer.parseInt(request.getParameter("tnum"));
 		
-		//조회수 증가 추가해야함  
+		//조회수 증가
+		tripDAO.updateCnt(tnum);
 		
 		BoardTripDTO dto = tripDAO.selectReadTrip(tnum);
 		
@@ -159,7 +160,8 @@ public class MainCtrl extends HttpServlet {
 		
 		int fnum = Integer.parseInt(request.getParameter("fnum"));
 		
-		//조회수 증가 추가해야함  
+		//조회수 증가
+		foodDAO.updateCnt(fnum);
 		
 		BoardFoodDTO dto = foodDAO.selectRead(fnum);
 		
@@ -198,7 +200,8 @@ public class MainCtrl extends HttpServlet {
 		
 		int pnum = Integer.parseInt(request.getParameter("pnum"));
 		
-		//조회수 증가 추가해야함  
+		//조회수 증가
+		productDAO.updateCnt(pnum);
 		
 		BoardProductDTO dto = productDAO.selectRead(pnum);
 		

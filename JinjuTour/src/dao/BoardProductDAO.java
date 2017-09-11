@@ -151,5 +151,15 @@ public class BoardProductDAO {
 			session.close();
 		}
 	}
+	
+	public void updateCnt(int pnum) throws SQLException	{
+		
+		SqlSession session = factory.openSession(true);
+		try {
+			session.update("boardProduct.updateCnt", pnum);
+		} finally {
+			session.close();
+		}
+	}
 
 }

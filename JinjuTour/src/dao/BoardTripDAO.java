@@ -151,5 +151,15 @@ public class BoardTripDAO {
 		}
 	}
 	
+	public void updateCnt(int tnum) throws SQLException	{
+		
+		SqlSession session = factory.openSession(true);
+		try {
+			session.update("boardTrip.updateCnt", tnum);
+		} finally {
+			session.close();
+		}
+	}
+	
 	
 }

@@ -140,7 +140,7 @@ public class TripCtrl extends HttpServlet {
 			throws ServletException, IOException, SQLException {
 
 		int tnum = Integer.parseInt(request.getParameter("tnum"));
-
+		
 		BoardTripDTO dto = dao.selectReadTrip(tnum);
 		
 		SearchCriteria scri = ComMethod.searchCriteria(request);
