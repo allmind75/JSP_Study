@@ -161,5 +161,15 @@ public class BoardTripDAO {
 		}
 	}
 	
+	public List<BoardTripDTO> selectSearch(String keyword) throws SQLException {
+		
+		SqlSession session = factory.openSession();
+		try {
+			return session.selectList("boardTrip.selectSearch", keyword);
+		} finally {
+			session.close();
+		}
+	}
+	
 	
 }

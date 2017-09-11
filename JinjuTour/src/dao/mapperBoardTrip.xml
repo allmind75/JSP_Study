@@ -79,6 +79,10 @@
 		SELECT heart FROM board_trip WHERE tnum =#{tnum};
 	</select>
 	
+	<select id="selectSearch">
+		SELECT tnum, title, img, heart, reply, cnt FROM board_trip WHERE title LIKE CONCAT('%', #{keyword}, '%')
+	</select>
+	
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 't'.toString()">
