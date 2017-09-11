@@ -66,7 +66,11 @@ public class PageMaker {
 			return "";
 		}
 	}
-
+	
+	public int end() {
+		int tempEndPage = 0;
+		return tempEndPage = (int) (Math.ceil(totalCount / (double) cri.getPerPageNum()));
+	}
 	public int getStartPage() {
 		return startPage;
 	}

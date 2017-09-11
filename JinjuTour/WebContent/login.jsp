@@ -64,13 +64,15 @@
 					class="readonly">비밀번호입력</label> <input type="password" name="pw"
 					class="pw" id="input-pw" maxlength="20" placeholder="비밀번호" required>
 				<input class="login" type="submit" value="로그인">
-			</form>
+			
 
-			<div class="login-check">
-				<!-- <label for="login-checkbox" class="readonly">로그인 상태 유지 체크</label> -->
-				<input type="checkbox" id="login-checkbox"> <span>로그인
-					상태 유지</span>
-			</div>
+				<div class="login-check">
+					<!-- <label for="login-checkbox" class="readonly">로그인 상태 유지 체크</label> -->
+					<input type="checkbox" id="login-checkbox" name="state"> <span>로그인
+						상태 유지</span>
+				</div>
+			</form>
+			
 			<ul class="login-ul">
 				<li><a href="#">아이디 찾기</a></li>
 				<li><a href="#">비밀번호 찾기</a></li>

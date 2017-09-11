@@ -380,6 +380,13 @@ input[type=submit] {-webkit-appearance:none;}
     color: #fff;
 }
 
+.pagination > li > a:hover {
+	background: #09D9E9;
+	color: #fff;
+}
+
+
+
 /*chrome에서 input tag 아웃라인 제거*/
 input:focus {
   outline: none;

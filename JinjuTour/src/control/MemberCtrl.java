@@ -150,7 +150,8 @@ public class MemberCtrl extends HttpServlet {
 
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
-		String path;
+		String checkBox = request.getParameter("state");
+		String path;		
 
 		MemDTOIn dto = new MemDTOIn(id, pw);
 		MemDTOIn resultDto = dao.login(dto);
@@ -169,8 +170,15 @@ public class MemberCtrl extends HttpServlet {
 			session.setAttribute("USEREMAIL", email);
 			session.setAttribute("USERIMG", path);
 
-			// session 유지시간 설정(초단위) 600 = 10분, 일정 시간뒤 자동 로그아웃
-			session.setMaxInactiveInterval(600);
+			// session 유지시간 설정(초단위) 600 = 10분, 일정 시간뒤 자동 로그아웃, default - 30분
+			if(checkBox == null) {
+				session.setMaxInactiveInterval(600);
+			} else {
+				if(checkBox.equals("on")) {
+					session.setMaxInactiveInterval(1800);	//로그인 상태 유지 체크시
+				}
+			}
+			//http://fruitdev.tistory.com/113
 
 			ComMethod.sendRedirect(response, "main.mo");
 		} else {

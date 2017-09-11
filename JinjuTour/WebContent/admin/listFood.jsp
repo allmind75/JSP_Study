@@ -55,7 +55,8 @@
 		<ul class="pagination">
 			<c:if test="${PAGEMAKER.prev }">
 				<li>
-					<a href="list.fo${PAGEMAKER.makeSearch(PAGEMAKER.startPage-1)}">&laquo;</a>
+					<a href="list.fo${PAGEMAKER.makeSearch(0) }">&laquo;</a>
+					<a href="list.fo${PAGEMAKER.makeSearch(PAGEMAKER.startPage-1)}"><</a>
 				</li>
 			</c:if>
 			
@@ -67,7 +68,9 @@
 			
 			<c:if test="${PAGEMAKER.next && PAGEMAKER.endPage > 0 }">
 				<li>
-					<a href="list.fo${PAGEMAKER.makeSearch(PAGEMAKER.endPage + 1) }">&raquo;</a>
+					<a href="list.fo${PAGEMAKER.makeSearch(PAGEMAKER.endPage + 1) }">></a>
+					<a href="list.fo${PAGEMAKER.makeSearch(PAGEMAKER.end()) }">&raquo;</a>
+				</li>
 			</c:if>
 		</ul>
 	</div>
