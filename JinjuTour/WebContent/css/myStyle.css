@@ -288,13 +288,13 @@ input[type=submit] {-webkit-appearance:none;}
   font-weight: bold;
 }
 
-.paging {width: 100%; height: auto; text-align: center; padding: 4px 0; }
+.paging {width: 100%; height: auto; max-width: 1024px; text-align: center; padding: 4px 0; margin: 0 auto;}
 .paging strong{margin-right: 5px; padding: 0px 6px;}
 .paging > a {margin-right: 5px; padding: 0px 6px; display: inline-block;}
 .paging a.write-btn {background: #03c3c7; color: #fff; padding: 5px; float: right;}
 
-.paging select {width: 140px; height: 35px;} 
-.paging input {height: 35px;}
+.paging select {width: 35%; height: 35px;} 
+.paging input {width: 40%; height: 35px;}
 .paging button {width: 70px; height: 35px; background: #03c3c7; color: #fff;}
 
 
@@ -429,14 +429,14 @@ textarea:focus {
     height: 350px;
   }
 
-  .tab1_cont ul li {
+  .tab1_cont > ul > li {
     width: 31.70731%;
     margin-bottom: 2.4%;
   }
-  .tab1_cont ul li:nth-child(odd) {
+  .tab1_cont > ul > li:nth-child(odd) {
     margin-right: 0%;
   }
-  .tab1_cont ul li:nth-child(3n+2) {
+  .tab1_cont > ul > li:nth-child(3n+2) {
     margin-right: 2.439024%;
     margin-left: 2.439024%;
   }
@@ -461,13 +461,13 @@ textarea:focus {
   }
   .headerTop .logo a {font-size: 26px;}
 
-  .tab1_cont ul li {
+  .tab1_cont > ul > li {
     width: 23.7804825%;
     margin-bottom: 2.4%;
     margin-right: 1.626016% !important;
     margin-left: 0% !important;
   }
-  .tab1_cont ul li:nth-child(4n) {
+  .tab1_cont > ul > li:nth-child(4n) {
     margin-right: 0% !important;
   }
 }
