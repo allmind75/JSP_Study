@@ -116,7 +116,7 @@ public class TripCtrl extends HttpServlet {
 
 		// search cri
 		SearchCriteria cri = ComMethod.searchCriteria(request);
-
+		cri.setPerPageNum(10);
 		List<BoardTripDTO> list = dao.listSearch(cri);
 
 		PageMaker pageMaker = new PageMaker();

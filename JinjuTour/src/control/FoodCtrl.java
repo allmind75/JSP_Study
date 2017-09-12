@@ -114,7 +114,7 @@ public class FoodCtrl extends HttpServlet {
 
 		// search cri
 		SearchCriteria cri = ComMethod.searchCriteria(request);
-
+		cri.setPerPageNum(10);
 		List<BoardFoodDTO> list = dao.listSearch(cri);
 
 		PageMaker pageMaker = new PageMaker();

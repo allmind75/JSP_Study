@@ -240,7 +240,7 @@ input[type=submit] {-webkit-appearance:none;}
 
 .count-wrap {display: block; margin: 10px 0; text-align: center;}
 .count-wrap li {display: inline-block; width: 30%;}
-.count-wrap p.count {display: inline-block;}
+.count-wrap p.count {display: inline-block; padding-left: 3px;}
 .heartIcon{font-size: 14px; color: #ff5b5b;}
 .reviewIcon{font-size: 14px; color: #f1c40f;}
 .eyeIcon{font-size: 14px; color: #03c3c7;}

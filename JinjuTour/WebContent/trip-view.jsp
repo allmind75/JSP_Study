@@ -40,10 +40,10 @@
 					<i class="fa fa-phone"></i>${boardVO.phone }
 				</p>
 				<p class="sub-address">
-					<i class="fa fa-clock-o"></i>${boardVO.time }
+					<i class="fa fa-clock-o"></i><span id="time1"></span>
 				</p>
 				<p class="sub-address">
-					<i class="fa fa-clock-o" style="color: #fff"></i>
+					<i class="fa fa-clock-o" style="color: #fff"></i><span id="time2"></span>
 				</p>
 			</div>
 
@@ -158,6 +158,21 @@
 				});
 			} else {
 				alert("로그인 후 사용가능합니다.");
+			}
+		}
+		
+		window.onload = function() {
+			
+			var time = "${boardVO.time }"
+			var timeArray = time.split(',');
+			
+			for(var i=0 ; i<timeArray.length ; i++) {
+				
+				var id = 'time' + (i+1);
+				var element = document.getElementById(id);
+				
+				element.innerHTML = timeArray[i].trim();
+				
 			}
 		}
 	</script>

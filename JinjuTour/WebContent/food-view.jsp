@@ -30,7 +30,7 @@
 		<div class="content">
 			<h2 class="sub-title">${boardVO.title }</h2>
 
-			<div class="info">
+			<div class="info" id="info">
 				<a href="#">
 					<p class="sub-address">
 						<i class="fa fa-map-marker"></i>${boardVO.address }
@@ -41,15 +41,6 @@
 				</p>
 				<p class="sub-address">
 					<i class="fa fa-clock-o"></i>${boardVO.time }
-				</p>
-				<p class="sub-address">
-					<i class="fa fa-cutlery"></i>${boardVO.menu }
-				</p>
-				<p class="sub-address">
-					<i class="fa fa-cutlery" style="color: #fff"></i>
-				</p>
-				<p class="sub-address">
-					<i class="fa fa-cutlery" style="color: #fff"></i>
 				</p>
 			</div>
 
@@ -163,6 +154,23 @@
 				});
 			} else {
 				alert("로그인 후 사용가능합니다.");
+			}
+		}
+		
+		window.onload = function() {
+			
+			var menu = "${boardVO.menu }"
+			var menuArray = menu.split('/');
+			
+			for(var i=0 ; i<menuArray.length ; i++) {
+				
+				var element = document.getElementById('info');
+				
+				if(i == 0) {
+					element.innerHTML += "<p class='sub-address'><i class='fa fa-cutlery'></i><span>" + menuArray[i].trim(); + "</span></p>"
+				} else {
+					element.innerHTML += "<p class='sub-address'><i class='fa fa-cutlery' style='color: #fff'></i><span>" + menuArray[i].trim(); + "</span></p>"
+				}
 			}
 		}
 	</script>

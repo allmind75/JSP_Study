@@ -65,7 +65,7 @@
 		<h1 class="logo">
 			<a href="main.mo">진주투어</a>
 		</h1>
-		<a class="btn_search"><i class="fa fa-search headericon"></i></a>
+		<!-- <a class="btn_search"><i class="fa fa-search headericon"></i></a> -->
 	</div>
 	<div class="bar-search">
 		<div class="inner">

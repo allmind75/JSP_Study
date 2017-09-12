@@ -113,7 +113,7 @@ public class ProductCtrl extends HttpServlet {
 
 		// search cri
 		SearchCriteria cri = ComMethod.searchCriteria(request);
-
+		cri.setPerPageNum(10);
 		List<BoardProductDTO> list = dao.listSearch(cri);
 
 		PageMaker pageMaker = new PageMaker();
