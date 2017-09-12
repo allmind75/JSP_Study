@@ -30,26 +30,16 @@
 		<div class="content">
 			<h2 class="sub-title">${boardVO.title }</h2>
 
-			<div class="info">
-				<a href="#">
-					<p class="sub-address">
-						<i class="fa fa-map-marker"></i>${boardVO.address }
-					</p>
-				</a>
+			<div class="info" id="info">
+				<p class="sub-address">
+					<i class="fa fa-map-marker"></i>${boardVO.address }
+				</p>
 				<p class="sub-address">
 					<i class="fa fa-phone"></i>${boardVO.phone }
 				</p>
-				<p class="sub-address">
-					<i class="fa fa-clock-o"></i><span id="time1"></span>
-				</p>
-				<p class="sub-address">
-					<i class="fa fa-clock-o" style="color: #fff"></i><span id="time2"></span>
-				</p>
 			</div>
 
-
 			<p class="sub-content">${boardVO.content }</p>
-
 
 			<div class="sns-box">
 				<i class="fa fa-facebook-square facebook"></i> <i
@@ -163,17 +153,24 @@
 		
 		window.onload = function() {
 			
-			var time = "${boardVO.time }"
+			var time = "${boardVO.time }"			
 			var timeArray = time.split(',');
 			
 			for(var i=0 ; i<timeArray.length ; i++) {
 				
-				var id = 'time' + (i+1);
-				var element = document.getElementById(id);
-				
-				element.innerHTML = timeArray[i].trim();
-				
+				var element = document.getElementById('info');
+								
+				if(timeArray[i].trim() != "") {
+					if(i == 0) {
+						element.innerHTML += "<p class='sub-address'><i class='fa fa-clock-o'></i><span>" 
+						+ timeArray[i].trim() + "</span></p>"; 
+					} else {
+						element.innerHTML += "<p class='sub-address'><i class='fa fa-clock-o' style='color: #fff'></i><span>"
+						+ timeArray[i].trim() + "</span></p>";
+					}		
+				}
 			}
+			
 		}
 	</script>
 </body>

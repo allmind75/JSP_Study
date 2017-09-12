@@ -167,9 +167,11 @@
 				var element = document.getElementById('info');
 				
 				if(i == 0) {
-					element.innerHTML += "<p class='sub-address'><i class='fa fa-cutlery'></i><span>" + menuArray[i].trim(); + "</span></p>"
+					element.innerHTML += "<p class='sub-address'><i class='fa fa-cutlery'></i><span>" 
+					+ menuArray[i].trim(); + "</span></p>"
 				} else {
-					element.innerHTML += "<p class='sub-address'><i class='fa fa-cutlery' style='color: #fff'></i><span>" + menuArray[i].trim(); + "</span></p>"
+					element.innerHTML += "<p class='sub-address'><i class='fa fa-cutlery' style='color: #fff'></i><span>" 
+					+ menuArray[i].trim(); + "</span></p>"
 				}
 			}
 		}
