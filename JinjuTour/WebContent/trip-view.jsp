@@ -68,7 +68,31 @@
 				width="100%" height="300" frameborder="0" style="border: 0"
 				allowfullscreen></iframe>
 		</div>
+		
+        <!-- reply -->
+        <section class="wrap-reply-list">
+            <h3>전체댓글 <span>[15]</span></h3>
+            <c:forEach items="${REPLYLIST}" var="replyVO">
+            <ul>
+                <li>
+                    <div class="user-img"></div>
+                </li>
+                <li>
+                    <p>${replyVO.replyer}</p>
+                    <p>${replyVO.updatedate}</p>
+                    <p>${replyVO.replytext}</p>
+                    <a href="#">삭제</a>
+                    <a href="#">수정</a>
+                </li>
+            </ul>
+            </c:forEach>
+        </section>
 
+        <div class="wrap-reply-add">
+            <textarea class="input-add" id="newReplyText" placeholder="댓글을 입력하세요" onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
+            <button type="submit" class="btn-add-reply" id="reaplyAddBtn" onclick="addReply()">등록</button>
+        </div>
+		
 		<div class="top" id="goTop">
 			<a href="#top"><i class="fa fa-chevron-up"></i>TOP</a>
 		</div>
@@ -124,8 +148,6 @@
 			var id = "<%=userId%>";
 			var tnum = ${boardVO.tnum};
 			
-			console.log(id + ", " + tnum);
-			
 			if(id != "") {
 				
 				$.ajax({
@@ -137,7 +159,7 @@
 					},
 					dataType : "JSON",
 					error : function() {
-						console.log("실패");
+						console.log("통신실패");
 					},
 					success : function(data) {
 						console.log("성공");
@@ -149,6 +171,57 @@
 			} else {
 				alert("로그인 후 사용가능합니다.");
 			}
+		}
+		
+        //textarea 높이 증가
+        function resize(obj) {
+        	obj.style.height = "1px";
+        	obj.style.height = (7 + obj.scrollHeight) + "px";
+        }
+        
+		function addReply() {
+			
+			var tnum = ${boardVO.tnum};
+			var id = "<%=userId%>";
+			var replytext = document.getElementById("newReplyText").value;
+			replytext = replytext.trim();
+			
+			if(id != "") {
+				$.ajax({
+					type : "GET",
+					url : "replyAdd.to",
+					data : {
+						"tnum" : tnum,
+						"id" : id, 
+						"replytext" : replytext
+					},
+					dataType : "JSON",
+					error : function() {
+						console.log("실패");
+					},
+					success : function(data) {
+						
+						if(data.cnt == true) {
+							document.getElementById("newReplyText").value = "";
+							resize(document.getElementById("newReplyText"));
+						} else if(data.cnt == false) {
+							console.log("댓글 추가 실패");
+						}			
+					}
+				});
+			} else {
+				alert("로그인 후 사용가능합니다.");
+			}
+		}
+		
+		//댓글 사진 추가 생각중....
+		function replyImg(path) {
+			
+			if(path != 'null') {
+				document.getElementById("userImg").style.backgroundImage = "url(images/userImg/" + path + ")";
+			} else {
+				document.getElementById("userImg").style.backgroundImage = "url(images/userImg/default.png)";
+			}	
 		}
 		
 		window.onload = function() {

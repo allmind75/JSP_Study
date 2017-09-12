@@ -2,7 +2,9 @@ package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,10 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import dao.BoardFoodDAO;
 import dao.BoardProductDAO;
 import dao.BoardTripDAO;
+import dao.ReplyTripDAO;
 import dto.BoardFoodDTO;
 import dto.BoardProductDTO;
 import dto.BoardTripDTO;
 import dto.PageMaker;
+import dto.ReplyDTO;
 import dto.SearchCriteria;
 
 @WebServlet("*.mo")
@@ -25,12 +29,14 @@ public class MainCtrl extends HttpServlet {
 	private BoardTripDAO tripDAO;
 	private BoardFoodDAO foodDAO;
 	private BoardProductDAO productDAO;
+	private ReplyTripDAO replyDAO;
 
 	public MainCtrl() throws IOException {
 		super();
 		tripDAO = new BoardTripDAO();
 		foodDAO = new BoardFoodDAO();
 		productDAO = new BoardProductDAO();
+		replyDAO = new ReplyTripDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -123,6 +129,18 @@ public class MainCtrl extends HttpServlet {
 		//조회수 증가
 		tripDAO.updateCnt(tnum);
 		
+		//댓글 리스트
+		List<ReplyDTO> listReply = replyDAO.listReply(tnum);
+		List<ReplyDTO> listImg = replyDAO.listImg(tnum);
+		Map<String, String> mapImg = new HashMap<String, String>();
+		
+		int size = listImg.size();
+		for(int i=0 ; i<size; i++) {
+			mapImg.put(listImg.get(i).getReplyer(), listImg.get(i).getPath());
+		}
+		
+		System.out.println(mapImg.get("tomas"));
+		
 		BoardTripDTO dto = tripDAO.selectReadTrip(tnum);
 		
 		SearchCriteria scri = ComMethod.searchCriteria(request);
@@ -130,6 +148,8 @@ public class MainCtrl extends HttpServlet {
 		if(dto != null) {
 			request.setAttribute("READ", dto);
 			request.setAttribute("CRI", scri);
+			request.setAttribute("REPLYLIST", listReply);
+			request.setAttribute("REPLYIMG", mapImg);
 			ComMethod.forward(request, response, "trip-view.jsp");
 		}		
 	}

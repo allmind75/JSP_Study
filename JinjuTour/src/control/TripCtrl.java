@@ -17,9 +17,11 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.BoardTripDAO;
 import dao.HeartTripDAO;
+import dao.ReplyTripDAO;
 import dto.BoardTripDTO;
 import dto.HeartDTO;
 import dto.PageMaker;
+import dto.ReplyDTO;
 import dto.SearchCriteria;
 
 @WebServlet("*.to")
@@ -27,6 +29,7 @@ public class TripCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BoardTripDAO dao;
 	private HeartTripDAO heartDAO;
+	private ReplyTripDAO replyDAO;
 	
 	private static final int MAX_SIZE = 1024 * 1024 * 10; // 10Mbyte 제한
 	private static final String SAVE_PATH = "C:\\Users\\hybrid\\git\\jsp_study\\JinjuTour\\WebContent\\images\\trip\\";
@@ -35,6 +38,7 @@ public class TripCtrl extends HttpServlet {
 		super();
 		dao = new BoardTripDAO();
 		heartDAO = new HeartTripDAO();
+		replyDAO = new ReplyTripDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -71,6 +75,9 @@ public class TripCtrl extends HttpServlet {
 				break;
 			case "heart.to":
 				heart(request, response);
+				break;
+			case "replyAdd.to":
+				replyAdd(request, response);
 				break;
 			}
 		} catch (SQLException e) {
@@ -144,8 +151,7 @@ public class TripCtrl extends HttpServlet {
 		BoardTripDTO dto = dao.selectReadTrip(tnum);
 		
 		SearchCriteria scri = ComMethod.searchCriteria(request);
-
-
+		
 		if (dto != null) {
 			request.setAttribute("READ", dto);
 			request.setAttribute("CRI", scri);
@@ -265,5 +271,23 @@ public class TripCtrl extends HttpServlet {
 		out.print("{\"cnt\":" + cnt + "}");
 		
 		out.close();
+	}
+	
+	public void replyAdd(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		PrintWriter out = response.getWriter();
+		int tnum = Integer.parseInt(request.getParameter("tnum"));
+		String replyer = request.getParameter("id");
+		String replytext = request.getParameter("replytext");
+		
+		ReplyDTO dto = new ReplyDTO(tnum, replytext, replyer);
+		
+		try {
+			replyDAO.addReply(dto);
+			out.print("{\"cnt\":true}");
+		} catch(SQLException e) {
+			out.print("{\"cnt\":false}");
+		}
 	}
 }
