@@ -31,7 +31,7 @@
 		<div class="content">
 			<h2 class="sub-title">${boardVO.title}</h2>
 
-			<div class="info">
+			<div class="info" id="info">
 				<a href="#">
 					<p class="sub-address">
 						<i class="fa fa-map-marker"></i>${boardVO.address}
@@ -40,11 +40,6 @@
 				<p class="sub-address">
 					<i class="fa fa-phone"></i>${boardVO.phone}
 				</p>
-				<a href="${boardVO.link}" target="_blank">
-					<p class="sub-address">
-						<i class="fa fa-home"></i>${boardVO.link}
-					</p>
-				</a>
 			</div>
 
 
@@ -158,6 +153,17 @@
 				});
 			} else {
 				alert("로그인 후 사용가능합니다.");
+			}
+		}
+		
+		window.onload = function() {
+			
+			var link = "${boardVO.link }"			
+			var element = document.getElementById('info');
+							
+			if(link != "") {
+				element.innerHTML += "<a href='${boardVO.link}' target='_blank'><p class='sub-address'><i class='fa fa-home'></i>" 
+				+ link + "</p></a>"				
 			}
 		}
 	</script>
