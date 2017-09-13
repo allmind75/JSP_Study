@@ -10,7 +10,7 @@
 		FROM board_trip_reply R
 		LEFT OUTER JOIN memberimg I ON R.replyer = I.id
 		WHERE R.num = #{num} ORDER BY rno DESC
-		
+		LIMIT #{cri.pageStart}, #{cri.perPageNum}		
 	</select>
 	
 	<select id="selectList2" resultType="dto.ReplyDTO">

@@ -11,6 +11,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<link rel="stylesheet" href="css/myStyle.css">	
 <link rel="stylesheet" href="css/subContentsStyle.css">
 <link rel="stylesheet" href="css/font-awesome.min.css">
 
@@ -77,7 +78,7 @@
 						</button>
 					</li>
 					<li><i class="fa fa-weixin reviewIcon"></i>
-						<p class="reviewCount1">${boardVO.reply }</p></li>
+						<p class="reviewCount1" id="reply">${boardVO.reply }</p></li>
 					<li><i class="fa fa-eye"></i>
 						<p class="reviewCount1">${boardVO.cnt }</p></li>
 				</ul>
@@ -93,7 +94,7 @@
         <!-- reply -->
         <c:set var="mapReplyImg" value="${REPLYIMG}"/>
         <section class="wrap-reply-list">
-            <h3>전체댓글 <span>[15]</span></h3>
+            <h3>전체댓글 <span id="reply-count"></span></h3>
             <!-- 
             <c:forEach items="${REPLYLIST}" var="replyVO">
 	            <ul>
@@ -120,7 +121,13 @@
             -->
             <div id="reply-list"></div>
         </section>
-
+		
+		<!-- reply paging -->	
+		<div class="paging">
+			<ul class="pagination">
+			</ul>
+		</div>
+	
         <div class="wrap-reply-add">
             <textarea class="input-add" id="newReplyText" placeholder="댓글을 입력하세요" onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
             <button type="submit" class="btn-add-reply" id="reaplyAddBtn" onclick="addReply()">등록</button>
@@ -212,13 +219,16 @@
         	obj.style.height = (7 + obj.scrollHeight) + "px";
         }
         		
-		function listReply() {
+        var replyPage = 1;
+        
+		function listReply(page) {
 			
 			$.ajax({
 				type: "GET",
 				url: "replyListTrip.to",
 				data: {
-					"tnum": tnum
+					"tnum": tnum,
+					"page": page
 				},
 				dataType:"JSON",
 				error: function() {
@@ -252,6 +262,13 @@
 						
 					});
 					
+					//페이징
+					printPaging(data.PAGEMAKER);
+					
+					console.log(data.PAGEMAKER);
+					
+					$("#reply-count").html("[" + data.COUNT + "]");
+					$("#reply").html(data.COUNT);
 					$("#reply-list").html(str);
 					
 				}
@@ -259,6 +276,7 @@
 		}
 		
 		function addReply() {
+			event.preventDefault();
 			
 			var replytext = document.getElementById("newReplyText").value;
 			replytext = replytext.trim();
@@ -285,7 +303,7 @@
 							resize(document.getElementById("newReplyText"));
 							
 							//댓글 목록 ajax
-							listReply();
+							listReply(replyPage);
 							
 						} else if(data.cnt == false) {
 							console.log("댓글 추가 실패");
@@ -299,6 +317,7 @@
 		
 		function removeReply(rno) {
 			
+			event.preventDefault();
 			console.log("remove : " + rno);
 			
 			$.ajax({
@@ -316,7 +335,7 @@
 					
 					if(data.cnt == true) {					
 						alert("삭제 되었습니다.");
-						listReply();					
+						listReply(replyPage);					
 					} else if(data.cnt == false) {
 						console.log("댓글 삭제 실패");
 					}
@@ -326,7 +345,7 @@
 		
 		function modifyReply(rno, replytext) {
 			
-			
+			event.preventDefault();
 			var modReplyText = prompt("댓글 수정", replytext);
 		
 			if(modReplyText != null) {
@@ -346,7 +365,7 @@
 						
 						if(data.cnt == true) {
 							alert("수정 되었습니다.");
-							listReply();
+							listReply(replyPage);
 						}
 					}
 				});
@@ -355,10 +374,39 @@
 			}
 		}
 		
+		var printPaging = function(pageMaker) {
+			
+			var str = "";
+			
+			if(pageMaker.prev) {
+				str += "<li><a href = '" + (pageMaker.startPage - 1) + "'> << </a></li>";
+			}
+			
+			for(var i=pageMaker.startPage, len = pageMaker.endPage; i <= len ; i++) {
+				var strClass = pageMaker.cri.page == i? 'class=active' : '';
+				str += "<li " + strClass + "><a href='" + i + "'>" + i + "</a></li>"; 
+			}
+			
+			if(pageMaker.next) {
+				str += "<li><a href= '" + (pageMaker.endPage + 1) + "'> >> </a></li>";
+			}
+			
+			$(".pagination").html(str);
+		}
+		
+		$(".pagination").on("click", "li a", function(event){
+			
+			event.preventDefault();
+			
+			replyPage = $(this).attr("href");
+			
+			listReply(replyPage);
+		});
+		
 		window.onload  = function() {
 			
 			//댓글 리스트
-			listReply();
+			listReply(replyPage);
 		}
 	</script>
 </body>

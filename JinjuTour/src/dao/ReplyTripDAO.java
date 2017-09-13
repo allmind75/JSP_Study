@@ -2,11 +2,14 @@ package dao;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import dto.Criteria;
 import dto.ReplyDTO;
 
 
@@ -19,11 +22,14 @@ public class ReplyTripDAO {
 		factory = FactoryBuild.factoryBuild();
 	}
 	
-	public List<ReplyDTO> listReply(int num) throws SQLException {
+	public List<ReplyDTO> listReply(int num, Criteria cri) throws SQLException {
 		
 		SqlSession session = factory.openSession();
 		try {
-			return session.selectList("replyTrip.selectList", num);
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("num", num);
+			paramMap.put("cri", cri);
+			return session.selectList("replyTrip.selectList", paramMap);
 		} finally {
 			session.close();
 		}

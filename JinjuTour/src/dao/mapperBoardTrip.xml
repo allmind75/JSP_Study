@@ -40,6 +40,10 @@
 		UPDATE board_trip SET cnt = cnt + 1 WHERE tnum = #{tnum}
 	</update>
 	
+	<update id="updateReply">
+		UPDATE board_trip SET reply = #{cnt} WHERE tnum = #{tnum}
+	</update>
+	
 	<delete id="deleteTrip">
 		DELETE FROM board_trip WHERE tnum = #{tnum}
 	</delete>

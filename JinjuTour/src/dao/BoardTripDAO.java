@@ -171,5 +171,17 @@ public class BoardTripDAO {
 		}
 	}
 	
+	public void updateReply(int tnum, int cnt) throws SQLException {
+		
+		SqlSession session = factory.openSession(true);
+		try {
+			Map<String, Integer> paramMap = new HashMap<>();
+			paramMap.put("tnum", tnum);
+			paramMap.put("cnt", cnt);
+			session.update("boardTrip.updateReply", paramMap);
+		} finally {
+			session.close();
+		}
+	}
 	
 }

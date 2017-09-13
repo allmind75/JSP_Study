@@ -242,7 +242,7 @@ background: url(../images/user.jpg) no-repeat center center; background-size: co
   text-align: center; background: #03c3c7; color: #fff; border-radius: 10%; font-size: 12px;}
 .sub-contents-view .wrap-reply-list ul > li a:hover {font-weight: bold; text-decoration: underline;}
 
-.sub-contents-view .wrap-reply-add {width: 100%; height: auto; overflow: hidden; position: relative; margin-top: 60px; margin-bottom: 40px;}
+.sub-contents-view .wrap-reply-add {width: 100%; height: auto; overflow: hidden; position: relative; margin-top: 15px; margin-bottom: 40px;}
 .sub-contents-view .input-add {width: 80%; height: 24px; border: 0; border-bottom: 2px solid #ccc; overflow: visible;
 font-size: 15px; color: #373737;}
 .sub-contents-view .btn-add-reply {width: 50px; height: 24px; position: absolute; top: 50%; margin-top: -12px;

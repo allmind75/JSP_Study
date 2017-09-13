@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +21,7 @@ import dao.BoardTripDAO;
 import dao.HeartTripDAO;
 import dao.ReplyTripDAO;
 import dto.BoardTripDTO;
+import dto.Criteria;
 import dto.HeartDTO;
 import dto.PageMaker;
 import dto.ReplyDTO;
@@ -306,15 +306,31 @@ public class TripCtrl extends HttpServlet {
 			throws ServletException, IOException, SQLException {
 
 		int tnum = Integer.parseInt(request.getParameter("tnum"));
+		int page = Integer.parseInt(request.getParameter("page"));
+		
 		PrintWriter out = response.getWriter();
-
+		Criteria cri = new Criteria();
+		cri.setPage(page);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		
 		// 댓글 리스트
-		List<ReplyDTO> listReply = replyDAO.listReply(tnum);
-
-		// map으로 안해도 되지만 연습으로 map 형태로 저장 후 전송
+		List<ReplyDTO> listReply = replyDAO.listReply(tnum, cri);
+				
+		// 전체 댓글 수, board_trip 테이블에 update
+		int replyCount = replyDAO.count(tnum);
+		dao.updateReply(tnum, replyCount);
+		
+		//pageMaker 설정
+		pageMaker.setTotalCount(replyCount);
+		
+		//map 형태로 저장 후 전송
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("LISTREPLY", listReply);
-
+		map.put("COUNT", replyCount);
+		map.put("PAGEMAKER", pageMaker);
+		
 		// map 형태 JSON으로 변환, jackson lib 사용
 		ObjectMapper mapper = new ObjectMapper();
 
