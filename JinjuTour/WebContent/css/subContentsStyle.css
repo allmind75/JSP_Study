@@ -238,15 +238,17 @@ background: url(../images/user.jpg) no-repeat center center; background-size: co
 .sub-contents-view .wrap-reply-list ul > li p:nth-child(1) {float: left; padding-right: 10px; border-right: 1px solid #ccc; font-weight: bold;}
 .sub-contents-view .wrap-reply-list ul > li p:nth-child(2) {float: left; padding-left: 10px;}
 .sub-contents-view .wrap-reply-list ul > li p:nth-child(3) {clear: both; padding-top: 10px; letter-spacing: 0.4px; line-height: 1.4; }
-.sub-contents-view .wrap-reply-list ul > li a {width: 40px; height: 25px; line-height: 25px; float: right; margin-right: 5px;
-  text-align: center; background: #03c3c7; color: #fff; border-radius: 10%; font-size: 12px;}
+.sub-contents-view .wrap-reply-list ul > li a {width: 40px; height: 25px; line-height: 25px; float: right; margin-right: 10px;
+  text-align: center; font-size: 12px; border-bottom: 2px solid #03c3c7;}
 .sub-contents-view .wrap-reply-list ul > li a:hover {font-weight: bold; text-decoration: underline;}
 
 .sub-contents-view .wrap-reply-add {width: 100%; height: auto; overflow: hidden; position: relative; margin-top: 15px; margin-bottom: 40px;}
 .sub-contents-view .input-add {width: 80%; height: 24px; border: 0; border-bottom: 2px solid #ccc; overflow: visible;
 font-size: 15px; color: #373737;}
 .sub-contents-view .btn-add-reply {width: 50px; height: 24px; position: absolute; top: 50%; margin-top: -12px;
-margin-left: 8px; background: #03c3c7; color: #fff; border: 0; border-radius: 10%;}
+margin-left: 8px; background: none; border: 0; border-bottom: 2px solid #03c3c7;
+transition-duration: 0.4s; -webkit-transition-duration: 0.2s;}
+.sub-contents-view .btn-add-reply:hover {font-weight: bold;}
 
 .footer {height: 40px; background: #4b4b4b; text-align: center; clear: both; line-height: 40px; }
 .footer p {font-size: 10px; color: #fff; letter-spacing: 0}
