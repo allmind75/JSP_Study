@@ -40,6 +40,10 @@
 		UPDATE board_product SET cnt = cnt + 1 WHERE pnum = #{pnum}
 	</update>
 		
+	<update id="updateReply">
+		UPDATE board_product SET reply = #{cnt} WHERE pnum = #{pnum}
+	</update>
+	
 	<delete id="deleteProduct">
 		DELETE FROM board_product WHERE pnum = #{pnum}
 	</delete>

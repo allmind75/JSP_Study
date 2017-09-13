@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,14 +13,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.BoardProductDAO;
 import dao.HeartProductDAO;
+import dao.ReplyProductDAO;
 import dto.BoardProductDTO;
+import dto.Criteria;
 import dto.HeartDTO;
 import dto.PageMaker;
+import dto.ReplyDTO;
 import dto.SearchCriteria;
 
 @WebServlet("*.po")
@@ -27,6 +32,7 @@ public class ProductCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BoardProductDAO dao;
 	private HeartProductDAO heartDAO;
+	private ReplyProductDAO replyDAO;
 	
 	private static final int MAX_SIZE = 1024 * 1024 * 10; // 10Mbyte 제한
 	private static final String SAVE_PATH = "C:\\Users\\hybrid\\git\\jsp_study\\JinjuTour\\WebContent\\images\\product\\";
@@ -35,6 +41,7 @@ public class ProductCtrl extends HttpServlet {
 		super();
 		dao = new BoardProductDAO();
 		heartDAO = new HeartProductDAO();
+		replyDAO = new ReplyProductDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -69,6 +76,18 @@ public class ProductCtrl extends HttpServlet {
 			case "heart.po":
 				heart(request, response);
 				break;
+			case "replyAdd.po":
+				replyAdd(request, response);
+				break;
+			case "replyListProduct.po":
+				replyListProduct(request, response);
+				break;
+			case "replyRemove.po":
+				replyRemove(request, response);
+				break;
+			case "replyModify.po":
+				replyModify(request, response);
+				break;		
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -258,5 +277,93 @@ public class ProductCtrl extends HttpServlet {
 		out.print("{\"cnt\":" + cnt + "}");
 		
 		out.close();
+	}
+	
+	public void replyAdd(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		PrintWriter out = response.getWriter();
+		int pnum = Integer.parseInt(request.getParameter("pnum"));
+		String replyer = request.getParameter("id");
+		String replytext = request.getParameter("replytext");
+
+		ReplyDTO dto = new ReplyDTO(pnum, replytext, replyer);
+
+		try {
+			replyDAO.addReply(dto);
+			out.print("{\"cnt\":true}");
+		} catch (SQLException e) {
+			out.print("{\"cnt\":false}");
+		}
+	}
+
+	public void replyListProduct(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+
+		int pnum = Integer.parseInt(request.getParameter("pnum"));
+		int page = Integer.parseInt(request.getParameter("page"));
+		
+		PrintWriter out = response.getWriter();
+		Criteria cri = new Criteria();
+		cri.setPage(page);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		
+		// 댓글 리스트
+		List<ReplyDTO> listReply = replyDAO.listReply(pnum, cri);
+				
+		// 전체 댓글 수, board_trip 테이블에 update
+		int replyCount = replyDAO.count(pnum);
+		dao.updateReply(pnum, replyCount);
+		
+		//pageMaker 설정
+		pageMaker.setTotalCount(replyCount);
+		
+		//map 형태로 저장 후 전송
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("LISTREPLY", listReply);
+		map.put("COUNT", replyCount);
+		map.put("PAGEMAKER", pageMaker);
+		
+		// map 형태 JSON으로 변환, jackson lib 사용
+		ObjectMapper mapper = new ObjectMapper();
+
+		String jsonData = mapper.writeValueAsString(map);
+
+		out.print(jsonData);
+	}
+
+	public void replyRemove(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		int rno = Integer.parseInt(request.getParameter("rno"));
+		PrintWriter out = response.getWriter();
+
+		try {
+			replyDAO.removeReply(rno);
+			out.print("{\"cnt\":true}");
+		} catch (SQLException e) {
+			out.print("{\"cnt\":false}");
+		}
+	}
+
+	public void replyModify(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		int rno = Integer.parseInt(request.getParameter("rno"));
+		String replytext = request.getParameter("replytext");
+		PrintWriter out = response.getWriter();
+		
+		ReplyDTO dto = new ReplyDTO();
+		dto.setRno(rno);
+		dto.setReplytext(replytext);
+		
+		try {
+			replyDAO.modifyReply(dto);
+			out.print("{\"cnt\":true}");
+		} catch (SQLException e) {
+			out.print("{\"cnt\":false}");
+		}
 	}
 }

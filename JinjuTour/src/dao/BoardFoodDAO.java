@@ -160,5 +160,18 @@ public class BoardFoodDAO {
 			session.close();
 		}
 	}
+	
+	public void updateReply(int fnum, int cnt) throws SQLException {
+		
+		SqlSession session = factory.openSession(true);
+		try {
+			Map<String, Integer> paramMap = new HashMap<>();
+			paramMap.put("fnum", fnum);
+			paramMap.put("cnt", cnt);
+			session.update("boardFood.updateReply", paramMap);
+		} finally {
+			session.close();
+		}
+	}
 
 }

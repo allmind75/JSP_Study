@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,14 +13,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.BoardFoodDAO;
 import dao.HeartFoodDAO;
+import dao.ReplyFoodDAO;
 import dto.BoardFoodDTO;
+import dto.Criteria;
 import dto.HeartDTO;
 import dto.PageMaker;
+import dto.ReplyDTO;
 import dto.SearchCriteria;
 
 @WebServlet("*.fo")
@@ -27,6 +32,7 @@ public class FoodCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BoardFoodDAO dao;
 	private HeartFoodDAO heartDAO;
+	private ReplyFoodDAO replyDAO;
 	
 	private static final int MAX_SIZE = 1024 * 1024 * 10; // 10Mbyte 제한
 	private static final String SAVE_PATH = "C:\\Users\\hybrid\\git\\jsp_study\\JinjuTour\\WebContent\\images\\food\\";
@@ -35,6 +41,7 @@ public class FoodCtrl extends HttpServlet {
 		super();
 		dao = new BoardFoodDAO();
 		heartDAO = new HeartFoodDAO();
+		replyDAO = new ReplyFoodDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -69,6 +76,18 @@ public class FoodCtrl extends HttpServlet {
 			case "heart.fo":
 				heart(request, response);
 				break;
+			case "replyAdd.fo":
+				replyAdd(request, response);
+				break;
+			case "replyListFood.fo":
+				replyListFood(request, response);
+				break;
+			case "replyRemove.fo":
+				replyRemove(request, response);
+				break;
+			case "replyModify.fo":
+				replyModify(request, response);
+				break;	
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -258,5 +277,93 @@ public class FoodCtrl extends HttpServlet {
 		out.print("{\"cnt\":" + cnt + "}");
 		
 		out.close();
+	}
+	
+	public void replyAdd(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		PrintWriter out = response.getWriter();
+		int fnum = Integer.parseInt(request.getParameter("fnum"));
+		String replyer = request.getParameter("id");
+		String replytext = request.getParameter("replytext");
+
+		ReplyDTO dto = new ReplyDTO(fnum, replytext, replyer);
+
+		try {
+			replyDAO.addReply(dto);
+			out.print("{\"cnt\":true}");
+		} catch (SQLException e) {
+			out.print("{\"cnt\":false}");
+		}
+	}
+
+	public void replyListFood(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+
+		int fnum = Integer.parseInt(request.getParameter("fnum"));
+		int page = Integer.parseInt(request.getParameter("page"));
+		
+		PrintWriter out = response.getWriter();
+		Criteria cri = new Criteria();
+		cri.setPage(page);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		
+		// 댓글 리스트
+		List<ReplyDTO> listReply = replyDAO.listReply(fnum, cri);
+				
+		// 전체 댓글 수, board_trip 테이블에 update
+		int replyCount = replyDAO.count(fnum);
+		dao.updateReply(fnum, replyCount);
+		
+		//pageMaker 설정
+		pageMaker.setTotalCount(replyCount);
+		
+		//map 형태로 저장 후 전송
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("LISTREPLY", listReply);
+		map.put("COUNT", replyCount);
+		map.put("PAGEMAKER", pageMaker);
+		
+		// map 형태 JSON으로 변환, jackson lib 사용
+		ObjectMapper mapper = new ObjectMapper();
+
+		String jsonData = mapper.writeValueAsString(map);
+
+		out.print(jsonData);
+	}
+
+	public void replyRemove(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		int rno = Integer.parseInt(request.getParameter("rno"));
+		PrintWriter out = response.getWriter();
+
+		try {
+			replyDAO.removeReply(rno);
+			out.print("{\"cnt\":true}");
+		} catch (SQLException e) {
+			out.print("{\"cnt\":false}");
+		}
+	}
+
+	public void replyModify(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		int rno = Integer.parseInt(request.getParameter("rno"));
+		String replytext = request.getParameter("replytext");
+		PrintWriter out = response.getWriter();
+		
+		ReplyDTO dto = new ReplyDTO();
+		dto.setRno(rno);
+		dto.setReplytext(replytext);
+		
+		try {
+			replyDAO.modifyReply(dto);
+			out.print("{\"cnt\":true}");
+		} catch (SQLException e) {
+			out.print("{\"cnt\":false}");
+		}
 	}
 }

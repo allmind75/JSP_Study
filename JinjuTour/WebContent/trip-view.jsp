@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.Map" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 	
 <!DOCTYPE html>
@@ -201,10 +200,7 @@
 					error : function() {
 						console.log("통신실패");
 					},
-					success : function(data) {
-						console.log("성공");
-						console.log(data.cnt);
-						
+					success : function(data) {						
 						document.getElementById("heartCnt").innerHTML = data.cnt;
 					}
 				});
