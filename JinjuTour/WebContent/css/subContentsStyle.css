@@ -231,21 +231,21 @@ display: -webkit-box;
 .sub-contents-view .wrap-reply-list ul {width: 100%; height: auto; padding: 5px; margin-bottom: 10px;
 border-bottom: 1px solid #ccc; overflow: hidden;}
 .sub-contents-view .wrap-reply-list li {width: 100%; height: auto;}
-.sub-contents-view .wrap-reply-list > ul > li:nth-child(1) {width: 45px; height: auto; float: left;}
-.sub-contents-view .wrap-reply-list > ul > li:nth-child(2) {width: 85%; height: auto; float: left; padding: 6px 0;}
-.sub-contents-view .wrap-reply-list > ul > li .user-img {width: 30px; height: 30px; border-radius: 100%;
+.sub-contents-view .wrap-reply-list ul > li:nth-child(1) {width: 45px; height: auto; float: left;}
+.sub-contents-view .wrap-reply-list ul > li:nth-child(2) {width: 85%; height: auto; float: left; padding: 6px 0;}
+.sub-contents-view .wrap-reply-list ul > li .user-img {width: 30px; height: 30px; border-radius: 100%;
 background: url(../images/user.jpg) no-repeat center center; background-size: cover;}
-.sub-contents-view .wrap-reply-list > ul > li p:nth-child(1) {float: left; padding-right: 10px; border-right: 1px solid #ccc; font-weight: bold;}
-.sub-contents-view .wrap-reply-list > ul > li p:nth-child(2) {float: left; padding-left: 10px;}
-.sub-contents-view .wrap-reply-list > ul > li p:nth-child(3) {clear: both; padding-top: 10px; letter-spacing: 0.4px; line-height: 1.4; }
-.sub-contents-view .wrap-reply-list > ul > li a {width: 40px; height: 25px; line-height: 25px; float: right; margin-right: 5px;
+.sub-contents-view .wrap-reply-list ul > li p:nth-child(1) {float: left; padding-right: 10px; border-right: 1px solid #ccc; font-weight: bold;}
+.sub-contents-view .wrap-reply-list ul > li p:nth-child(2) {float: left; padding-left: 10px;}
+.sub-contents-view .wrap-reply-list ul > li p:nth-child(3) {clear: both; padding-top: 10px; letter-spacing: 0.4px; line-height: 1.4; }
+.sub-contents-view .wrap-reply-list ul > li a {width: 40px; height: 25px; line-height: 25px; float: right; margin-right: 5px;
   text-align: center; background: #03c3c7; color: #fff; border-radius: 10%; font-size: 12px;}
-.sub-contents-view .wrap-reply-list > ul > li a:hover {font-weight: bold; text-decoration: underline;}
+.sub-contents-view .wrap-reply-list ul > li a:hover {font-weight: bold; text-decoration: underline;}
 
 .sub-contents-view .wrap-reply-add {width: 100%; height: auto; overflow: hidden; position: relative; margin-top: 60px; margin-bottom: 40px;}
 .sub-contents-view .input-add {width: 80%; height: 24px; border: 0; border-bottom: 2px solid #ccc; overflow: visible;
 font-size: 15px; color: #373737;}
-.sub-contents-view .btn-add-reply {width: 60px; height: 30px; position: absolute; top: 45%; margin-top: -15px;
+.sub-contents-view .btn-add-reply {width: 50px; height: 24px; position: absolute; top: 50%; margin-top: -12px;
 margin-left: 8px; background: #03c3c7; color: #fff; border: 0; border-radius: 10%;}
 
 .footer {height: 40px; background: #4b4b4b; text-align: center; clear: both; line-height: 40px; }

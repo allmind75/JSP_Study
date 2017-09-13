@@ -39,6 +39,16 @@ public class ReplyTripDAO {
 		}
 	}
 	
+	public int count(int num) throws SQLException {
+		
+		SqlSession session = factory.openSession();
+		try {
+			return session.selectOne("replyTrip.selectCount", num);
+		} finally {
+			session.close();
+		}
+	}
+	
 	public void addReply(ReplyDTO dto) throws SQLException {
 		
 		SqlSession session = factory.openSession(true);

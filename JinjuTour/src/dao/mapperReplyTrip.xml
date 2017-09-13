@@ -6,6 +6,14 @@
 <mapper namespace="replyTrip">
 
 	<select id="selectList" resultType="dto.ReplyDTO">
+		SELECT DISTINCT R.rno, R.num, R.replytext,R.replyer, R.regdate, R.updatedate, I.path 
+		FROM board_trip_reply R
+		LEFT OUTER JOIN memberimg I ON R.replyer = I.id
+		WHERE R.num = #{num} ORDER BY rno DESC
+		
+	</select>
+	
+	<select id="selectList2" resultType="dto.ReplyDTO">
 		SELECT * FROM board_trip_reply WHERE num = #{num} ORDER BY rno DESC
 	</select>
 	
@@ -13,6 +21,10 @@
 		SELECT DISTINCT R.replyer, I.path FROM board_trip_reply R
 		LEFT OUTER JOIN memberimg I ON R.replyer = I.id
 		WHERE R.num = #{num}
+	</select>
+	
+	<select id="selectCount" resultType="int">
+		SELECT COUNT(num) FROM board_trip_reply WHERE num = #{num}
 	</select>
 	
 	<insert id="insert">

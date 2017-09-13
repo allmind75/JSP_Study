@@ -46,15 +46,6 @@
 		}
 		event.preventDefault();
 	}
-	
-	window.onload = function() {
-		var path = "<%=userImg%>";
-		if(path != 'null') {
-			document.getElementById("userImg").style.backgroundImage = "url(images/userImg/" + path + ")";
-		} else {
-			document.getElementById("userImg").style.backgroundImage = "url(images/userImg/default.png)";
-		}
-	}
 </script>
 
 <header class="header">
@@ -87,6 +78,15 @@
 				class="fa fa-close"></i></a>
 			<div class="slidebar-wrap">
 				<div id="userImg" class="slidebar-brand"></div>
+				<script>
+					var path = "<%=userImg%>";
+					if(path != 'null') {
+						document.getElementById("userImg").style.backgroundImage = "url(images/userImg/" + path + ")";
+					} else {
+						document.getElementById("userImg").style.backgroundImage = "url(images/userImg/default.png)";
+					}
+				</script>
+				
 				<p class="userName"><%=userName%></p>
 				<p class="userID"><%=userId%></p>
 			</div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.Map" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 	
 <!DOCTYPE html>
@@ -37,6 +38,26 @@
 				<p class="sub-address">
 					<i class="fa fa-phone"></i>${boardVO.phone }
 				</p>
+				
+				<script>
+					var time = "${boardVO.time }"			
+						var timeArray = time.split(',');
+						
+						for(var i=0 ; i<timeArray.length ; i++) {
+							
+							var element = document.getElementById('info');
+											
+							if(timeArray[i].trim() != "") {
+								if(i == 0) {
+									element.innerHTML += "<p class='sub-address'><i class='fa fa-clock-o'></i><span>" 
+									+ timeArray[i].trim() + "</span></p>"; 
+								} else {
+									element.innerHTML += "<p class='sub-address'><i class='fa fa-clock-o' style='color: #fff'></i><span>"
+									+ timeArray[i].trim() + "</span></p>";
+								}		
+							}
+						}
+				</script>
 			</div>
 
 			<p class="sub-content">${boardVO.content }</p>
@@ -70,22 +91,34 @@
 		</div>
 		
         <!-- reply -->
+        <c:set var="mapReplyImg" value="${REPLYIMG}"/>
         <section class="wrap-reply-list">
             <h3>전체댓글 <span>[15]</span></h3>
+            <!-- 
             <c:forEach items="${REPLYLIST}" var="replyVO">
-            <ul>
-                <li>
-                    <div class="user-img"></div>
-                </li>
-                <li>
-                    <p>${replyVO.replyer}</p>
-                    <p>${replyVO.updatedate}</p>
-                    <p>${replyVO.replytext}</p>
-                    <a href="#">삭제</a>
-                    <a href="#">수정</a>
-                </li>
-            </ul>
+	            <ul>
+	                <li>               
+	                	<c:choose>
+	                		<c:when test="${empty mapReplyImg[replyVO.replyer]}">
+	                			<div class="user-img" id="user-img" style="background-Image: url(images/userImg/default.png)"></div>
+	                		</c:when>
+	                		
+	                		<c:otherwise>
+	                			<div class="user-img" id="user-img" style="background-Image: url(images/userImg/${mapReplyImg[replyVO.replyer]})"></div>
+	                		</c:otherwise>
+	                	</c:choose>            	
+	                </li>
+	                <li>
+	                    <p>${replyVO.replyer}</p>
+	                    <p>${replyVO.updatedate}</p>
+	                    <p>${replyVO.replytext}</p>
+	                    <a href="#">삭제</a>
+	                    <a href="#">수정</a>
+	                </li>
+	            </ul>
             </c:forEach>
+            -->
+            <div id="reply-list"></div>
         </section>
 
         <div class="wrap-reply-add">
@@ -143,11 +176,11 @@
 			$('body, html, .sub-contents-view').scrollTop(0);
 		});
 		
+		var id = "<%=userId%>";
+		var tnum = ${boardVO.tnum};
+		
 		function heartCnt() {
-			
-			var id = "<%=userId%>";
-			var tnum = ${boardVO.tnum};
-			
+	
 			if(id != "") {
 				
 				$.ajax({
@@ -173,37 +206,87 @@
 			}
 		}
 		
-        //textarea 높이 증가
+        //textarea 엔터 입력시 height 증가
         function resize(obj) {
         	obj.style.height = "1px";
         	obj.style.height = (7 + obj.scrollHeight) + "px";
         }
-        
+        		
+		function listReply() {
+			
+			$.ajax({
+				type: "GET",
+				url: "replyListTrip.to",
+				data: {
+					"tnum": tnum
+				},
+				dataType:"JSON",
+				error: function() {
+					console.log("댓글 목록 통신 실패");
+				},
+				success: function(data) {
+						
+					var str = "";
+					
+					//data에 저장된 JSON 형태의 데이터 출력
+					$(data.LISTREPLY).each(function() {	
+						
+						var date = this.updatedate;
+						var subdate = date.substring(0,16);
+						
+						if(this.path == null) {
+							str += "<ul id='reply-ul'><li><div class='user-img' id='user-img' style='background-Image: url(images/userImg/default.png)'></div></li>";
+						} else {
+							str += "<ul><li><div class='user-img' id='user-img' style='background-Image: url(images/userImg/" + this.path + ")'></div></li>";
+						}
+
+						
+						str += "<li id='reply-li'><p>" + this.replyer + "</p><p>" + subdate + "</p><p id='replytext'>" + this.replytext + "</p>";
+						
+						if(id == this.replyer) {
+							str += "<p><a href='#' onclick='removeReply(" + this.rno + ")'>삭제</a>" + 
+							"<a href='#' onclick=\"modifyReply(" + this.rno + ',' + "'" + this.replytext + "')\">수정</a></li></ul>";
+						} else {
+							str += "</li></ul>";
+						}
+						
+					});
+					
+					$("#reply-list").html(str);
+					
+				}
+			});
+		}
+		
 		function addReply() {
 			
-			var tnum = ${boardVO.tnum};
-			var id = "<%=userId%>";
 			var replytext = document.getElementById("newReplyText").value;
 			replytext = replytext.trim();
 			
 			if(id != "") {
 				$.ajax({
-					type : "GET",
-					url : "replyAdd.to",
-					data : {
+					type: "POST",
+					url: "replyAdd.to",
+					data: {
 						"tnum" : tnum,
 						"id" : id, 
 						"replytext" : replytext
 					},
-					dataType : "JSON",
-					error : function() {
-						console.log("실패");
+					dataType: "JSON",
+					error: function() {
+						console.log("댓글 추가 통신 실패");
 					},
-					success : function(data) {
+					success: function(data) {
 						
 						if(data.cnt == true) {
+							alert("등록 되었습니다.");
+							
 							document.getElementById("newReplyText").value = "";
 							resize(document.getElementById("newReplyText"));
+							
+							//댓글 목록 ajax
+							listReply();
+							
 						} else if(data.cnt == false) {
 							console.log("댓글 추가 실패");
 						}			
@@ -214,35 +297,68 @@
 			}
 		}
 		
-		//댓글 사진 추가 생각중....
-		function replyImg(path) {
+		function removeReply(rno) {
 			
-			if(path != 'null') {
-				document.getElementById("userImg").style.backgroundImage = "url(images/userImg/" + path + ")";
-			} else {
-				document.getElementById("userImg").style.backgroundImage = "url(images/userImg/default.png)";
-			}	
+			console.log("remove : " + rno);
+			
+			$.ajax({
+				type: "POST",
+				url: "replyRemove.to",
+				data: {
+					"rno": rno
+				},
+				dataType: "JSON",
+				error: function() {
+					console.log("댓글 삭제 통신 실패");
+				},
+				success: function(data) {
+					console.log("성공");
+					
+					if(data.cnt == true) {					
+						alert("삭제 되었습니다.");
+						listReply();					
+					} else if(data.cnt == false) {
+						console.log("댓글 삭제 실패");
+					}
+				}	
+			});
 		}
 		
-		window.onload = function() {
+		function modifyReply(rno, replytext) {
 			
-			var time = "${boardVO.time }"			
-			var timeArray = time.split(',');
 			
-			for(var i=0 ; i<timeArray.length ; i++) {
-				
-				var element = document.getElementById('info');
-								
-				if(timeArray[i].trim() != "") {
-					if(i == 0) {
-						element.innerHTML += "<p class='sub-address'><i class='fa fa-clock-o'></i><span>" 
-						+ timeArray[i].trim() + "</span></p>"; 
-					} else {
-						element.innerHTML += "<p class='sub-address'><i class='fa fa-clock-o' style='color: #fff'></i><span>"
-						+ timeArray[i].trim() + "</span></p>";
-					}		
-				}
+			var modReplyText = prompt("댓글 수정", replytext);
+		
+			if(modReplyText != null) {
+				$.ajax({
+					type: "POST",
+					url: "replyModify.to",
+					data: {
+						"rno": rno,
+						"replytext": modReplyText
+					},
+					dataType: "JSON",
+					error: function() {
+						console.log("댓글 수정 통신 실패");
+					},
+					success: function(data) {
+						console.log("성공");
+						
+						if(data.cnt == true) {
+							alert("수정 되었습니다.");
+							listReply();
+						}
+					}
+				});
+			} else {
+				console.log("댓글 수정 취소");
 			}
+		}
+		
+		window.onload  = function() {
+			
+			//댓글 리스트
+			listReply();
 		}
 	</script>
 </body>

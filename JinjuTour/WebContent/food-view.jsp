@@ -42,6 +42,23 @@
 				<p class="sub-address">
 					<i class="fa fa-clock-o"></i>${boardVO.time }
 				</p>
+				<script>
+					var menu = "${boardVO.menu }"
+						var menuArray = menu.split('/');
+						
+						for(var i=0 ; i<menuArray.length ; i++) {
+							
+							var element = document.getElementById('info');
+							
+							if(i == 0) {
+								element.innerHTML += "<p class='sub-address'><i class='fa fa-cutlery'></i><span>" 
+								+ menuArray[i].trim(); + "</span></p>"
+							} else {
+								element.innerHTML += "<p class='sub-address'><i class='fa fa-cutlery' style='color: #fff'></i><span>" 
+								+ menuArray[i].trim(); + "</span></p>"
+							}
+						}
+				</script>
 			</div>
 
 
@@ -154,25 +171,6 @@
 				});
 			} else {
 				alert("로그인 후 사용가능합니다.");
-			}
-		}
-		
-		window.onload = function() {
-			
-			var menu = "${boardVO.menu }"
-			var menuArray = menu.split('/');
-			
-			for(var i=0 ; i<menuArray.length ; i++) {
-				
-				var element = document.getElementById('info');
-				
-				if(i == 0) {
-					element.innerHTML += "<p class='sub-address'><i class='fa fa-cutlery'></i><span>" 
-					+ menuArray[i].trim(); + "</span></p>"
-				} else {
-					element.innerHTML += "<p class='sub-address'><i class='fa fa-cutlery' style='color: #fff'></i><span>" 
-					+ menuArray[i].trim(); + "</span></p>"
-				}
 			}
 		}
 	</script>

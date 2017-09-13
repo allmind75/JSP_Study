@@ -128,19 +128,7 @@ public class MainCtrl extends HttpServlet {
 		
 		//조회수 증가
 		tripDAO.updateCnt(tnum);
-		
-		//댓글 리스트
-		List<ReplyDTO> listReply = replyDAO.listReply(tnum);
-		List<ReplyDTO> listImg = replyDAO.listImg(tnum);
-		Map<String, String> mapImg = new HashMap<String, String>();
-		
-		int size = listImg.size();
-		for(int i=0 ; i<size; i++) {
-			mapImg.put(listImg.get(i).getReplyer(), listImg.get(i).getPath());
-		}
-		
-		System.out.println(mapImg.get("tomas"));
-		
+				
 		BoardTripDTO dto = tripDAO.selectReadTrip(tnum);
 		
 		SearchCriteria scri = ComMethod.searchCriteria(request);
@@ -148,8 +136,6 @@ public class MainCtrl extends HttpServlet {
 		if(dto != null) {
 			request.setAttribute("READ", dto);
 			request.setAttribute("CRI", scri);
-			request.setAttribute("REPLYLIST", listReply);
-			request.setAttribute("REPLYIMG", mapImg);
 			ComMethod.forward(request, response, "trip-view.jsp");
 		}		
 	}
