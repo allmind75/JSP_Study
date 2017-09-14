@@ -2,9 +2,7 @@ package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,12 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import dao.BoardFoodDAO;
 import dao.BoardProductDAO;
 import dao.BoardTripDAO;
-import dao.ReplyTripDAO;
 import dto.BoardFoodDTO;
 import dto.BoardProductDTO;
 import dto.BoardTripDTO;
 import dto.PageMaker;
-import dto.ReplyDTO;
 import dto.SearchCriteria;
 
 @WebServlet("*.mo")
@@ -29,14 +25,12 @@ public class MainCtrl extends HttpServlet {
 	private BoardTripDAO tripDAO;
 	private BoardFoodDAO foodDAO;
 	private BoardProductDAO productDAO;
-	private ReplyTripDAO replyDAO;
 
 	public MainCtrl() throws IOException {
 		super();
 		tripDAO = new BoardTripDAO();
 		foodDAO = new BoardFoodDAO();
 		productDAO = new BoardProductDAO();
-		replyDAO = new ReplyTripDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
