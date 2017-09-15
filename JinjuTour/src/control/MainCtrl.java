@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -65,6 +66,12 @@ public class MainCtrl extends HttpServlet {
 			case "readProduct.mo":
 				readProduct(request, response);
 				break;
+			case "makeCookie.mo":
+				//makeCookie(request, response);
+				break;
+			case "readCookie.mo":
+				//readCookie(request, response);
+				break;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -119,10 +126,19 @@ public class MainCtrl extends HttpServlet {
 			throws ServletException, IOException, SQLException {
 		
 		int tnum = Integer.parseInt(request.getParameter("tnum"));
+		String key = "trip|" + tnum + "|";
+		String value = "read";
 		
-		//조회수 증가
-		tripDAO.updateCnt(tnum);
-				
+		//쿠키 확인
+		if(!checkCookie(key, value, request, response)) {
+			
+			//조회수 증가
+			tripDAO.updateCnt(tnum);
+			
+			//쿠키 없으면 생성
+			makeCookie(key, response);
+		}
+	
 		BoardTripDTO dto = tripDAO.selectReadTrip(tnum);
 		
 		SearchCriteria scri = ComMethod.searchCriteria(request);
@@ -159,9 +175,19 @@ public class MainCtrl extends HttpServlet {
 			throws ServletException, IOException, SQLException {
 		
 		int fnum = Integer.parseInt(request.getParameter("fnum"));
+		String key = "food|" + fnum + "|";
+		String value = "read";
 		
-		//조회수 증가
-		foodDAO.updateCnt(fnum);
+		//쿠키 확인
+		if(!checkCookie(key, value, request, response)) {
+			
+			//조회수 증가
+			foodDAO.updateCnt(fnum);
+			
+			//쿠키 없으면 생성
+			makeCookie(key, response);
+		}
+
 		
 		BoardFoodDTO dto = foodDAO.selectRead(fnum);
 		
@@ -199,9 +225,19 @@ public class MainCtrl extends HttpServlet {
 			throws ServletException, IOException, SQLException {
 		
 		int pnum = Integer.parseInt(request.getParameter("pnum"));
+		String key = "product|" + pnum + "|";
+		String value = "read";
 		
-		//조회수 증가
-		productDAO.updateCnt(pnum);
+		//쿠키 확인
+		if(!checkCookie(key, value, request, response)) {
+			
+			//조회수 증가
+			productDAO.updateCnt(pnum);
+			
+			//쿠키 없으면 생성
+			makeCookie(key, response);
+		}
+
 		
 		BoardProductDTO dto = productDAO.selectRead(pnum);
 		
@@ -212,6 +248,50 @@ public class MainCtrl extends HttpServlet {
 			request.setAttribute("CRI", scri);
 			ComMethod.forward(request, response, "product-view.jsp");
 		}		
+	}
+	
+	public void makeCookie(String key, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		System.out.println("makeCookie");
+
+		//쿠키 생성
+		Cookie cookie = new Cookie(key, "read");
+		
+		//쿠키 유지시간 설정, 초단위, -1(브라우저 종료시 삭제)
+		//쿠키 삭제는 초단위를 0, -1 로 설정
+		cookie.setMaxAge(60*60*24*365);	//1년으로 설정
+		
+		//쿠키 저장
+		response.addCookie(cookie);
+	}
+	
+	public boolean checkCookie(String key, String value, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		System.out.println("readCookie");
+		
+		//쿠키 가져오기 request 사용
+		Cookie[] cookies = request.getCookies();          
+		Cookie viewCookie = null;
+		
+		System.out.println("Cookie length : " + cookies.length);
+		
+		if(cookies != null && cookies.length > 0) {
+			
+			for(int i=0 ; i<cookies.length ; i++) {
+								
+				
+				if(cookies[i].getName().equals(key) && cookies[i].getValue().equals(value)) {
+					
+					viewCookie = cookies[i];
+					System.out.println(viewCookie.getName() + "," + viewCookie.getValue() );
+					return true;
+				}	
+			}
+		}
+		
+		return false;
 	}
 
 }
