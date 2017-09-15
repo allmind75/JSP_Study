@@ -129,6 +129,9 @@ public class MainCtrl extends HttpServlet {
 		String key = "trip|" + tnum + "|";
 		String value = "read";
 		
+		//System.out.println(request.getRemoteHost());
+		//System.out.println(request.getRemoteAddr());
+		
 		//쿠키 확인
 		if(!checkCookie(key, value, request, response)) {
 			
