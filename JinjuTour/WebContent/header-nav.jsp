@@ -125,8 +125,6 @@
 			<%
 				}
 			%>
-			<li><i class="fa fa-flag-o"></i><a href="makeCookie.mo">쿠키생성</a></li>
-			<li><i class="fa fa-flag-o"></i><a href="readCookie.mo">쿠키읽기</a></li>
 		</ul>
 	</div>
 </nav>
