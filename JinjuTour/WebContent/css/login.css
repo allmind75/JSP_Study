@@ -31,7 +31,7 @@ input[type=submit] {-webkit-appearance:none;}
 .header h1.logo {font-weight: bold; font-size: 22px; letter-spacing: 2px; text-align: center; padding-top: 14px;}
 
 /* 로그인 css*/
-.section-login {width: 100% ; min-height: 90%; padding: 16px;}
+.section-login {width: 100% ; min-height: 85%; padding: 16px;}
 .section-login .wrap {margin-top: 80px;}
 
 .section-login form input {width: 100%; height: 50px; margin: 5px 0; border: 1px solid #c3c3c3; padding: 8px;font-size: 16px; border-radius: 3px;}
