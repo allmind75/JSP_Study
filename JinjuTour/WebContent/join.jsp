@@ -190,7 +190,7 @@
 		var ext = file.substring(idx).toLowerCase();
 
 		console.log(ext);
-		if (ext == ".jpg" || ext == ".bmp" || ext == ".png" || ext == "") {
+		if (ext == ".jpg" || ext == ".bmp" || ext == ".png" || ext == ".jpeg" || ext == "") {
 			return true;
 		} else {
 			alert("업로드 할 수 없는 파일 형식입니다. (jpg, bmp, png 파일을 선택해주세요)");
